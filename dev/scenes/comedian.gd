@@ -61,4 +61,3 @@ func _on_area_3d_input_event(camera, event, position, normal, shape_idx):
 					to_target.y = 0.0
 					to_target = to_target.normalized()
 					GameEvents.emit_signal("audience_idle")
-

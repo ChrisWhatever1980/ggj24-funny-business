@@ -1,7 +1,15 @@
-[gd_scene load_steps=7 format=3 uid="uid://b54hgw30ohhce"]
+[gd_scene load_steps=9 format=3 uid="uid://b54hgw30ohhce"]
 
 [ext_resource type="PackedScene" uid="uid://bwh85febtw78q" path="res://models/person.glb" id="1_dad64"]
 [ext_resource type="Script" path="res://scenes/comedian.gd" id="1_o08b2"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_q4n64"]
+albedo_color = Color(1, 0.521569, 0.00392157, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_1sxn2"]
+material = SubResource("StandardMaterial3D_q4n64")
+radius = 0.7
+height = 1.4
 
 [sub_resource type="Animation" id="Animation_egt2o"]
 length = 0.001
@@ -49,6 +57,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.18501, 1.07653, -14.677)
 script = ExtResource("1_o08b2")
 
 [node name="person" parent="." instance=ExtResource("1_dad64")]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="person"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.28062, 0)
+mesh = SubResource("SphereMesh_1sxn2")
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 4.0

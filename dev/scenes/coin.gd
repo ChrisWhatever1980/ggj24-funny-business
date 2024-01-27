@@ -15,7 +15,7 @@ func _on_area_3d_input_event(camera, event, pos, normal, shape_idx):
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT:
 			if event.pressed:
-				GameEvents.emit_signal("increase_money")
+				GameEvents.emit_signal("change_money", 1)
 				$MeshInstance3D.visible = false
 				$GPUParticles3D.emitting = true
 				await get_tree().create_timer(1.0).timeout

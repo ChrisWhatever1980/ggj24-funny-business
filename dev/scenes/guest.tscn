@@ -44,6 +44,23 @@ tracks/2/keys = {
 "values": [Vector3(0, 0, 0)]
 }
 
+[sub_resource type="Animation" id="Animation_ujku0"]
+resource_name = "idle_animation"
+length = 10.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Node3D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.3, 1.8, 3, 3.8, 4.6, 5, 5.8, 6.4, 7.4, 8, 9.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 1.0472, 0), Vector3(0, 1.0472, 0), Vector3(0, -1.0472, 0), Vector3(0, -1.0472, 0), Vector3(0, 0, 0), Vector3(0, 0, 0), Vector3(0, -2.37525, 0), Vector3(0, -2.37525, 0), Vector3(0, -0.470849, 0), Vector3(0, -0.470849, 0), Vector3(0, 0, 0)]
+}
+
 [sub_resource type="Animation" id="Animation_d0aas"]
 resource_name = "laugh"
 length = 1.2
@@ -102,23 +119,6 @@ tracks/1/keys = {
 "values": [Vector3(0, 0, 0), Vector3(1.0472, 0, 0), Vector3(0, 0, 0)]
 }
 
-[sub_resource type="Animation" id="Animation_ujku0"]
-resource_name = "idle_animation"
-length = 10.0
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Node3D:rotation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 1.3, 1.8, 3, 3.8, 4.6, 5, 5.8, 6.4, 7.4, 8, 9.4),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
-"update": 0,
-"values": [Vector3(0, 0, 0), Vector3(0, 1.0472, 0), Vector3(0, 1.0472, 0), Vector3(0, -1.0472, 0), Vector3(0, -1.0472, 0), Vector3(0, 0, 0), Vector3(0, 0, 0), Vector3(0, -2.37525, 0), Vector3(0, -2.37525, 0), Vector3(0, -0.470849, 0), Vector3(0, -0.470849, 0), Vector3(0, 0, 0)]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ibmr3"]
 _data = {
 "RESET": SubResource("Animation_5uu63"),
@@ -167,3 +167,9 @@ region_rect = Rect2(0, 0, 430, 430)
 
 [node name="Sprite3D" type="Sprite3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.22774)
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 10.0
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
