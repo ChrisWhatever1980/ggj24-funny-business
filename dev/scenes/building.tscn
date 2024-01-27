@@ -215,7 +215,6 @@ GuestScene = ExtResource("2_idpge")
 CoinScene = ExtResource("3_e5f0h")
 
 [node name="AspectRatioContainer" type="AspectRatioContainer" parent="."]
-visible = false
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -225,6 +224,7 @@ grow_vertical = 2
 [node name="HBoxContainer" type="HBoxContainer" parent="AspectRatioContainer"]
 layout_mode = 2
 size_flags_vertical = 0
+mouse_filter = 2
 
 [node name="MoneyLabel" type="Label" parent="AspectRatioContainer/HBoxContainer"]
 layout_mode = 2
@@ -240,7 +240,11 @@ visible = false
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 8
+mouse_filter = 1
 text = "END SHOW"
+
+[node name="TitleScreen" parent="AspectRatioContainer" instance=ExtResource("14_lgqev")]
+layout_mode = 2
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_nsomo")
@@ -284,17 +288,16 @@ shape = SubResource("BoxShape3D_f5ker")
 
 [node name="MainCamera" type="Camera3D" parent="."]
 transform = Transform3D(0.782825, 0.21492, -0.583947, 0, 0.938457, 0.345396, 0.622241, -0.270385, 0.734648, -14.4892, 3.7441, 2.8161)
-current = true
 fov = 77.3
 
 [node name="AudioListener3D" type="AudioListener3D" parent="MainCamera"]
 
 [node name="SpotLight" parent="." instance=ExtResource("8_3sd2r")]
-transform = Transform3D(0.968877, -0.244586, -0.0381449, 0.219846, 0.921022, -0.321538, 0.113776, 0.303144, 0.946128, 17, 10, 0)
+transform = Transform3D(0.968876, -0.244586, -0.0381449, 0.219846, 0.921022, -0.321538, 0.113776, 0.303144, 0.946128, 17, 10, 0)
 light_color = Color(0.705882, 0, 0.145098, 1)
 
 [node name="SpotLight2" parent="." instance=ExtResource("8_3sd2r")]
-transform = Transform3D(0.980499, 0.00739002, 0.196382, 0.0348713, 0.976892, -0.210867, -0.193403, 0.213603, 0.957585, -14.7558, 10, 0)
+transform = Transform3D(0.980499, 0.00739001, 0.196382, 0.0348713, 0.976892, -0.210867, -0.193402, 0.213603, 0.957585, -14.7558, 10, 0)
 light_color = Color(0.627451, 0.0313726, 0.172549, 1)
 
 [node name="FloorBody" type="StaticBody3D" parent="."]
@@ -340,8 +343,6 @@ collision_mask = 4
 [node name="CollisionShape3D" type="CollisionShape3D" parent="CoinVacuumer"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.01153, 0)
 shape = SubResource("BoxShape3D_bj2d1")
-
-[node name="TitleScreen" parent="." instance=ExtResource("14_lgqev")]
 
 [node name="TitleCamera" type="Camera3D" parent="."]
 transform = Transform3D(0.911109, -0.296062, 0.286754, 0, 0.695725, 0.718308, -0.412166, -0.654457, 0.633881, 1.06007, 8.89669, -13.0869)

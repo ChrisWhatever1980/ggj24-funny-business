@@ -47,11 +47,14 @@ script = ExtResource("1_1f1up")
 
 [node name="Credits" type="Label" parent="."]
 layout_mode = 1
-anchors_preset = 12
+anchors_preset = 7
+anchor_left = 0.5
 anchor_top = 1.0
-anchor_right = 1.0
+anchor_right = 0.5
 anchor_bottom = 1.0
-offset_top = -23.0
+offset_left = -197.5
+offset_top = -49.0
+offset_right = 197.5
 grow_horizontal = 2
 grow_vertical = 0
 text = "A game for Global Game Jam 2024
@@ -68,6 +71,7 @@ offset_left = -460.0
 offset_right = 461.0
 offset_bottom = 357.0
 grow_horizontal = 2
+mouse_filter = 2
 texture = ExtResource("3_a2jyk")
 
 [node name="TitleShadow" type="TextureRect" parent="Title"]
@@ -82,6 +86,7 @@ offset_top = 8.0
 offset_right = 443.5
 offset_bottom = 385.0
 grow_horizontal = 2
+mouse_filter = 2
 texture = ExtResource("3_a2jyk")
 
 [connection signal="pressed" from="Menu/StartButton" to="Menu/StartButton" method="_on_pressed"]

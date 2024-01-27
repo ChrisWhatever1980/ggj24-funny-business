@@ -43,7 +43,7 @@ func _ready():
 
 func on_start_game():
 	$MainCamera.current = true
-	$TitleScreen.visible = false
+	$AspectRatioContainer/TitleScreen.visible = false
 	$AspectRatioContainer.visible = true
 	$MusicStreamPlayer.volume_db = -10.0
 	$SpotLight.light_color = Color.WHITE
@@ -162,6 +162,7 @@ func _on_stage_entered(area):
 func go_to_underworld():
 	$AnimationPlayer.play("to_underworld")
 	$BartenderMinigame.visible = false
+	$AspectRatioContainer/EndShowButton.visible = false
 	
 	# put up comedians for judgement
 	var death_idx = 0
@@ -174,12 +175,10 @@ func go_to_underworld():
 func set_location(_upstairs):
 	in_the_club = _upstairs
 	print("In the club: " + str(in_the_club))
-	$Underworld/AspectRatioContainer/Button.visible = !in_the_club
 
 
 func go_to_club():
 	$AnimationPlayer.play_backwards("to_underworld")
-	$Underworld/AspectRatioContainer/Button.visible = false
 	$BartenderMinigame.visible = true
 
 
@@ -199,4 +198,5 @@ func _physics_process(delta):
 
 
 func _on_end_show_button_pressed():
+	print("")
 	go_to_underworld()
