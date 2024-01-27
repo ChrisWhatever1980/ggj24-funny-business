@@ -1,45 +1,26 @@
-[gd_scene load_steps=13 format=3 uid="uid://de25e4whii3qa"]
+[gd_scene load_steps=18 format=3 uid="uid://de25e4whii3qa"]
 
-[ext_resource type="PackedScene" uid="uid://bwh85febtw78q" path="res://models/person.glb" id="1_04qkr"]
 [ext_resource type="Script" path="res://scenes/guest.gd" id="1_ndfc7"]
 [ext_resource type="AudioStream" uid="uid://be22l8gxngynl" path="res://audio/laugh_01.ogg" id="2_mml8n"]
 [ext_resource type="AudioStream" uid="uid://d1j7g0ra70otl" path="res://audio/male-laughter.ogg" id="3_ndywu"]
 [ext_resource type="AudioStream" uid="uid://b4037ahrxu0op" path="res://audio/merry-laughter.ogg" id="4_b7ocx"]
 [ext_resource type="Texture2D" uid="uid://cwoc7twekdg3b" path="res://textures/emotions.png" id="4_gngcl"]
+[ext_resource type="AudioStream" uid="uid://bfhvom63xbo4v" path="res://audio/boo_0.ogg" id="5_5m7d0"]
+[ext_resource type="AudioStream" uid="uid://8bh57xbfvkja" path="res://audio/boo_1.ogg" id="6_c10wa"]
+[ext_resource type="AudioStream" uid="uid://osgl6un2uixl" path="res://audio/boo_2.ogg" id="7_wt8to"]
+[ext_resource type="AudioStream" uid="uid://bxb3sy5t1ltgh" path="res://audio/boo_3.ogg" id="8_13gt1"]
+[ext_resource type="AudioStream" uid="uid://ckm7uvt77xrue" path="res://audio/boo_4.ogg" id="9_d4lon"]
+[ext_resource type="PackedScene" uid="uid://drv2n0frdc02x" path="res://scenes/person.tscn" id="10_d8rxm"]
 
 [sub_resource type="Animation" id="Animation_5uu63"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Node3D/person:position")
+tracks/0/path = NodePath("Node3D:rotation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0, 0, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Node3D/person:rotation")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0, 0, 0)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Node3D:rotation")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
@@ -66,18 +47,6 @@ tracks/0/keys = {
 [sub_resource type="Animation" id="Animation_d0aas"]
 resource_name = "laugh"
 length = 1.2
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Node3D/person:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8, 1, 1.2),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
-"update": 0,
-"values": [Vector3(0, 0, 0), Vector3(0, 0.5, 0), Vector3(0, 0, 0), Vector3(0, 0.5, 0), Vector3(0, 0, 0), Vector3(0, 0.5, 0), Vector3(0, 0, 0)]
-}
 
 [sub_resource type="Animation" id="Animation_p1fxc"]
 resource_name = "rofl_animation"
@@ -93,18 +62,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Vector3(0, 0, 0), Vector3(0, 25.1327, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Node3D/person:rotation")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 1.5, 3),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector3(0, 0, 0), Vector3(1.0472, 0, 0), Vector3(0, 0, 0)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ibmr3"]
@@ -134,14 +91,29 @@ libraries = {
 }
 autoplay = "idle_animation"
 
-[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+[node name="LaughPlayer" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource("2_mml8n")
 
-[node name="AudioStreamPlayer3D2" type="AudioStreamPlayer3D" parent="."]
+[node name="LaughPlayer2" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource("3_ndywu")
 
-[node name="AudioStreamPlayer3D3" type="AudioStreamPlayer3D" parent="."]
+[node name="LaughPlayer3" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource("4_b7ocx")
+
+[node name="BooPlayer0" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("5_5m7d0")
+
+[node name="BooPlayer1" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("6_c10wa")
+
+[node name="BooPlayer2" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("7_wt8to")
+
+[node name="BooPlayer3" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("8_13gt1")
+
+[node name="BooPlayer4" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("9_d4lon")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.934, 0)
@@ -149,18 +121,15 @@ shape = SubResource("CapsuleShape3D_a60ce")
 
 [node name="Node3D" type="Node3D" parent="."]
 
-[node name="person" parent="Node3D" instance=ExtResource("1_04qkr")]
+[node name="Person" parent="Node3D" instance=ExtResource("10_d8rxm")]
 
-[node name="Sprite3D" type="Sprite3D" parent="Node3D/person"]
-transform = Transform3D(0.4, 0, -2.79753e-07, 0, 0.4, 0, 2.79753e-07, 0, 0.4, 0, 3.61753, 0)
+[node name="Sprite3D" type="Sprite3D" parent="Node3D/Person"]
+transform = Transform3D(0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, 0, 4, 0)
 texture = ExtResource("4_gngcl")
 hframes = 4
 vframes = 3
 frame = 6
 region_rect = Rect2(0, 0, 430, 430)
-
-[node name="Sprite3D" type="Sprite3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.22774)
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 10.0

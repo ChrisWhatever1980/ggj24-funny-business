@@ -9,6 +9,11 @@ var throw_probability = 0.6
 var thirsty_probability = 0.3
 var mood = 0
 var requesting_drink = false
+var coming_in = true
+
+var start_position = Vector3.ZERO
+var target_position = Vector3.ZERO
+var moving_in_timer = 0.0
 
 
 var moods = [
@@ -34,11 +39,13 @@ func _ready():
 	humor_modifier = randi_range(-2, 2)
 	$AnimationPlayer.seek($AnimationPlayer.current_animation_length * randf())
 
+	set_mood(clamp(randi() % moods.size(), 0, moods.size() - 1))
+
 	$Timer.wait_time = 5.0 + randf() * 10.0
 
 
 func set_mood(_mood):
-	$Node3D/person/Sprite3D.frame = moods[_mood]
+	$Node3D/Person/Sprite3D.frame = moods[_mood]
 
 
 func on_audience_idle():
@@ -51,13 +58,26 @@ func on_audience_react(joke_quality):
 
 	var guest_react = clamp(joke_quality + humor_modifier, 0, 11)
 
-	match randi() % 3:
-		0:
-			$AudioStreamPlayer3D.play()
-		1:
-			$AudioStreamPlayer3D2.play()
-		1:
-			$AudioStreamPlayer3D3.play()
+	if guest_react <= 5:
+		match randi() % 5:
+			0:
+				$BooPlayer0.play()
+			1:
+				$BooPlayer1.play()
+			2:
+				$BooPlayer2.play()
+			3:
+				$BooPlayer3.play()
+			4:
+				$BooPlayer4.play()
+	else:
+		match randi() % 3:
+			0:
+				$AudioStreamPlayer3D.play()
+			1:
+				$AudioStreamPlayer3D2.play()
+			1:
+				$AudioStreamPlayer3D3.play()
 
 	match guest_react:
 		0:		# mood 8: dead
@@ -122,6 +142,11 @@ func _process(delta):
 		var to_comedian = get_parent().current_comedian.position - position
 		to_comedian.y = 0.0
 		look_at(position + to_comedian)
+	
+	if coming_in:
+		if moving_in_timer < 1.0:
+			position = lerp(start_position, target_position, moving_in_timer)
+			moving_in_timer += delta * 0.2
 
 
 func _on_timer_timeout():

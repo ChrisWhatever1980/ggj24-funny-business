@@ -1,0 +1,21 @@
+[gd_scene load_steps=5 format=3 uid="uid://drv2n0frdc02x"]
+
+[ext_resource type="Script" path="res://scenes/person.gd" id="1_tp6mg"]
+[ext_resource type="PackedScene" uid="uid://bwh85febtw78q" path="res://models/person.glb" id="1_w6d8o"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xfdmv"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1ga4o"]
+
+[node name="Person" type="Node3D"]
+script = ExtResource("1_tp6mg")
+
+[node name="person" parent="." instance=ExtResource("1_w6d8o")]
+
+[node name="Person_Top" parent="person" index="0"]
+surface_material_override/0 = SubResource("StandardMaterial3D_xfdmv")
+
+[node name="Person_Bottom" parent="person" index="1"]
+surface_material_override/0 = SubResource("StandardMaterial3D_1ga4o")
+
+[editable path="person"]

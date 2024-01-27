@@ -21,10 +21,6 @@ GameEvents="*res://game_events.gd"
 ComedianPool="*res://ComedianPool.gd"
 GameState="*res://GameState.gd"
 
-[display]
-
-window/size/mode=3
-
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/anthonyec.camera_preview/plugin.cfg")

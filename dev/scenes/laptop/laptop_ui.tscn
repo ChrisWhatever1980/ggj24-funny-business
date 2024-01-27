@@ -15,10 +15,10 @@ book_button = NodePath("Container/VBoxContainer/TabContainer/Booking/HBoxContain
 start_button = NodePath("Container/VBoxContainer/TabContainer/Start Show/HBoxContainer/Start Button")
 
 [node name="Container" type="AspectRatioContainer" parent="."]
-offset_left = 216.0
-offset_top = 65.0
-offset_right = 852.0
-offset_bottom = 565.0
+offset_left = 134.0
+offset_top = 1.0
+offset_right = 734.0
+offset_bottom = 501.0
 size_flags_horizontal = 4
 metadata/_edit_group_ = true
 

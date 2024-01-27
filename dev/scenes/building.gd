@@ -7,7 +7,6 @@ extends Node3D
 
 @onready var ComedianExit = $comedy_club/ComedianExit
 @onready var StagePosition = $StagePosition
-@onready var LaptopCamera = $Laptop/laptop/Camera3D
 
 
 @onready var ComedianWaitSlots = [
@@ -28,21 +27,22 @@ var floor_rect
 
 func _ready():
 
-	LaptopCamera.current = true
-
 	GameEvents.connect_event("spawn_coin", self, "on_spawn_coin")
 	GameEvents.connect_event("spawn_tomato", self, "on_spawn_tomato")
 	GameEvents.connect_event("spawn_tomato_splat", self, "on_spawn_tomato_splat")
 	GameEvents.connect_event("spawn_puddle", self, "on_spawn_puddle")
 	GameEvents.connect_event("change_money", self, "on_change_money")
+	GameEvents.connect_event("start_show", self, "on_start_show")
 
 	var pos = $comedy_club/FloorArea.position
 	var size = $comedy_club/FloorArea/CollisionShape3D.shape.size
 	floor_rect = Rect2(pos.x - size.x / 2, pos.z - size.z / 2, size.x, size.z)
 
 
-func start_show():
+func on_start_show():
 	generate_audience(30)
+	$AnimationPlayer.play("laptop_to_main_animation")
+	$AspectRatioContainer/EndShowButton.visible = true
 
 
 func generate_audience(num_guests):
@@ -51,20 +51,25 @@ func generate_audience(num_guests):
 	print("Points: " + str(points.size()))
 	num_guests = max(num_guests, points.size())
 	for g in num_guests:
+		await get_tree().create_timer(randf() * 0.1).timeout
+
 		var point = points.pick_random()
 		var new_guest = GuestScene.instantiate()
-		new_guest.position = Vector3(point.x, 1.0, point.y)
+		new_guest.target_position = Vector3(point.x, 1.0, point.y)
+		new_guest.start_position = $EntryPoint.position #new_guest.target_position + Vector3(point.x, 0.0, 25.0)
+		new_guest.position = new_guest.start_position
 		new_guest.rotation.y = randf() * 2.0 * PI
 		add_child(new_guest)
 		points.erase(point)
 
-	for c in range(0, 5):
-		spawn_comedian(c + 1)
+
+	for comedian_stats in ComedianPool.selected:
+		spawn_comedian(comedian_stats)
 
 
-func spawn_comedian(comedian_idx):
+func spawn_comedian(comedian_stats):
 	var new_comedian = preload("res://scenes/comedian.tscn").instantiate()
-	new_comedian.stats = load("res://resources/comedian_" + str(comedian_idx) + ".tres")
+	new_comedian.stats = comedian_stats
 	new_comedian.position = ComedianWaitSlots[current_wait_slot].position
 	current_wait_slot += 1
 	add_child(new_comedian)
@@ -105,7 +110,7 @@ func on_change_money(value):
 			2:
 				$MoneyEarnedAudio2.play()
 	$AspectRatioContainer/HBoxContainer/MoneyAmount.text = str(GameState.money)
-	$Laptop/SubViewport/Node2D/Container/VBoxContainer/MarginContainer/HBoxContainer2/HBoxContainer/Budget#.text = "$" + str(money)
+	$"Laptop/SubViewport/Node2D/Container/VBoxContainer/MarginContainer/HBoxContainer2/HBoxContainer/Budget#".text = "$" + str(money)
 
 
 func on_spawn_coin(pos):
@@ -124,7 +129,6 @@ func _process(delta):
 	if Input.is_action_just_pressed("ui_cancel"):
 		get_tree().quit()
 
-	pass
 
 
 func _on_exit_entered(area):
@@ -160,3 +164,17 @@ func go_to_club():
 	$Underworld/AspectRatioContainer/Button.visible = false
 	$BartenderMinigame.visible = true
 
+
+func _physics_process(delta):
+	var space_state = get_world_3d().direct_space_state
+	var cam = $MainCamera
+	var mousepos = get_viewport().get_mouse_position()
+
+	var origin = cam.project_ray_origin(mousepos)
+	var end = origin + cam.project_ray_normal(mousepos) * 10000
+	var query = PhysicsRayQueryParameters3D.create(origin, end, 0b00000000_00000000_00001000_00000000, [$CoinVacuumer])
+	query.collide_with_areas = true
+
+	var result = space_state.intersect_ray(query)
+	if result:
+		$CoinVacuumer.position = result.position

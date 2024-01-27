@@ -116,7 +116,7 @@ autoplay = "turn_animation"
 
 [node name="Area3D" type="Area3D" parent="."]
 collision_layer = 4
-collision_mask = 0
+collision_mask = 256
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.593381, 0)
@@ -136,4 +136,5 @@ visibility_aabb = AABB(-16.1107, -13.3113, -13.5274, 32.2214, 26.6227, 27.0549)
 process_material = SubResource("ParticleProcessMaterial_jcyaa")
 draw_pass_1 = SubResource("QuadMesh_jj6tq")
 
+[connection signal="area_entered" from="Area3D" to="." method="_on_area_3d_area_entered"]
 [connection signal="input_event" from="Area3D" to="." method="_on_area_3d_input_event"]

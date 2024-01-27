@@ -1,5 +1,6 @@
 [gd_scene load_steps=10 format=3 uid="uid://xw4q52xtmcl5"]
 
+[ext_resource type="Script" path="res://scenes/laptop/laptop.gd" id="1_ddwqp"]
 [ext_resource type="PackedScene" uid="uid://bi62kfqbonnfa" path="res://scenes/laptop/laptop_ui.tscn" id="1_x1fjq"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kvif0"]
@@ -34,37 +35,8 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_y31dr")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1o344"]
-
-[sub_resource type="ArrayMesh" id="ArrayMesh_djr1u"]
-_surfaces = [{
-"aabb": AABB(-0.924705, -0.224071, -0.924705, 1.84941, 9.99868e-06, 1.84941),
-"format": 34896613377,
-"index_count": 6,
-"index_data": PackedByteArray(0, 0, 3, 0, 2, 0, 0, 0, 1, 0, 3, 0),
-"primitive": 3,
-"uv_scale": Vector4(0, 0, 0, 0),
-"vertex_count": 4,
-"vertex_data": PackedByteArray(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 255, 255, 0, 0, 255, 255, 0, 0, 0, 0, 0, 0, 255, 255, 0, 0, 255, 255, 0, 0)
-}]
-blend_shape_mode = 0
-
-[sub_resource type="ArrayMesh" id="ArrayMesh_22bma"]
-resource_name = "laptop_Cube_006"
-_surfaces = [{
-"aabb": AABB(-0.924705, -0.224071, -0.924705, 1.84941, 9.99868e-06, 1.84941),
-"attribute_data": PackedByteArray(40, 0, 201, 251, 0, 0, 0, 0, 231, 253, 255, 255, 255, 255, 129, 0),
-"format": 34896613399,
-"index_count": 6,
-"index_data": PackedByteArray(0, 0, 3, 0, 2, 0, 0, 0, 1, 0, 3, 0),
-"material": SubResource("StandardMaterial3D_1o344"),
-"primitive": 3,
-"uv_scale": Vector4(0, 0, 0, 0),
-"vertex_count": 4,
-"vertex_data": PackedByteArray(0, 0, 0, 0, 0, 0, 255, 191, 0, 0, 0, 0, 255, 255, 255, 191, 255, 255, 0, 0, 0, 0, 255, 191, 255, 255, 0, 0, 255, 255, 255, 191, 150, 0, 43, 129, 32, 0, 65, 128, 9, 1, 18, 130, 150, 0, 43, 129)
-}]
-blend_shape_mode = 0
-shadow_mesh = SubResource("ArrayMesh_djr1u")
+[sub_resource type="QuadMesh" id="QuadMesh_o8t2x"]
+size = Vector2(1.7, 1.1)
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_s57xg"]
 viewport_path = NodePath("SubViewport")
@@ -73,9 +45,15 @@ viewport_path = NodePath("SubViewport")
 resource_local_to_scene = true
 albedo_texture = SubResource("ViewportTexture_s57xg")
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_hq15t"]
+size = Vector3(1.62891, 1, 0.1)
+
 [node name="Laptop" type="Node3D"]
+script = ExtResource("1_ddwqp")
 
 [node name="SubViewport" type="SubViewport" parent="."]
+size = Vector2i(620, 530)
+render_target_update_mode = 4
 
 [node name="Node2D" parent="SubViewport" instance=ExtResource("1_x1fjq")]
 
@@ -87,10 +65,12 @@ mesh = SubResource("ArrayMesh_2ix4q")
 skeleton = NodePath("")
 
 [node name="LaptopScreen" type="MeshInstance3D" parent="laptop"]
-transform = Transform3D(0.878716, 0, 0, 0, -0.015465, 0.529276, 0, -0.041319, -0.198099, 0, 0.514992, -0.752159)
-mesh = SubResource("ArrayMesh_22bma")
+transform = Transform3D(1, 0, 0, 0, 0.936219, 0.351417, 0, -0.351417, 0.936219, 0, 0.514992, -0.752159)
+mesh = SubResource("QuadMesh_o8t2x")
 skeleton = NodePath("")
 surface_material_override/0 = SubResource("StandardMaterial3D_73pmr")
 
-[node name="Camera3D" type="Camera3D" parent="laptop"]
-transform = Transform3D(1, 0, 0, 0, 0.965926, 0.258819, 0, -0.258819, 0.965926, 0, 0.85, 0.3)
+[node name="Area3D" type="Area3D" parent="laptop/LaptopScreen"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="laptop/LaptopScreen/Area3D"]
+shape = SubResource("BoxShape3D_hq15t")
