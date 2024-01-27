@@ -5,6 +5,7 @@ extends Node2D
 @export var stats_container : VBoxContainer
 @export var book_button : Button
 @export var start_button : Button
+@export var budget : Label
 
 var comedians
 var selected_comedian
@@ -17,6 +18,7 @@ func _ready():
 
 func reset():
 	comedians = ComedianPool.get_available_comedians()
+	budget.text = "$"+GameState.money
 	
 	for comedian in comedians:
 		add_available(comedian)
