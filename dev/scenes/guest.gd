@@ -152,6 +152,6 @@ func _process(delta):
 func _on_timer_timeout():
 	if !requesting_drink and randf() < thirsty_probability:
 		await get_tree().create_timer(randf() * 10.0).timeout
-		GameEvents.emit_signal("request_drink", position)
+		GameEvents.emit_signal("request_drink", position + Vector3.UP * 3)
 		$Timer.wait_time = 5.0 + randf() * 10.0
 		requesting_drink = true
