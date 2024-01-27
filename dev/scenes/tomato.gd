@@ -13,11 +13,9 @@ func _process(delta):
 
 func _on_body_entered(body):
 	# make a splat
-	print("Hit body " + body.name)
 	GameEvents.emit_signal("spawn_tomato_splat", position)
 
 
 func _on_area_3d_body_entered(body):
 	# make a splat
-	print("Hit body " + body.name)
 	GameEvents.emit_signal("spawn_tomato_splat", position)

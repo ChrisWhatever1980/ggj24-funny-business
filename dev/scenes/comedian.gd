@@ -24,9 +24,10 @@ func _process(delta):
 
 
 func _on_timer_timeout():
-	var joke_quality = randi_range(0, 12)
-	print("joke_quality: " + str(joke_quality))
-	GameEvents.emit_signal("audience_react", joke_quality)
+	if performing:
+		var joke_quality = randi_range(0, 12)
+		print("joke_quality: " + str(joke_quality))
+		GameEvents.emit_signal("audience_react", joke_quality)
 
 
 func begin_performance():
@@ -46,11 +47,18 @@ func _on_area_3d_input_event(camera, event, position, normal, shape_idx):
 					waiting = false
 					entering = true
 					to_target = (get_parent().StagePosition.position - position).normalized()
+					to_target.y = 0.0
+					to_target = to_target.normalized()
 
 				if performing:
 					get_parent().current_comedian = self
+					performing = false
 					exiting = true
 					$AnimationPlayer.stop()
 					$Timer.stop()
 					print("GET OFF THE STAGE!")
-					to_target = (get_parent().ComedianExit.position - position).normalized()
+					to_target = (get_parent().ComedianExit.position - position)
+					to_target.y = 0.0
+					to_target = to_target.normalized()
+					GameEvents.emit_signal("audience_idle")
+
