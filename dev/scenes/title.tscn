@@ -1,0 +1,88 @@
+[gd_scene load_steps=4 format=3 uid="uid://b8afje1xcdwag"]
+
+[ext_resource type="Script" path="res://scenes/ExitButton.gd" id="1_1f1up"]
+[ext_resource type="Script" path="res://scenes/StartButton.gd" id="1_6svwu"]
+[ext_resource type="Texture2D" uid="uid://qb8ahnhl6a73" path="res://textures/title.png" id="3_a2jyk"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Menu" type="Control" parent="."]
+layout_mode = 1
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -245.0
+offset_top = 63.0
+offset_right = 245.0
+offset_bottom = -63.0
+
+[node name="StartButton" type="Button" parent="Menu"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 58.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 36
+text = "Start"
+script = ExtResource("1_6svwu")
+
+[node name="ExitButton" type="Button" parent="Menu"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 73.0
+offset_bottom = 131.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 36
+text = "Exit
+"
+script = ExtResource("1_1f1up")
+
+[node name="Credits" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -23.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "A game for Global Game Jam 2024
+by Christian Schlager, Jan ??? and Markus Dittmann"
+horizontal_alignment = 1
+vertical_alignment = 2
+
+[node name="Title" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -460.0
+offset_right = 461.0
+offset_bottom = 357.0
+grow_horizontal = 2
+texture = ExtResource("3_a2jyk")
+
+[node name="TitleShadow" type="TextureRect" parent="Title"]
+modulate = Color(0, 0, 0, 1)
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -441.5
+offset_top = 8.0
+offset_right = 443.5
+offset_bottom = 385.0
+grow_horizontal = 2
+texture = ExtResource("3_a2jyk")
+
+[connection signal="pressed" from="Menu/StartButton" to="Menu/StartButton" method="_on_pressed"]
+[connection signal="pressed" from="Menu/ExitButton" to="Menu/ExitButton" method="_on_pressed"]
