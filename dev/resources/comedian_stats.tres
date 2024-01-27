@@ -1,0 +1,15 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://1h6yuhexhaf6"]
+
+[ext_resource type="Script" path="res://resources/comedian_stats.gd" id="1_xmrb2"]
+
+[resource]
+script = ExtResource("1_xmrb2")
+name = ""
+cost = 0
+fame = 0
+comedy = 0
+bomb_chance = 0
+hit_chance = 0
+availability = 0
+club_fame_requirement = 0
+endurance = 0
