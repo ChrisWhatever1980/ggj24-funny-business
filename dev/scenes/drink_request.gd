@@ -38,7 +38,8 @@ func highlight_fulfillable(fulfillable: bool):
 
 func fulfill():
 	$FailureTimer.stop()
-	fulfilled.emit(tip)
+	#fulfilled.emit(tip)
+	GameEvents.emit_signal("request_fulfilled", tip)
 	disappear()
 
 func disappear():

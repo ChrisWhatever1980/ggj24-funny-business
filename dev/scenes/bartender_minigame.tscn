@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://cilm3p2aktmlp"]
+[gd_scene load_steps=9 format=3 uid="uid://m0e7yyqwsep0"]
 
 [ext_resource type="Script" path="res://scenes/bartender_minigame.gd" id="1_tuwpd"]
 [ext_resource type="Script" path="res://scenes/BeerPickup.gd" id="2_0cwur"]

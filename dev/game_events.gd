@@ -9,6 +9,7 @@ signal spawn_tomato_splat
 signal audience_idle
 signal spawn_puddle
 signal request_drink
+signal request_fulfilled
 
 
 func connect_event(_signal: String, target: Object, method: String, binds: Array = [  ], flags: int = 0):
