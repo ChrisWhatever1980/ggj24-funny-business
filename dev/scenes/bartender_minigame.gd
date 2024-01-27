@@ -2,8 +2,6 @@ extends Node2D
 
 signal update_fulfilled_requests(count: int)
 
-var grab_candidate = null
-
 var fulfilled_requests = 0
 
 
