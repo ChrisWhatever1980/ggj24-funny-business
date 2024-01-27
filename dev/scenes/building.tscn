@@ -71,6 +71,34 @@ tracks/1/keys = {
 "values": [Vector3(-0.649262, -0.682424, 0)]
 }
 
+[sub_resource type="Animation" id="Animation_0trjs"]
+resource_name = "laptop_to_main_animation"
+length = 5.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MainCamera:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(-14.402, 3.85257, 2.68492), Vector3(5.154, 14.087, 16.996)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("MainCamera:rotation")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(-0.649734, -0.682598, 0), Vector3(-0.720821, 0, 0)]
+}
+
 [sub_resource type="Animation" id="Animation_g87q2"]
 resource_name = "to_underworld"
 tracks/0/type = "value"
@@ -113,34 +141,6 @@ tracks/2/keys = {
 "args": [false],
 "method": &"set_location"
 }]
-}
-
-[sub_resource type="Animation" id="Animation_0trjs"]
-resource_name = "laptop_to_main_animation"
-length = 5.0
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("MainCamera:position")
-tracks/0/interp = 2
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 5),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(-14.402, 3.85257, 2.68492), Vector3(5.154, 14.087, 16.996)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("MainCamera:rotation")
-tracks/1/interp = 2
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 5),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(-0.649734, -0.682598, 0), Vector3(-0.720821, 0, 0)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_occru"]

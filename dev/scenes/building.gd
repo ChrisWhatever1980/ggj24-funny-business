@@ -19,7 +19,6 @@ extends Node3D
 
 
 var current_wait_slot = 0
-var money = 0
 var in_the_club = true
 var current_comedian = null
 var floor_rect
@@ -110,7 +109,7 @@ func on_change_money(value):
 			2:
 				$MoneyEarnedAudio2.play()
 	$AspectRatioContainer/HBoxContainer/MoneyAmount.text = str(GameState.money)
-	$"Laptop/SubViewport/Node2D/Container/VBoxContainer/MarginContainer/HBoxContainer2/HBoxContainer/Budget#".text = "$" + str(money)
+	$"Laptop/SubViewport/Node2D/Container/VBoxContainer/MarginContainer/HBoxContainer2/HBoxContainer/Budget#".text = "$" + str(GameState.money)
 
 
 func on_spawn_coin(pos):
