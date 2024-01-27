@@ -7,13 +7,14 @@
 [ext_resource type="Script" path="res://scenes/laptop/BeverageShop.gd" id="4_utcwm"]
 [ext_resource type="Script" path="res://scenes/laptop/AdvertisingShop.gd" id="5_yaj07"]
 
-[node name="Laptop UI" type="Node2D" node_paths=PackedStringArray("available_buttons", "booked_buttons", "stats_container", "book_button", "start_button")]
+[node name="Laptop UI" type="Node2D" node_paths=PackedStringArray("available_buttons", "booked_buttons", "stats_container", "book_button", "start_button", "budget")]
 script = ExtResource("1_tslm7")
 available_buttons = NodePath("Container/VBoxContainer/TabContainer/Booking/HBoxContainer/Comedians/ScrollContainer/Buttons")
 booked_buttons = NodePath("Container/VBoxContainer/TabContainer/Booking/HBoxContainer/Booked/ScrollContainer/Buttons")
 stats_container = NodePath("Container/VBoxContainer/TabContainer/Booking/HBoxContainer/Infos/VBoxContainer/HBoxContainer/Stats")
 book_button = NodePath("Container/VBoxContainer/TabContainer/Booking/HBoxContainer/Infos/VBoxContainer2/Button")
 start_button = NodePath("Container/VBoxContainer/TabContainer/Start Show/HBoxContainer/Start Button")
+budget = NodePath("Container/VBoxContainer/MarginContainer/HBoxContainer2/HBoxContainer/Budget#")
 
 [node name="Container" type="AspectRatioContainer" parent="."]
 anchors_preset = 15
