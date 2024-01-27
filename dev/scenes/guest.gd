@@ -1,10 +1,14 @@
 extends RigidBody3D
 
 
+var Comedian = null
+
+
 var humor_modifier = 0
 var max_amusement = 2
 var min_amusement = -3
 var tip_probability = 0.3
+var throw_probability = 0.6
 var mood = 0
 
 # Called when the node enters the scene tree for the first time.
@@ -14,7 +18,7 @@ func _ready():
 
 
 func set_mood(_mood):
-	
+	$Node3D/person/Sprite3D.frame = _mood
 
 
 
@@ -25,7 +29,8 @@ func on_audience_react(joke_quality):
 	
 	match guest_react:
 		-1:	# throw tomatoes
-			GameEvents.emit_signal("spawn_tomato", position)
+			if randf() < throw_probability:
+				GameEvents.emit_signal("spawn_tomato", position)
 		0:	# gut-shaking laugh
 			freeze = true
 			$AnimationPlayer.play("laugh")
@@ -36,7 +41,9 @@ func on_audience_react(joke_quality):
 			freeze = false
 			print("rofl")
 			$AnimationPlayer.play("rofl")
-	
+
+	set_mood(clamp(guest_react + 1, 0, 4))
+
 	if guest_react == max_amusement and randf() <= tip_probability:
 		for c in range(0, randi_range(1, 2)):
 			GameEvents.emit_signal("spawn_coin", position)
@@ -54,4 +61,7 @@ func on_audience_rofl():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	pass
+	if Comedian:
+		var to_comedian = Comedian.position - position
+		to_comedian.y = 0.0
+		look_at(position + to_comedian)

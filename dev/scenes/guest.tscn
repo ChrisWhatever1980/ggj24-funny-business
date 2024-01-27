@@ -127,8 +127,10 @@ transform = Transform3D(1, 0, 6.99382e-07, 0, 1, 0, -6.99382e-07, 0, 1, 0, 0, 0)
 
 [node name="person" parent="Node3D" instance=ExtResource("1_04qkr")]
 
-[node name="Sprite3D" type="Sprite3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.78117, 0)
+[node name="Sprite3D" type="Sprite3D" parent="Node3D/person"]
+transform = Transform3D(0.4, 0, -2.79753e-07, 0, 0.4, 0, 2.79753e-07, 0, 0.4, 0, 3.61753, 0)
 texture = ExtResource("4_gngcl")
-region_enabled = true
-region_rect = Rect2(0, 0, 430, 475)
+hframes = 4
+vframes = 3
+frame = 6
+region_rect = Rect2(0, 0, 430, 430)

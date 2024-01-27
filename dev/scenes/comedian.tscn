@@ -1,7 +1,59 @@
-[gd_scene load_steps=2 format=3 uid="uid://b54hgw30ohhce"]
+[gd_scene load_steps=6 format=3 uid="uid://b54hgw30ohhce"]
 
 [ext_resource type="PackedScene" uid="uid://bwh85febtw78q" path="res://models/person.glb" id="1_dad64"]
+[ext_resource type="Script" path="res://scenes/comedian.gd" id="1_o08b2"]
+
+[sub_resource type="Animation" id="Animation_egt2o"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-3.18501, 1.07653, -14.677)]
+}
+
+[sub_resource type="Animation" id="Animation_8evor"]
+resource_name = "comedian_routine"
+length = 20.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1, 3, 4, 7, 8, 11, 12, 15, 16, 17, 18),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(-4.18282, 1.07653, -14.282), Vector3(-4.18282, 1.07653, -14.282), Vector3(-0.0526814, 1.07653, -15.7165), Vector3(-0.0526814, 1.07653, -15.7165), Vector3(5.30014, 1.07653, -13.9543), Vector3(5.30014, 1.07653, -13.9543), Vector3(1.88684, 1.07653, -16.0929), Vector3(1.88684, 1.07653, -16.0929), Vector3(-1.67542, 1.07653, -13.7335), Vector3(-1.67542, 1.07653, -13.7335), Vector3(0.260705, 1.07653, -13.7335), Vector3(0.260705, 1.07653, -13.7335)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_anrt1"]
+_data = {
+"RESET": SubResource("Animation_egt2o"),
+"comedian_routine": SubResource("Animation_8evor")
+}
 
 [node name="Comedian" type="Node3D"]
+script = ExtResource("1_o08b2")
 
 [node name="person" parent="." instance=ExtResource("1_dad64")]
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 4.0
+autostart = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_anrt1")
+}
+autoplay = "comedian_routine"
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
