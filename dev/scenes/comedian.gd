@@ -11,7 +11,6 @@ var to_target = Vector3.ZERO
 var exiting_speed = 5.0
 
 
-
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
@@ -28,6 +27,8 @@ func _on_timer_timeout():
 		var joke_quality = randi_range(0, 12)
 		print("joke_quality: " + str(joke_quality))
 		GameEvents.emit_signal("audience_react", joke_quality)
+		$Timer.wait_time = 4.0 + 4.0 * clamp(1.0 - (stats.Endurance / 10.0), 0.0, 1.0)
+		stats.Endurance -= 1
 
 
 func begin_performance():

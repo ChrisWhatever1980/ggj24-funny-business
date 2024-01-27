@@ -204,9 +204,6 @@ collision_mask = 6
 [node name="CollisionShape3D" type="CollisionShape3D" parent="FloorBody"]
 shape = SubResource("BoxShape3D_4hxpl")
 
-[node name="Laptop" parent="." instance=ExtResource("8_6tjwg")]
-transform = Transform3D(0.788043, 0, -0.61562, 0, 1, 0, 0.61562, 0, 0.788043, -14.392, 2.7058, 2.72985)
-
 [node name="MoneyEarnedAudio0" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource("10_7w2yh")
 
@@ -235,6 +232,9 @@ libraries = {
 [node name="Underworld" parent="." instance=ExtResource("12_gmibf")]
 
 [node name="BartenderMinigame" parent="." instance=ExtResource("13_l0k3m")]
+
+[node name="Laptop" parent="." instance=ExtResource("8_6tjwg")]
+transform = Transform3D(0.788043, 0, -0.61562, 0, 1, 0, 0.61562, 0, 0.788043, -14.392, 2.7058, 2.72985)
 
 [connection signal="area_entered" from="comedy_club/ExitArea3D" to="." method="_on_exit_entered"]
 [connection signal="area_entered" from="StageArea" to="." method="_on_stage_entered"]
