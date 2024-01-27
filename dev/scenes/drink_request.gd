@@ -37,9 +37,9 @@ func _on_tip_timer_timeout():
 
 func highlight_fulfillable(fulfillable: bool):
 	if fulfillable:
-		$Sprite2D.modulate = Color.YELLOW
+		$Requestbubble.modulate = Color.YELLOW
 	else:
-		$Sprite2D.modulate = Color.WHITE
+		$Requestbubble.modulate = Color.WHITE
 
 func fulfill():
 	$FailureTimer.stop()
