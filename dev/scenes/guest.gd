@@ -14,8 +14,11 @@ func _ready():
 
 func on_audience_react(joke_quality):
 	await get_tree().create_timer(randf()).timeout
-	var guest_react = clamp(joke_quality + humor_modifier, 0, 3)
+	var guest_react = clamp(joke_quality + humor_modifier, -1, 3)
+	
 	match guest_react:
+		-1:	# throw tomatoes
+			GameEvents.emit_signal("spawn_tomato", position)
 		0:	# gut-shaking laugh
 			freeze = true
 			$AnimationPlayer.play("laugh")
