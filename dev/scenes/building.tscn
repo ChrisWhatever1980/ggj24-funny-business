@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://4xkgb6wyhpkb"]
+[gd_scene load_steps=18 format=3 uid="uid://4xkgb6wyhpkb"]
 
 [ext_resource type="Script" path="res://scenes/building.gd" id="1_no7ks"]
 [ext_resource type="PackedScene" uid="uid://bdlhljeuhdyc0" path="res://models/comedy_club.glb" id="1_xfk75"]
@@ -33,44 +33,6 @@ size = Vector3(25.1349, 1, 24.0544)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_4hxpl"]
 size = Vector3(40.096, 1.3125, 40.278)
-
-[sub_resource type="Animation" id="Animation_egt2o"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Comedian:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(-3.18501, 1.07653, -14.677)]
-}
-
-[sub_resource type="Animation" id="Animation_8evor"]
-resource_name = "comedian_routine"
-length = 20.0
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Comedian:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 1, 3, 4, 7, 8, 11, 12, 15, 16, 17, 18),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
-"update": 0,
-"values": [Vector3(-4.18282, 1.07653, -14.282), Vector3(-4.18282, 1.07653, -14.282), Vector3(-0.0526814, 1.07653, -15.7165), Vector3(-0.0526814, 1.07653, -15.7165), Vector3(5.30014, 1.07653, -13.9543), Vector3(5.30014, 1.07653, -13.9543), Vector3(1.88684, 1.07653, -16.0929), Vector3(1.88684, 1.07653, -16.0929), Vector3(-1.67542, 1.07653, -13.7335), Vector3(-1.67542, 1.07653, -13.7335), Vector3(0.260705, 1.07653, -13.7335), Vector3(0.260705, 1.07653, -13.7335)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_anrt1"]
-_data = {
-"RESET": SubResource("Animation_egt2o"),
-"comedian_routine": SubResource("Animation_8evor")
-}
 
 [node name="Building" type="Node3D"]
 script = ExtResource("1_no7ks")
@@ -112,10 +74,6 @@ Target = NodePath("../Comedian")
 transform = Transform3D(0.810665, 0.282474, -0.512864, -0.0825597, 0.922323, 0.377496, 0.57966, -0.263681, 0.771017, -14.7558, 10, 0)
 Target = NodePath("../Comedian")
 
-[node name="Timer" type="Timer" parent="."]
-wait_time = 4.0
-autostart = true
-
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.586503, 0)
 collision_layer = 2048
@@ -123,12 +81,6 @@ collision_mask = 2
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
 shape = SubResource("BoxShape3D_4hxpl")
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-"": SubResource("AnimationLibrary_anrt1")
-}
-autoplay = "comedian_routine"
 
 [node name="Laptop" parent="." instance=ExtResource("8_6tjwg")]
 transform = Transform3D(0.788043, 0, -0.61562, 0, 1, 0, 0.61562, 0, 0.788043, -14.392, 2.7058, 2.72985)
@@ -141,5 +93,3 @@ stream = ExtResource("11_ganae")
 
 [node name="MoneyEarnedAudio2" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource("12_m7fqk")
-
-[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
