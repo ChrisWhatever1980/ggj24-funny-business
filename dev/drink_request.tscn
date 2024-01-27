@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://behqxgbrq61sp"]
+
+[ext_resource type="Texture2D" uid="uid://ppbilry0a53g" path="res://textures/beer_request.png" id="1_lp6ji"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6k5pm"]
+size = Vector2(72, 72)
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_6k5pm")
+
+[node name="Sprite2D" type="Sprite2D" parent="Area2D"]
+texture = ExtResource("1_lp6ji")
