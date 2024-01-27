@@ -17,9 +17,9 @@ func _on_button_up():
 	interface.active_button = self
 	stats_container.get_node("Name").text = comedian.name
 	stats_container.get_node("Cost").text = "$" + str(comedian.cost)
-	stats_container.get_node("Fame").text = "$" + str(comedian.fame)
-	stats_container.get_node("Comedy").text = "$" + str(comedian.comedy)
-	stats_container.get_node("Endurance").text = "$" + str(comedian.endurance)
+	stats_container.get_node("Fame").text = str(comedian.fame)
+	stats_container.get_node("Comedy").text = str(comedian.comedy)
+	stats_container.get_node("Endurance").text = str(comedian.endurance)
 	
 	if book:
 		book_button.set_booked(true)

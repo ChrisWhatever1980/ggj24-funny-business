@@ -14,15 +14,13 @@ func set_booked( state : bool):
 
 func _on_button_up():
 	if book:
-		interface.add_booked(interface.active_button.comedian)
-		# remove money
-		pass
+		if GameState.money > 0:
+			interface.add_booked(interface.active_button.comedian)
+			GameEvents.emit_signal("change_money", -interface.active_button.comedian.cost)
 	else:
 		interface.add_available(interface.active_button.comedian)
-		# add money
-		pass
-		
-	interface.active_button.queue_free()
+		GameEvents.emit_signal("change_money", interface.active_button.comedian.cost)
 	
+	interface.active_button.queue_free()
 	disabled = true
 	hide()

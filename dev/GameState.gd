@@ -1,14 +1,7 @@
 extends Node
 
-
-var money = 0
-
-
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
+var fame = 1
+var money = 666
+var beer = 0
+var beer_price = 2
+var hype = 0
