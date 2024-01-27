@@ -1,7 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://b54hgw30ohhce"]
+[gd_scene load_steps=11 format=3 uid="uid://b54hgw30ohhce"]
 
 [ext_resource type="PackedScene" uid="uid://bwh85febtw78q" path="res://models/person.glb" id="1_dad64"]
 [ext_resource type="Script" path="res://scenes/comedian.gd" id="1_o08b2"]
+[ext_resource type="AudioStream" uid="uid://tp8yisoor1vx" path="res://audio/standup0.ogg" id="3_i1hs4"]
+[ext_resource type="AudioStream" uid="uid://b1mx42jfen2gd" path="res://audio/standup1.ogg" id="4_gxu0y"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_q4n64"]
 albedo_color = Color(1, 0.521569, 0.00392157, 1)
@@ -77,6 +79,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.370006, 0)
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0307617, 1.4104, -0.0102539)
 shape = SubResource("BoxShape3D_cxc56")
+
+[node name="StandupStream0" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("3_i1hs4")
+
+[node name="StandupStream1" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("4_gxu0y")
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
 [connection signal="input_event" from="Area3D" to="." method="_on_area_3d_input_event"]

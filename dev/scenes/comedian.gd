@@ -35,6 +35,10 @@ func begin_performance():
 	performing = true
 	get_parent().current_comedian = self
 	$AnimationPlayer.play("comedian_routine")
+	if randi() % 2 == 0:
+		$StandupStream0.play()
+	else:
+		$StandupStream1.play()
 	$Timer.start()
 
 
@@ -55,6 +59,8 @@ func _on_area_3d_input_event(camera, event, position, normal, shape_idx):
 					performing = false
 					exiting = true
 					$AnimationPlayer.stop()
+					$StandupStream0.stop()
+					$StandupStream1.stop()
 					$Timer.stop()
 					print("GET OFF THE STAGE!")
 					to_target = (get_parent().ComedianExit.position - position)

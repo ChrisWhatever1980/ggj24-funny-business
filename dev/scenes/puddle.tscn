@@ -4,7 +4,8 @@
 height = 0.1
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_h367s"]
-albedo_color = Color(0, 0, 1, 1)
+transparency = 1
+albedo_color = Color(0.992157, 0.584314, 0.227451, 0.615686)
 
 [sub_resource type="Animation" id="Animation_4c3wf"]
 length = 0.001

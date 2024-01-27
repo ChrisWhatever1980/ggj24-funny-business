@@ -31,7 +31,7 @@ var moods = [
 func _ready():
 	GameEvents.connect_event("audience_react", self, "on_audience_react")
 	GameEvents.connect_event("audience_idle", self, "on_audience_idle")
-	humor_modifier = randi_range(-4, 4)
+	humor_modifier = randi_range(-2, 2)
 	$AnimationPlayer.seek($AnimationPlayer.current_animation_length * randf())
 
 	$Timer.wait_time = 5.0 + randf() * 10.0
@@ -49,8 +49,15 @@ func on_audience_idle():
 func on_audience_react(joke_quality):
 	await get_tree().create_timer(randf()).timeout
 
-	#var guest_react = clamp(joke_quality + humor_modifier, -1, 3)
-	var guest_react = joke_quality#clamp( + humor_modifier, -1, 3)
+	var guest_react = clamp(joke_quality + humor_modifier, 0, 11)
+
+	match randi() % 3:
+		0:
+			$AudioStreamPlayer3D.play()
+		1:
+			$AudioStreamPlayer3D2.play()
+		1:
+			$AudioStreamPlayer3D3.play()
 
 	match guest_react:
 		0:		# mood 8: dead
