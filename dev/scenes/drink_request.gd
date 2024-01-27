@@ -14,5 +14,12 @@ func _process(delta):
 
 func _on_area_entered(area: Area2D):
 	if area.is_in_group("Drinks"):
-		fulfilled.emit()
-		queue_free()
+		area.add_request(self)
+		
+func _on_area_exited(area: Area2D):
+	if area.is_in_group("Drinks"):
+		area.remove_request(self)
+
+func fulfill():
+	fulfilled.emit()
+	queue_free()

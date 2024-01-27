@@ -14,7 +14,7 @@ func _ready():
 func _process(delta):
 	if dragging and Input.is_action_just_released("click_left"):
 		dragging = false
-		dragged_beer.disappear()
+		dragged_beer.drop()
 		dragged_beer = null
 	
 	if hovering and not dragging and Input.is_action_just_pressed("click_left"):

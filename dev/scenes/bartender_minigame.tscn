@@ -48,6 +48,7 @@ offset_bottom = 40.0
 script = ExtResource("5_vwhit")
 
 [node name="Label" type="Label" parent="FulfilledRequests"]
+layout_mode = 0
 offset_left = 52.0
 offset_top = 503.0
 offset_right = 191.0
@@ -55,6 +56,7 @@ offset_bottom = 526.0
 text = "Requests fulfilled:"
 
 [node name="Counter" type="Label" parent="FulfilledRequests"]
+layout_mode = 0
 offset_left = 101.0
 offset_top = 528.0
 offset_right = 141.0
