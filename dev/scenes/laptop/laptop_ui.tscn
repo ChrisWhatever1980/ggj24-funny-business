@@ -1,6 +1,10 @@
-[gd_scene format=3 uid="uid://bi62kfqbonnfa"]
+[gd_scene load_steps=2 format=3 uid="uid://bi62kfqbonnfa"]
 
-[node name="Node2D" type="Node2D"]
+[ext_resource type="Script" path="res://scenes/laptop/laptop_ui.gd" id="1_tslm7"]
+
+[node name="Laptop UI" type="Node2D" node_paths=PackedStringArray("comedian_buttons")]
+script = ExtResource("1_tslm7")
+comedian_buttons = NodePath("AspectRatioContainer/HBoxContainer/Comedians")
 
 [node name="AspectRatioContainer" type="AspectRatioContainer" parent="."]
 anchors_preset = 15
@@ -55,6 +59,32 @@ text = "Comedian_5
 layout_mode = 2
 text = "Comedian_6
 "
+
+[node name="Comedian Stats Labels" type="VBoxContainer" parent="AspectRatioContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="Name" type="Label" parent="AspectRatioContainer/HBoxContainer/Comedian Stats Labels"]
+layout_mode = 2
+text = "Name:"
+
+[node name="Cost" type="Label" parent="AspectRatioContainer/HBoxContainer/Comedian Stats Labels"]
+layout_mode = 2
+text = "Cost:
+"
+
+[node name="Comedian Stats2" type="VBoxContainer" parent="AspectRatioContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="Name" type="Label" parent="AspectRatioContainer/HBoxContainer/Comedian Stats2"]
+layout_mode = 2
+text = "Comedian 1
+"
+
+[node name="Cost" type="Label" parent="AspectRatioContainer/HBoxContainer/Comedian Stats2"]
+layout_mode = 2
+text = "$ 10"
 
 [node name="Lineup" type="VBoxContainer" parent="AspectRatioContainer/HBoxContainer"]
 visible = false

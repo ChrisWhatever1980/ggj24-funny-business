@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://cttwgoog81shd"]
 
-[ext_resource type="PackedScene" uid="uid://xw4q52xtmcl5" path="res://scenes/laptop.tscn" id="1_k77ex"]
+[ext_resource type="PackedScene" uid="uid://xw4q52xtmcl5" path="res://scenes/laptop/laptop.tscn" id="1_k77ex"]
 
 [node name="LaptopTest" type="Node3D"]
 
