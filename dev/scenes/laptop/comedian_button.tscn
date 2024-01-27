@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://cnbrgdpwqhxh8"]
+
+[ext_resource type="Script" path="res://scenes/laptop/comedian_button.gd" id="1_vxrpv"]
+
+[node name="Button" type="Button"]
+text = "Book"
+script = ExtResource("1_vxrpv")
+
+[connection signal="button_up" from="." to="." method="_on_button_up"]
