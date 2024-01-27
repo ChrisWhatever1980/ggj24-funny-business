@@ -1,0 +1,15 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://iuy8efsl4f0b"]
+
+[ext_resource type="Script" path="res://resources/comedian_stats.gd" id="1_8b8uj"]
+
+[resource]
+script = ExtResource("1_8b8uj")
+name = "Berry Einfield"
+cost = 10
+fame = 10
+comedy = 10
+bomb_chance = 10
+hit_chance = 10
+availability = 10
+club_fame_requirement = 0
+endurance = 10

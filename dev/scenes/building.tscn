@@ -6,7 +6,6 @@
 [ext_resource type="PackedScene" uid="uid://de25e4whii3qa" path="res://scenes/guest.tscn" id="2_idpge"]
 [ext_resource type="PackedScene" uid="uid://ii7lpcj3odym" path="res://scenes/coin.tscn" id="3_e5f0h"]
 [ext_resource type="PackedScene" uid="uid://c4fuk2e1l2kf1" path="res://models/stage.glb" id="3_lcvpm"]
-[ext_resource type="PackedScene" uid="uid://b54hgw30ohhce" path="res://scenes/comedian.tscn" id="4_xt4gv"]
 [ext_resource type="PackedScene" uid="uid://dh1iy0je7c6l7" path="res://scenes/spot_light.tscn" id="8_3sd2r"]
 [ext_resource type="PackedScene" uid="uid://xw4q52xtmcl5" path="res://scenes/laptop.tscn" id="8_6tjwg"]
 [ext_resource type="AudioStream" uid="uid://cuevafyfretln" path="res://audio/kaching_0.ogg" id="10_7w2yh"]
@@ -37,6 +36,9 @@ size = Vector3(3.75342, 5.27991, 3.39282)
 [sub_resource type="BoxShape3D" id="BoxShape3D_4hxpl"]
 size = Vector3(40.096, 1.3125, 40.278)
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_f5ker"]
+size = Vector3(2.88919, 5.26282, 3.30228)
+
 [node name="Building" type="Node3D"]
 script = ExtResource("1_no7ks")
 GuestScene = ExtResource("2_idpge")
@@ -53,18 +55,16 @@ environment = SubResource("Environment_nsomo")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0375366, 0, 0.347046)
 shape = SubResource("BoxShape3D_321s7")
 
-[node name="Area3D" type="Area3D" parent="comedy_club"]
+[node name="ExitArea3D" type="Area3D" parent="comedy_club"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24.139, 0.986889, -16.4871)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="comedy_club/Area3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="comedy_club/ExitArea3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.229248, 2.13702, 0.330444)
 shape = SubResource("BoxShape3D_51fvb")
 
 [node name="bar" parent="." instance=ExtResource("2_5gooh")]
 
 [node name="stage" parent="." instance=ExtResource("3_lcvpm")]
-
-[node name="Comedian" parent="." instance=ExtResource("4_xt4gv")]
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.806021, 0.591887, 0, -0.591887, 0.806021, 5.1544, 11.6362, 14.2404)
@@ -74,13 +74,11 @@ fov = 77.3
 [node name="AudioListener3D" type="AudioListener3D" parent="Camera3D"]
 current = true
 
-[node name="SpotLight" parent="." node_paths=PackedStringArray("Target") instance=ExtResource("8_3sd2r")]
+[node name="SpotLight" parent="." instance=ExtResource("8_3sd2r")]
 transform = Transform3D(0.562878, -0.347653, 0.74987, 0.246251, 0.936576, 0.249369, -0.789005, 0.0442921, 0.612788, 17, 10, 0)
-Target = NodePath("../Comedian")
 
-[node name="SpotLight2" parent="." node_paths=PackedStringArray("Target") instance=ExtResource("8_3sd2r")]
+[node name="SpotLight2" parent="." instance=ExtResource("8_3sd2r")]
 transform = Transform3D(0.810665, 0.282474, -0.512864, -0.0825597, 0.922323, 0.377496, 0.57966, -0.263681, 0.771017, -14.7558, 10, 0)
-Target = NodePath("../Comedian")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.586503, 0)
@@ -102,6 +100,17 @@ stream = ExtResource("11_ganae")
 [node name="MoneyEarnedAudio2" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource("12_m7fqk")
 
-[connection signal="area_entered" from="comedy_club/Area3D" to="." method="_on_area_3d_area_entered"]
+[node name="StagePosition" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.185, 1.077, -14.677)
+
+[node name="Area3D" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.18343, 0, -14.7074)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0623627, 2.13141, -0.097702)
+shape = SubResource("BoxShape3D_f5ker")
+
+[connection signal="area_entered" from="comedy_club/ExitArea3D" to="." method="_on_exit_entered"]
+[connection signal="area_entered" from="Area3D" to="." method="_on_stage_entered"]
 
 [editable path="comedy_club"]
