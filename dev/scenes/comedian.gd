@@ -12,6 +12,6 @@ func _process(delta):
 	pass
 
 func _on_timer_timeout():
-	var joke_quality = -1# randi_range(-1, 2)
+	var joke_quality = randi_range(0, 12)
 	print("joke_quality: " + str(joke_quality))
 	GameEvents.emit_signal("audience_react", joke_quality)

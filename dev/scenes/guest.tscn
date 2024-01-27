@@ -1,8 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://de25e4whii3qa"]
+[gd_scene load_steps=10 format=3 uid="uid://de25e4whii3qa"]
 
 [ext_resource type="PackedScene" uid="uid://bwh85febtw78q" path="res://models/person.glb" id="1_04qkr"]
 [ext_resource type="Script" path="res://scenes/guest.gd" id="1_ndfc7"]
 [ext_resource type="AudioStream" uid="uid://be22l8gxngynl" path="res://audio/laugh_01.ogg" id="2_mml8n"]
+[ext_resource type="Texture2D" uid="uid://cwoc7twekdg3b" path="res://textures/emotions.png" id="4_gngcl"]
 
 [sub_resource type="Animation" id="Animation_5uu63"]
 length = 0.001
@@ -118,10 +119,17 @@ libraries = {
 stream = ExtResource("2_mml8n")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.93405, 0.42365)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.934, 0)
 shape = SubResource("CapsuleShape3D_a60ce")
 
 [node name="Node3D" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 6.99382e-07, 0, 1, 0, -6.99382e-07, 0, 1, 0, 0, 0)
 
 [node name="person" parent="Node3D" instance=ExtResource("1_04qkr")]
+
+[node name="Sprite3D" type="Sprite3D" parent="Node3D/person"]
+transform = Transform3D(0.4, 0, -2.79753e-07, 0, 0.4, 0, 2.79753e-07, 0, 0.4, 0, 3.61753, 0)
+texture = ExtResource("4_gngcl")
+hframes = 4
+vframes = 3
+frame = 6
+region_rect = Rect2(0, 0, 430, 430)

@@ -94,6 +94,7 @@ particles_anim_loop = false
 material = SubResource("StandardMaterial3D_aia0k")
 
 [node name="Coin" type="RigidBody3D"]
+collision_mask = 2048
 axis_lock_angular_x = true
 axis_lock_angular_y = true
 axis_lock_angular_z = true
