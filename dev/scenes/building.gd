@@ -32,10 +32,22 @@ func _ready():
 	GameEvents.connect_event("spawn_puddle", self, "on_spawn_puddle")
 	GameEvents.connect_event("change_money", self, "on_change_money")
 	GameEvents.connect_event("start_show", self, "on_start_show")
+	GameEvents.connect_event("start_game", self, "on_start_game")
 
 	var pos = $comedy_club/FloorArea.position
 	var size = $comedy_club/FloorArea/CollisionShape3D.shape.size
 	floor_rect = Rect2(pos.x - size.x / 2, pos.z - size.z / 2, size.x, size.z)
+
+	$AnimationPlayer.play_backwards("start_game_animation")
+
+
+func on_start_game():
+	$MainCamera.current = true
+	$TitleScreen.visible = false
+	$AspectRatioContainer.visible = true
+	$MusicStreamPlayer.volume_db = -10.0
+	$SpotLight.light_color = Color.WHITE
+	$SpotLight2.light_color = Color.WHITE
 
 
 func on_start_show():
@@ -150,6 +162,13 @@ func _on_stage_entered(area):
 func go_to_underworld():
 	$AnimationPlayer.play("to_underworld")
 	$BartenderMinigame.visible = false
+	
+	# put up comedians for judgement
+	var death_idx = 0
+	for comedian in get_tree().get_nodes_in_group("Comedians"):
+		comedian.position = get_node("Underworld/comedian_plank/ComedianDeath0").position
+		comedian.show_earnings(100)
+
 
 
 func set_location(_upstairs):
@@ -177,3 +196,7 @@ func _physics_process(delta):
 	var result = space_state.intersect_ray(query)
 	if result:
 		$CoinVacuumer.position = result.position
+
+
+func _on_end_show_button_pressed():
+	go_to_underworld()

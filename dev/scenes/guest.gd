@@ -73,11 +73,11 @@ func on_audience_react(joke_quality):
 	else:
 		match randi() % 3:
 			0:
-				$AudioStreamPlayer3D.play()
+				$LaughPlayer.play()
 			1:
-				$AudioStreamPlayer3D2.play()
+				$LaughPlayer2.play()
 			1:
-				$AudioStreamPlayer3D3.play()
+				$LaughPlayer3.play()
 
 	match guest_react:
 		0:		# mood 8: dead
