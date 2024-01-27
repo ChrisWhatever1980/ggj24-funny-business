@@ -1,7 +1,7 @@
 extends Node3D
 
 #@export var stats: Resource
-var stats = null
+var stats = null #stats are set on spawn
 
 var performing = false
 var waiting = true
@@ -24,11 +24,21 @@ func _process(delta):
 
 func _on_timer_timeout():
 	if performing:
-		var joke_quality = randi_range(0, 12)
+		var joke_quality
+		
+		if randi_range(0, 100) >= stats.bomb_chance:
+			joke_quality = 0
+		else: 
+			joke_quality = randi_range(stats.comedy / 10, stats.comedy)
+			
+			if randi_range(0, 100) >= stats.hit_chance:
+				joke_quality *= 2
+		
+		$Timer.wait_time = 4.0 + 4.0 * clamp(1.0 - (stats.endurance / 10.0), 0.0, 1.0)
+		stats.endurance -= 1
+		
 		print("joke_quality: " + str(joke_quality))
 		GameEvents.emit_signal("audience_react", joke_quality)
-		#$Timer.wait_time = 4.0 + 4.0 * clamp(1.0 - (stats.Endurance / 10.0), 0.0, 1.0)
-		#stats.Endurance -= 1
 
 
 func begin_performance():

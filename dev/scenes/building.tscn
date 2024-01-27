@@ -11,10 +11,10 @@
 [ext_resource type="PackedScene" uid="uid://xw4q52xtmcl5" path="res://scenes/laptop/laptop.tscn" id="8_6tjwg"]
 [ext_resource type="AudioStream" uid="uid://cuevafyfretln" path="res://audio/kaching_0.ogg" id="10_7w2yh"]
 [ext_resource type="AudioStream" uid="uid://gkkwi1qrw4pg" path="res://audio/kaching_1.ogg" id="11_ganae"]
-[ext_resource type="PackedScene" uid="uid://bnkasdwoiayuj" path="res://scenes/underworld.tscn" id="12_gmibf"]
+[ext_resource type="PackedScene" path="res://scenes/underworld.tscn" id="12_gmibf"]
 [ext_resource type="AudioStream" uid="uid://w6tn87txnwy" path="res://audio/kaching_2.ogg" id="12_m7fqk"]
 [ext_resource type="PackedScene" uid="uid://m0e7yyqwsep0" path="res://scenes/bartender_minigame.tscn" id="13_l0k3m"]
-[ext_resource type="PackedScene" uid="uid://ch6dqver80ept" path="res://scenes/title.tscn" id="14_lgqev"]
+[ext_resource type="PackedScene" path="res://scenes/title.tscn" id="14_lgqev"]
 [ext_resource type="AudioStream" uid="uid://dnphkf1m1q50" path="res://audio/music-loop.ogg" id="16_r4aer"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_dldv6"]
@@ -294,7 +294,7 @@ transform = Transform3D(0.968877, -0.244586, -0.0381449, 0.219846, 0.921022, -0.
 light_color = Color(0.705882, 0, 0.145098, 1)
 
 [node name="SpotLight2" parent="." instance=ExtResource("8_3sd2r")]
-transform = Transform3D(0.980499, 0.00739002, 0.196382, 0.0348713, 0.976892, -0.210867, -0.193403, 0.213603, 0.957585, -14.7558, 10, 0)
+transform = Transform3D(0.980499, 0.00739001, 0.196382, 0.0348713, 0.976892, -0.210867, -0.193402, 0.213603, 0.957585, -14.7558, 10, 0)
 light_color = Color(0.627451, 0.0313726, 0.172549, 1)
 
 [node name="FloorBody" type="StaticBody3D" parent="."]

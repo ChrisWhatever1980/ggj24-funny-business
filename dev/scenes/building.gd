@@ -51,7 +51,16 @@ func on_start_game():
 
 
 func on_start_show():
-	generate_audience(30)
+	var base = 5 + GameState.fame / 10
+	var fame_today = randi_range(0, GameState.fame)
+	var hype_today = randi_range(0, GameState.hype / 10)
+	var comedian_bonus = 0
+	
+	for comedian in get_tree().get_nodes_in_group("Comedians"):
+		comedian_bonus += randi_range(0, comedian.stats.fame)
+	
+	print("Spawn " + str(base)+ " base + " + str(fame_today) + " fame_today + " +str(comedian_bonus) + " comedian_bonus + " + str(hype_today) + " hype_today = " + str(base + fame_today + hype_today) + " Guests")
+	generate_audience(base + comedian_bonus + fame_today + hype_today)
 	$AnimationPlayer.play("laptop_to_main_animation")
 	$AspectRatioContainer/EndShowButton.visible = true
 
@@ -60,7 +69,7 @@ func generate_audience(num_guests):
 	var sampling = PoissonDiscSampling.new()
 	var points = sampling.generate_2d_points(3.0, floor_rect, 5)
 	print("Points: " + str(points.size()))
-	num_guests = max(num_guests, points.size())
+	num_guests = min(num_guests, points.size())
 	for g in num_guests:
 		await get_tree().create_timer(randf() * 0.1).timeout
 

@@ -1,7 +1,6 @@
-[gd_scene load_steps=7 format=3 uid="uid://bi62kfqbonnfa"]
+[gd_scene load_steps=6 format=3 uid="uid://bi62kfqbonnfa"]
 
 [ext_resource type="Script" path="res://scenes/laptop/laptop_ui.gd" id="1_tslm7"]
-[ext_resource type="PackedScene" uid="uid://cnbrgdpwqhxh8" path="res://scenes/laptop/comedian_button.tscn" id="3_j5rwd"]
 [ext_resource type="Script" path="res://scenes/laptop/booking_button.gd" id="3_xcsk7"]
 [ext_resource type="Script" path="res://scenes/laptop/start_show_button.gd" id="4_gnypp"]
 [ext_resource type="Script" path="res://scenes/laptop/BeverageShop.gd" id="4_utcwm"]
@@ -162,8 +161,9 @@ layout_mode = 2
 size_flags_vertical = 3
 alignment = 1
 
-[node name="Button" parent="Container/VBoxContainer/TabContainer/Booking/HBoxContainer/Infos/VBoxContainer2" instance=ExtResource("3_j5rwd")]
+[node name="Button" type="Button" parent="Container/VBoxContainer/TabContainer/Booking/HBoxContainer/Infos/VBoxContainer2"]
 layout_mode = 2
+text = "Book"
 script = ExtResource("3_xcsk7")
 
 [node name="HSplitContainer2" type="HSplitContainer" parent="Container/VBoxContainer/TabContainer/Booking/HBoxContainer"]
@@ -554,7 +554,10 @@ size_flags_vertical = 3
 alignment = 1
 
 [node name="Start Button" type="Button" parent="Container/VBoxContainer/TabContainer/Start Show/HBoxContainer"]
+custom_minimum_size = Vector2(200, 100)
 layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
 text = "START SHOW"
 script = ExtResource("4_gnypp")
 
@@ -581,4 +584,5 @@ text = "Budget:"
 layout_mode = 2
 text = "$ 666"
 
+[connection signal="button_up" from="Container/VBoxContainer/TabContainer/Booking/HBoxContainer/Infos/VBoxContainer2/Button" to="Container/VBoxContainer/TabContainer/Booking/HBoxContainer/Infos/VBoxContainer2/Button" method="_on_button_up"]
 [connection signal="button_up" from="Container/VBoxContainer/TabContainer/Start Show/HBoxContainer/Start Button" to="Container/VBoxContainer/TabContainer/Start Show/HBoxContainer/Start Button" method="_on_button_up"]
