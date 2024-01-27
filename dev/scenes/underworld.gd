@@ -13,6 +13,6 @@ func _process(delta):
 
 func _on_button_pressed():
 	print("Sacrifice!!")
-	$underworld/TheDevil/AudioStreamPlayer3D.play()
+	$underworld/TheDevil/EvilLaughPlayer.play()
 	GameEvents.emit_signal("change_money", -1)
 	

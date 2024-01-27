@@ -46,6 +46,8 @@ func on_start_game():
 	$TitleScreen.visible = false
 	$AspectRatioContainer.visible = true
 	$MusicStreamPlayer.volume_db = -10.0
+	$SpotLight.light_color = Color.WHITE
+	$SpotLight2.light_color = Color.WHITE
 
 
 func on_start_show():
@@ -160,6 +162,13 @@ func _on_stage_entered(area):
 func go_to_underworld():
 	$AnimationPlayer.play("to_underworld")
 	$BartenderMinigame.visible = false
+	
+	# put up comedians for judgement
+	var death_idx = 0
+	for comedian in get_tree().get_nodes_in_group("Comedians"):
+		comedian.position = get_node("Underworld/comedian_plank/ComedianDeath0").position
+		comedian.show_earnings(100)
+
 
 
 func set_location(_upstairs):
@@ -187,3 +196,7 @@ func _physics_process(delta):
 	var result = space_state.intersect_ray(query)
 	if result:
 		$CoinVacuumer.position = result.position
+
+
+func _on_end_show_button_pressed():
+	go_to_underworld()

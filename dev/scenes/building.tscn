@@ -59,7 +59,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector3(-14.402, 3.853, 2.685)]
+"values": [Vector3(-14.4892, 3.7441, 2.8161)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -71,7 +71,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector3(-0.649262, -0.682424, 0)]
+"values": [Vector3(-0.352661, -0.671603, 0)]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -111,7 +111,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 5),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector3(-14.402, 3.85257, 2.68492), Vector3(5.154, 14.087, 16.996)]
+"values": [Vector3(-14.4892, 3.7441, 2.8161), Vector3(5.154, 14.087, 16.996)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -123,7 +123,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0, 5),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector3(-0.649734, -0.682598, 0), Vector3(-0.720821, 0, 0)]
+"values": [Vector3(-0.352661, -0.671603, 0), Vector3(-0.720821, 0, 0)]
 }
 
 [sub_resource type="Animation" id="Animation_ldpii"]
@@ -283,17 +283,19 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.28202, 3.20389, -1.53896)
 shape = SubResource("BoxShape3D_f5ker")
 
 [node name="MainCamera" type="Camera3D" parent="."]
-transform = Transform3D(0.776046, 0.381306, -0.502352, 0, 0.79653, 0.604599, 0.630676, -0.469197, 0.618144, -14.402, 3.853, 2.685)
+transform = Transform3D(0.782825, 0.21492, -0.583947, 0, 0.938457, 0.345396, 0.622241, -0.270385, 0.734648, -14.4892, 3.7441, 2.8161)
 current = true
 fov = 77.3
 
 [node name="AudioListener3D" type="AudioListener3D" parent="MainCamera"]
 
 [node name="SpotLight" parent="." instance=ExtResource("8_3sd2r")]
-transform = Transform3D(0.968877, -0.244586, -0.0381449, 0.219847, 0.921022, -0.321538, 0.113776, 0.303144, 0.946128, 17, 10, 0)
+transform = Transform3D(0.968877, -0.244586, -0.0381449, 0.219846, 0.921022, -0.321538, 0.113776, 0.303144, 0.946128, 17, 10, 0)
+light_color = Color(0.705882, 0, 0.145098, 1)
 
 [node name="SpotLight2" parent="." instance=ExtResource("8_3sd2r")]
-transform = Transform3D(0.9805, 0.00739002, 0.196382, 0.0348713, 0.976892, -0.210867, -0.193403, 0.213603, 0.957585, -14.7558, 10, 0)
+transform = Transform3D(0.980499, 0.00739002, 0.196382, 0.0348713, 0.976892, -0.210867, -0.193403, 0.213603, 0.957585, -14.7558, 10, 0)
+light_color = Color(0.627451, 0.0313726, 0.172549, 1)
 
 [node name="FloorBody" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.586503, 0)
@@ -353,6 +355,7 @@ stream = ExtResource("16_r4aer")
 volume_db = -10.111
 autoplay = true
 
+[connection signal="pressed" from="AspectRatioContainer/EndShowButton" to="." method="_on_end_show_button_pressed"]
 [connection signal="area_entered" from="comedy_club/ExitArea3D" to="." method="_on_exit_entered"]
 [connection signal="area_entered" from="stage/StageArea" to="." method="_on_stage_entered"]
 
