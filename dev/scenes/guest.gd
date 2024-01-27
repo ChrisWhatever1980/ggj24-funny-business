@@ -28,11 +28,18 @@ var moods = [
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	GameEvents.connect_event("audience_react", self, "on_audience_react")
+	GameEvents.connect_event("audience_idle", self, "on_audience_idle")
 	humor_modifier = randi_range(-4, 4)
+	$AnimationPlayer.seek($AnimationPlayer.current_animation_length * randf())
 
 
 func set_mood(_mood):
 	$Node3D/person/Sprite3D.frame = moods[_mood]
+
+
+func on_audience_idle():
+	$AnimationPlayer.seek($AnimationPlayer.current_animation_length * randf())
+	$AnimationPlayer.play("idle_animation")
 
 
 func on_audience_react(joke_quality):
@@ -52,7 +59,6 @@ func on_audience_react(joke_quality):
 			apply_impulse(Vector3.UP * 0.4)
 		3:	#rofl
 			freeze = false
-			print("rofl")
 			$AnimationPlayer.play("rofl_animation")
 
 	set_mood(clamp(guest_react, 0, moods.size()))
@@ -60,10 +66,9 @@ func on_audience_react(joke_quality):
 	if guest_react == max_amusement and randf() <= tip_probability:
 		for c in range(0, randi_range(1, 2)):
 			GameEvents.emit_signal("spawn_coin", position)
-	
+
 	if guest_react == min_amusement:
 		queue_free()
-		
 
 
 func on_audience_rofl():

@@ -94,6 +94,7 @@ particles_anim_loop = false
 material = SubResource("StandardMaterial3D_aia0k")
 
 [node name="Coin" type="RigidBody3D"]
+collision_layer = 4
 collision_mask = 2048
 axis_lock_angular_x = true
 axis_lock_angular_y = true
@@ -114,6 +115,8 @@ libraries = {
 autoplay = "turn_animation"
 
 [node name="Area3D" type="Area3D" parent="."]
+collision_layer = 4
+collision_mask = 0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.593381, 0)

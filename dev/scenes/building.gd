@@ -18,9 +18,6 @@ extends Node3D
 ]
 
 
-@onready var Comedian = $Comedian
-
-
 var current_wait_slot = 0
 var money = 0
 
@@ -71,12 +68,13 @@ func on_spawn_tomato_splat(pos):
 
 
 func on_spawn_tomato(pos):
-	var new_tomato = preload("res://scenes/tomato.tscn").instantiate()
-	add_child(new_tomato)
-	new_tomato.position = pos
-	var to_comedian = (Comedian.global_position - pos).normalized()
-	var to_right = to_comedian.cross(Vector3.UP)
-	new_tomato.apply_impulse(to_comedian * 10.0 + to_right * 0.2 * randf_range(-1, 1) + Vector3(0, 10.0,0))
+	if current_comedian:
+		var new_tomato = preload("res://scenes/tomato.tscn").instantiate()
+		add_child(new_tomato)
+		new_tomato.position = pos
+		var to_comedian = (current_comedian.global_position - pos).normalized()
+		var to_right = to_comedian.cross(Vector3.UP)
+		new_tomato.apply_impulse(to_comedian * 10.0 + to_right * 0.2 * randf_range(-1, 1) + Vector3(0, 10.0,0))
 
 
 func on_increase_money():
@@ -111,8 +109,9 @@ func _on_timer_timeout():
 
 func _on_exit_entered(area):
 	# comedian entered exit
-	
+	current_comedian = null
 	print("Comedian has left the building")
+	
 	# save for post show evaluation
 
 
@@ -121,5 +120,5 @@ func _on_stage_entered(area):
 	print("Comedian has climbed the stage")
 	
 	# save for post show evaluation
-	var comedian = area.get_parent()
-	comedian.begin_performance()
+	current_comedian = area.get_parent()
+	current_comedian.begin_performance()

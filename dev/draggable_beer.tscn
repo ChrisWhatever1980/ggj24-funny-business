@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://cqvqoeblfb8ck"]
+
+[ext_resource type="Script" path="res://scenes/DraggableBeer.gd" id="1_2oql5"]
+[ext_resource type="Texture2D" uid="uid://cqxiulu1khllp" path="res://textures/beer.png" id="2_tkxbi"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_juoxx"]
+size = Vector2(74, 72)
+
+[node name="DraggableBeer" type="Area2D"]
+script = ExtResource("1_2oql5")
+
+[node name="Beer" type="Sprite2D" parent="."]
+texture = ExtResource("2_tkxbi")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_juoxx")
+
+[connection signal="input_event" from="." to="." method="_on_input_event"]

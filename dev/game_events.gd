@@ -6,6 +6,7 @@ signal spawn_coin
 signal increase_money
 signal spawn_tomato
 signal spawn_tomato_splat
+signal audience_idle
 
 
 func connect_event(_signal: String, target: Object, method: String, binds: Array = [  ], flags: int = 0):
