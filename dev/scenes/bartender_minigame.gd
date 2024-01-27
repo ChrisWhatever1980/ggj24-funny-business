@@ -1,5 +1,7 @@
 extends Node2D
 
+var drink_request = preload("res://scenes/drink_request.tscn")
+
 signal update_fulfilled_requests(count: int)
 signal update_tipped_requests(count: int)
 
@@ -20,13 +22,13 @@ func on_request_drink(pos3D):
 	cam = get_viewport().get_camera_3d()
 	if cam:
 		var pos2D = cam.unproject_position(pos3D)
-		$RequestSpawnArea.spawn_request(pos2D.x, pos2D.y, pos3D)
+		spawn_request(pos2D, pos3D)
 
 
 func _on_spawn_button_pressed():
 	var x = randf_range(300, 800)
 	var y = randf_range(100, 800)
-	var request = $RequestSpawnArea.spawn_request(x, y)
+	var request = spawn_request(Vector2(x, y))
 	#request.fulfilled.connect(_on_request_fulfilled)
 	#GameEvents.connect_event("request_fulfilled")
 
@@ -45,3 +47,10 @@ func _on_request_fulfilled(tip, pos3D):
 
 	for p in payment:
 		GameEvents.emit_signal("spawn_coin", pos3D)
+
+func spawn_request(pos2D, pos3D=null):
+	var request = drink_request.instantiate()
+	request.position = pos2D
+	request.position3D = pos3D
+	add_child(request)
+	return request
