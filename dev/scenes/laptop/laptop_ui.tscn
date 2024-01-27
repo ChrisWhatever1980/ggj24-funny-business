@@ -10,8 +10,8 @@ position = Vector2(-139, 7)
 script = ExtResource("1_tslm7")
 available_buttons = NodePath("Container/VBoxContainer/TabContainer/Booking/HBoxContainer/Comedians/ScrollContainer/Buttons")
 booked_buttons = NodePath("Container/VBoxContainer/TabContainer/Booking/HBoxContainer/Booked/ScrollContainer/Buttons")
-stats_container = NodePath("Container/VBoxContainer/TabContainer/Booking/HBoxContainer/Infos/HBoxContainer/Stats")
-book_button = NodePath("Container/VBoxContainer/TabContainer/Booking/HBoxContainer/Infos/Button")
+stats_container = NodePath("Container/VBoxContainer/TabContainer/Booking/HBoxContainer/Infos/VBoxContainer/HBoxContainer/Stats")
+book_button = NodePath("Container/VBoxContainer/TabContainer/Booking/HBoxContainer/Infos/VBoxContainer2/Button")
 start_button = NodePath("Container/VBoxContainer/TabContainer/Start Show/HBoxContainer/Start Button")
 
 [node name="Container" type="AspectRatioContainer" parent="."]
@@ -77,63 +77,71 @@ horizontal_alignment = 1
 [node name="VSplitContainer" type="VSplitContainer" parent="Container/VBoxContainer/TabContainer/Booking/HBoxContainer/Infos"]
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Container/VBoxContainer/TabContainer/Booking/HBoxContainer/Infos"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Container/VBoxContainer/TabContainer/Booking/HBoxContainer/Infos"]
 layout_mode = 2
 
-[node name="Labels" type="VBoxContainer" parent="Container/VBoxContainer/TabContainer/Booking/HBoxContainer/Infos/HBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Container/VBoxContainer/TabContainer/Booking/HBoxContainer/Infos/VBoxContainer"]
+layout_mode = 2
+
+[node name="Labels" type="VBoxContainer" parent="Container/VBoxContainer/TabContainer/Booking/HBoxContainer/Infos/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 0
 
-[node name="Name" type="Label" parent="Container/VBoxContainer/TabContainer/Booking/HBoxContainer/Infos/HBoxContainer/Labels"]
+[node name="Name" type="Label" parent="Container/VBoxContainer/TabContainer/Booking/HBoxContainer/Infos/VBoxContainer/HBoxContainer/Labels"]
 layout_mode = 2
 text = "Name:"
 
-[node name="Cost" type="Label" parent="Container/VBoxContainer/TabContainer/Booking/HBoxContainer/Infos/HBoxContainer/Labels"]
+[node name="Cost" type="Label" parent="Container/VBoxContainer/TabContainer/Booking/HBoxContainer/Infos/VBoxContainer/HBoxContainer/Labels"]
 layout_mode = 2
 text = "Cost:
 "
 
-[node name="Fame" type="Label" parent="Container/VBoxContainer/TabContainer/Booking/HBoxContainer/Infos/HBoxContainer/Labels"]
+[node name="Fame" type="Label" parent="Container/VBoxContainer/TabContainer/Booking/HBoxContainer/Infos/VBoxContainer/HBoxContainer/Labels"]
 layout_mode = 2
 text = "Fame:"
 
-[node name="Comedy" type="Label" parent="Container/VBoxContainer/TabContainer/Booking/HBoxContainer/Infos/HBoxContainer/Labels"]
+[node name="Comedy" type="Label" parent="Container/VBoxContainer/TabContainer/Booking/HBoxContainer/Infos/VBoxContainer/HBoxContainer/Labels"]
 layout_mode = 2
 text = "Humor:"
 
-[node name="Endurance" type="Label" parent="Container/VBoxContainer/TabContainer/Booking/HBoxContainer/Infos/HBoxContainer/Labels"]
+[node name="Endurance" type="Label" parent="Container/VBoxContainer/TabContainer/Booking/HBoxContainer/Infos/VBoxContainer/HBoxContainer/Labels"]
 layout_mode = 2
 text = "Endurance:"
 
-[node name="Stats" type="VBoxContainer" parent="Container/VBoxContainer/TabContainer/Booking/HBoxContainer/Infos/HBoxContainer"]
+[node name="Stats" type="VBoxContainer" parent="Container/VBoxContainer/TabContainer/Booking/HBoxContainer/Infos/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 2
 
-[node name="Name" type="Label" parent="Container/VBoxContainer/TabContainer/Booking/HBoxContainer/Infos/HBoxContainer/Stats"]
+[node name="Name" type="Label" parent="Container/VBoxContainer/TabContainer/Booking/HBoxContainer/Infos/VBoxContainer/HBoxContainer/Stats"]
 layout_mode = 2
 text = "Comedian 1
 "
 
-[node name="Cost" type="Label" parent="Container/VBoxContainer/TabContainer/Booking/HBoxContainer/Infos/HBoxContainer/Stats"]
+[node name="Cost" type="Label" parent="Container/VBoxContainer/TabContainer/Booking/HBoxContainer/Infos/VBoxContainer/HBoxContainer/Stats"]
 layout_mode = 2
 text = "$ 10"
 
-[node name="Fame" type="Label" parent="Container/VBoxContainer/TabContainer/Booking/HBoxContainer/Infos/HBoxContainer/Stats"]
+[node name="Fame" type="Label" parent="Container/VBoxContainer/TabContainer/Booking/HBoxContainer/Infos/VBoxContainer/HBoxContainer/Stats"]
 layout_mode = 2
 text = "10"
 
-[node name="Comedy" type="Label" parent="Container/VBoxContainer/TabContainer/Booking/HBoxContainer/Infos/HBoxContainer/Stats"]
+[node name="Comedy" type="Label" parent="Container/VBoxContainer/TabContainer/Booking/HBoxContainer/Infos/VBoxContainer/HBoxContainer/Stats"]
 layout_mode = 2
 text = "10"
 
-[node name="Endurance" type="Label" parent="Container/VBoxContainer/TabContainer/Booking/HBoxContainer/Infos/HBoxContainer/Stats"]
+[node name="Endurance" type="Label" parent="Container/VBoxContainer/TabContainer/Booking/HBoxContainer/Infos/VBoxContainer/HBoxContainer/Stats"]
 layout_mode = 2
 text = "10"
 
 [node name="VSplitContainer2" type="VSplitContainer" parent="Container/VBoxContainer/TabContainer/Booking/HBoxContainer/Infos"]
 layout_mode = 2
 
-[node name="Button" parent="Container/VBoxContainer/TabContainer/Booking/HBoxContainer/Infos" instance=ExtResource("3_j5rwd")]
+[node name="VBoxContainer2" type="VBoxContainer" parent="Container/VBoxContainer/TabContainer/Booking/HBoxContainer/Infos"]
+layout_mode = 2
+size_flags_vertical = 3
+alignment = 1
+
+[node name="Button" parent="Container/VBoxContainer/TabContainer/Booking/HBoxContainer/Infos/VBoxContainer2" instance=ExtResource("3_j5rwd")]
 layout_mode = 2
 script = ExtResource("3_xcsk7")
 
