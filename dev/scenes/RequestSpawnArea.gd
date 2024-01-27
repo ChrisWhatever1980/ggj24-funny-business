@@ -11,8 +11,9 @@ func _ready():
 func _process(delta):
 	pass
 
-func spawn_request(x, y):
+func spawn_request(x, y, pos3D=null):
 	var request = beer_request.instantiate()
 	request.position = Vector2(x, y)
+	request.position3D = pos3D
 	add_child(request)
 	return request

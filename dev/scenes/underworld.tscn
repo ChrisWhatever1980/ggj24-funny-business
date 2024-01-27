@@ -58,24 +58,24 @@ surface_material_override/0 = SubResource("StandardMaterial3D_b7t5u")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.278502, -10.4285, 12.6293)
 surface_material_override/0 = SubResource("ShaderMaterial_8f15r")
 
+[node name="Icosphere_010" parent="underworld" index="4"]
+surface_material_override/0 = SubResource("StandardMaterial3D_nkxvx")
+
+[node name="Icosphere_011" parent="underworld" index="5"]
+surface_material_override/0 = SubResource("StandardMaterial3D_8k1ax")
+
+[node name="Icosphere_012" parent="underworld" index="6"]
+surface_material_override/0 = SubResource("StandardMaterial3D_j7uww")
+
+[node name="Icosphere_013" parent="underworld" index="7"]
+surface_material_override/0 = SubResource("StandardMaterial3D_r6p5u")
+
 [node name="SpotLight3D" type="SpotLight3D" parent="underworld"]
 transform = Transform3D(-1, 0, -8.74228e-08, -3.40028e-08, 0.92126, 0.388947, 8.05391e-08, 0.388947, -0.92126, 0, -4.82555, 3.96676)
 light_color = Color(1, 0, 0, 1)
 light_energy = 16.0
 spot_range = 14.8043
 spot_angle = 56.9232
-
-[node name="Icosphere_010" parent="underworld" index="5"]
-surface_material_override/0 = SubResource("StandardMaterial3D_nkxvx")
-
-[node name="Icosphere_011" parent="underworld" index="6"]
-surface_material_override/0 = SubResource("StandardMaterial3D_8k1ax")
-
-[node name="Icosphere_012" parent="underworld" index="7"]
-surface_material_override/0 = SubResource("StandardMaterial3D_j7uww")
-
-[node name="Icosphere_013" parent="underworld" index="8"]
-surface_material_override/0 = SubResource("StandardMaterial3D_r6p5u")
 
 [node name="AspectRatioContainer" type="AspectRatioContainer" parent="."]
 anchors_preset = 15

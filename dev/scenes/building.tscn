@@ -126,6 +126,32 @@ script = ExtResource("1_no7ks")
 GuestScene = ExtResource("2_idpge")
 CoinScene = ExtResource("3_e5f0h")
 
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="AspectRatioContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="MoneyLabel" type="Label" parent="AspectRatioContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "MONEY: "
+
+[node name="MoneyAmount" type="Label" parent="AspectRatioContainer/HBoxContainer"]
+layout_mode = 2
+text = "0"
+
+[node name="Button" type="Button" parent="AspectRatioContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+text = "END SHOW"
+
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_nsomo")
 
@@ -209,32 +235,6 @@ libraries = {
 [node name="Underworld" parent="." instance=ExtResource("12_gmibf")]
 
 [node name="BartenderMinigame" parent="." instance=ExtResource("13_l0k3m")]
-
-[node name="AspectRatioContainer" type="AspectRatioContainer" parent="."]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="HBoxContainer" type="HBoxContainer" parent="AspectRatioContainer"]
-layout_mode = 2
-size_flags_vertical = 0
-
-[node name="MoneyLabel" type="Label" parent="AspectRatioContainer/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 0
-text = "MONEY: "
-
-[node name="MoneyAmount" type="Label" parent="AspectRatioContainer/HBoxContainer"]
-layout_mode = 2
-text = "0"
-
-[node name="Button" type="Button" parent="AspectRatioContainer"]
-layout_mode = 2
-size_flags_horizontal = 8
-size_flags_vertical = 8
-text = "END SHOW"
 
 [connection signal="area_entered" from="comedy_club/ExitArea3D" to="." method="_on_exit_entered"]
 [connection signal="area_entered" from="StageArea" to="." method="_on_stage_entered"]

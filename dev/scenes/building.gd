@@ -38,7 +38,7 @@ func _ready():
 	print(str(floor_rect))
 	
 	var sampling = PoissonDiscSampling.new()
-	var points = sampling.generate_2d_points(4.0, floor_rect, 5)
+	var points = sampling.generate_2d_points(3.0, floor_rect, 5)
 	print("Points: " + str(points.size()))
 	var num_guests = points.size()
 	for g in num_guests:

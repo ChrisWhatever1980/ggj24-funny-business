@@ -7,8 +7,6 @@ var fulfilled_requests = 0
 var tipped_requests = 0
 
 
-var customer_position
-
 var cam = null
 
 
@@ -29,9 +27,8 @@ func _process(delta):
 
 func on_request_drink(pos3D):
 	if cam:
-		customer_position = pos3D
 		var pos2D = cam.unproject_position(pos3D)
-		$RequestSpawnArea.spawn_request(pos2D.x, pos2D.y)
+		$RequestSpawnArea.spawn_request(pos2D.x, pos2D.y, pos3D)
 
 
 func _on_spawn_button_pressed():
@@ -42,7 +39,7 @@ func _on_spawn_button_pressed():
 	#GameEvents.connect_event("request_fulfilled")
 
 
-func _on_request_fulfilled(tip):
+func _on_request_fulfilled(tip, pos3D):
 	
 	var payment = 3
 	
@@ -55,4 +52,4 @@ func _on_request_fulfilled(tip):
 		update_tipped_requests.emit(tipped_requests)
 
 	for p in payment:
-		GameEvents.emit_signal("spawn_coin", customer_position)
+		GameEvents.emit_signal("spawn_coin", pos3D)

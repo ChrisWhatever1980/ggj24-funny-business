@@ -51,8 +51,6 @@ func on_audience_react(joke_quality):
 
 	#var guest_react = clamp(joke_quality + humor_modifier, -1, 3)
 	var guest_react = joke_quality#clamp( + humor_modifier, -1, 3)
-	
-	print("AUdience reacting: " + str(guest_react))
 
 	match guest_react:
 		0:		# mood 8: dead
@@ -112,7 +110,6 @@ func on_audience_rofl():
 	apply_impulse(Vector3.UP * 0.4)
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	if get_parent().current_comedian:
 		var to_comedian = get_parent().current_comedian.position - position
@@ -120,12 +117,9 @@ func _process(delta):
 		look_at(position + to_comedian)
 
 
-func received_drink():
-	print("PROST!")
-
-
 func _on_timer_timeout():
 	if !requesting_drink and randf() < thirsty_probability:
+		await get_tree().create_timer(randf() * 10.0).timeout
 		GameEvents.emit_signal("request_drink", position)
 		$Timer.wait_time = 5.0 + randf() * 10.0
 		requesting_drink = true
