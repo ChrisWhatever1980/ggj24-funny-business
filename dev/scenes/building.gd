@@ -5,8 +5,26 @@ extends Node3D
 @export var CoinScene:PackedScene
 
 
+@onready var ComedianExit = $comedy_club/ComedianExit
+@onready var StagePosition = $StagePosition
+
+
+@onready var ComedianWaitSlots = [
+	$comedy_club/ComedianWait1,
+	$comedy_club/ComedianWait2,
+	$comedy_club/ComedianWait3,
+	$comedy_club/ComedianWait4,
+	$comedy_club/ComedianWait5
+]
+
+
 @onready var Comedian = $Comedian
+
+
+var current_wait_slot = 0
 var money = 0
+
+var current_comedian = null
 
 
 func _ready():
@@ -32,6 +50,17 @@ func _ready():
 		new_guest.rotation.y = randf() * 2.0 * PI
 		add_child(new_guest)
 		points.erase(point)
+	
+	for c in range(0, 5):
+		spawn_comedian(c + 1)
+
+
+func spawn_comedian(comedian_idx):
+	var new_comedian = preload("res://scenes/comedian.tscn").instantiate()
+	new_comedian.stats = load("res://resources/comedian_" + str(comedian_idx) + ".tres")
+	new_comedian.position = ComedianWaitSlots[current_wait_slot].position
+	current_wait_slot += 1
+	add_child(new_comedian)
 
 
 func on_spawn_tomato_splat(pos):
@@ -78,3 +107,19 @@ func _on_timer_timeout():
 	var joke_quality = 2#randi_range(-1, 2)
 	print("joke_quality: " + str(joke_quality))
 	GameEvents.emit_signal("audience_react", joke_quality)
+
+
+func _on_exit_entered(area):
+	# comedian entered exit
+	
+	print("Comedian has left the building")
+	# save for post show evaluation
+
+
+func _on_stage_entered(area):
+	# comedian entered exit
+	print("Comedian has climbed the stage")
+	
+	# save for post show evaluation
+	var comedian = area.get_parent()
+	comedian.begin_performance()

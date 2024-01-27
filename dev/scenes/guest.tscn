@@ -133,3 +133,6 @@ hframes = 4
 vframes = 3
 frame = 6
 region_rect = Rect2(0, 0, 430, 430)
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.22774)

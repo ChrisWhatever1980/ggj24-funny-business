@@ -1,9 +1,6 @@
 extends RigidBody3D
 
 
-var Comedian = null
-
-
 var humor_modifier = 0
 var max_amusement = 2
 var min_amusement = -3
@@ -77,7 +74,7 @@ func on_audience_rofl():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	if Comedian:
-		var to_comedian = Comedian.position - position
+	if get_parent().current_comedian:
+		var to_comedian = get_parent().current_comedian.position - position
 		to_comedian.y = 0.0
 		look_at(position + to_comedian)

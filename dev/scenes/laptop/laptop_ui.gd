@@ -1,12 +1,28 @@
 extends Node2D
 
-@export var comedian_buttons:VBoxContainer
+@export var comedian_buttons : Array
+var comedians
+var container : VBoxContainer
+var button
 
-# Called when the node enters the scene tree for the first time.
+
 func _ready():
-	pass # Replace with function body.
+	setup()
+	reset()
 
+func setup():
+	container = get_node("Container/HBoxContainer/Comedians/ScrollContainer/VBoxContainer")
+	button = container.get_child(0)
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
+func reset():
+	comedians = ComedianPool.get_available_comedians(6)
+	
+	var newButton
+	
+	for comedian in comedians:
+		newButton = button.duplicate()
+		newButton.setup(comedian)
+		newButton.text = comedian.name
+		container.add_child(newButton)
+	
+	button.queue_free()
