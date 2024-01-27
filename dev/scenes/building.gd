@@ -44,6 +44,8 @@ func _ready():
 func on_start_game():
 	$MainCamera.current = true
 	$TitleScreen.visible = false
+	$AspectRatioContainer.visible = true
+	$MusicStreamPlayer.volume_db = -10.0
 
 
 func on_start_show():

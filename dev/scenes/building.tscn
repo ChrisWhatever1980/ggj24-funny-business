@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://4xkgb6wyhpkb"]
+[gd_scene load_steps=31 format=3 uid="uid://4xkgb6wyhpkb"]
 
 [ext_resource type="Script" path="res://scenes/building.gd" id="1_no7ks"]
 [ext_resource type="PackedScene" uid="uid://bdlhljeuhdyc0" path="res://models/comedy_club.glb" id="1_xfk75"]
@@ -15,6 +15,7 @@
 [ext_resource type="AudioStream" uid="uid://w6tn87txnwy" path="res://audio/kaching_2.ogg" id="12_m7fqk"]
 [ext_resource type="PackedScene" uid="uid://m0e7yyqwsep0" path="res://scenes/bartender_minigame.tscn" id="13_l0k3m"]
 [ext_resource type="PackedScene" uid="uid://ch6dqver80ept" path="res://scenes/title.tscn" id="14_lgqev"]
+[ext_resource type="AudioStream" uid="uid://dnphkf1m1q50" path="res://audio/music-loop.ogg" id="16_r4aer"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_dldv6"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -214,6 +215,7 @@ GuestScene = ExtResource("2_idpge")
 CoinScene = ExtResource("3_e5f0h")
 
 [node name="AspectRatioContainer" type="AspectRatioContainer" parent="."]
+visible = false
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -291,7 +293,7 @@ fov = 77.3
 transform = Transform3D(0.968877, -0.244586, -0.0381449, 0.219847, 0.921022, -0.321538, 0.113776, 0.303144, 0.946128, 17, 10, 0)
 
 [node name="SpotLight2" parent="." instance=ExtResource("8_3sd2r")]
-transform = Transform3D(0.9805, 0.00739002, 0.196382, 0.0348713, 0.976893, -0.210867, -0.193403, 0.213603, 0.957585, -14.7558, 10, 0)
+transform = Transform3D(0.9805, 0.00739002, 0.196382, 0.0348713, 0.976892, -0.210867, -0.193403, 0.213603, 0.957585, -14.7558, 10, 0)
 
 [node name="FloorBody" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.586503, 0)
@@ -345,6 +347,11 @@ current = true
 
 [node name="stool" parent="." instance=ExtResource("3_lcvpm")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.50777, 0, -2.19696)
+
+[node name="MusicStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("16_r4aer")
+volume_db = -10.111
+autoplay = true
 
 [connection signal="area_entered" from="comedy_club/ExitArea3D" to="." method="_on_exit_entered"]
 [connection signal="area_entered" from="stage/StageArea" to="." method="_on_stage_entered"]
