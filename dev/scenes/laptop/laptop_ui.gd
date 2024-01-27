@@ -18,7 +18,7 @@ func _ready():
 
 func reset():
 	comedians = ComedianPool.get_available_comedians()
-	budget.text = "$"+str(GameState.money)
+	budget.text = "$" + str(GameState.money)
 	
 	for comedian in comedians:
 		add_available(comedian)

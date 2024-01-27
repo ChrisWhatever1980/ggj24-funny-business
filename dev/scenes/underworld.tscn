@@ -81,19 +81,6 @@ light_energy = 16.0
 spot_range = 14.8043
 spot_angle = 56.9232
 
-[node name="AspectRatioContainer" type="AspectRatioContainer" parent="."]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="Button" type="Button" parent="AspectRatioContainer"]
-visible = false
-layout_mode = 2
-size_flags_vertical = 8
-text = "SACRIFICE"
-
 [node name="FogVolume" type="FogVolume" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.09158, -11.1979, 12.5973)
 size = Vector3(12.6928, 1, 14)
@@ -104,8 +91,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.31273, 0, 0)
 
 [node name="Plank" parent="comedian_plank" index="0"]
 surface_material_override/0 = SubResource("StandardMaterial3D_3f17c")
-
-[connection signal="pressed" from="AspectRatioContainer/Button" to="." method="_on_button_pressed"]
 
 [editable path="underworld"]
 [editable path="comedian_plank"]

@@ -43,11 +43,12 @@ func _ready():
 
 func on_start_game():
 	$MainCamera.current = true
-	$TitleScreen.visible = false
+	$AspectRatioContainer/TitleScreen.visible = false
 	$AspectRatioContainer.visible = true
 	$MusicStreamPlayer.volume_db = -10.0
 	$SpotLight.light_color = Color.WHITE
 	$SpotLight2.light_color = Color.WHITE
+	$BartenderMinigame.visible = true
 
 
 func on_start_show():
@@ -67,7 +68,7 @@ func on_start_show():
 
 func generate_audience(num_guests):
 	var sampling = PoissonDiscSampling.new()
-	var points = sampling.generate_2d_points(3.0, floor_rect, 5)
+	var points = sampling.generate_2d_points(2.0, floor_rect, 5)
 	print("Points: " + str(points.size()))
 	num_guests = min(num_guests, points.size())
 	for g in num_guests:
@@ -171,24 +172,22 @@ func _on_stage_entered(area):
 func go_to_underworld():
 	$AnimationPlayer.play("to_underworld")
 	$BartenderMinigame.visible = false
+	$AspectRatioContainer/EndShowButton.visible = false
 	
 	# put up comedians for judgement
 	var death_idx = 0
 	for comedian in get_tree().get_nodes_in_group("Comedians"):
-		comedian.position = get_node("Underworld/comedian_plank/ComedianDeath0").position
-		comedian.show_earnings(100)
-
+		print("Put comedian on plank!")
+		comedian.position = get_node("Underworld/comedian_plank/ComedianDeath" + str(death_idx)).position
 
 
 func set_location(_upstairs):
 	in_the_club = _upstairs
 	print("In the club: " + str(in_the_club))
-	$Underworld/AspectRatioContainer/Button.visible = !in_the_club
 
 
 func go_to_club():
 	$AnimationPlayer.play_backwards("to_underworld")
-	$Underworld/AspectRatioContainer/Button.visible = false
 	$BartenderMinigame.visible = true
 
 
@@ -208,4 +207,5 @@ func _physics_process(delta):
 
 
 func _on_end_show_button_pressed():
+	print("")
 	go_to_underworld()
