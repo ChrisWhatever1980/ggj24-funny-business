@@ -2,6 +2,8 @@ extends Node
 
 
 signal audience_react
+signal spawn_coin
+signal increase_money
 
 
 func connect_event(_signal: String, target: Object, method: String, binds: Array = [  ], flags: int = 0):

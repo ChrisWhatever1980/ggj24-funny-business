@@ -1,6 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://ii7lpcj3odym"]
+[gd_scene load_steps=18 format=3 uid="uid://ii7lpcj3odym"]
 
 [ext_resource type="Script" path="res://scenes/coin.gd" id="1_dg68g"]
+[ext_resource type="Texture2D" uid="uid://dn6bxiswqdxjb" path="res://addons/kenney_particle_pack/circle_03.png" id="2_nu2p0"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_snevw"]
+bounce = 1.0
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_m24ee"]
 height = 0.1
@@ -48,8 +52,53 @@ _data = {
 }
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_l5cdv"]
+size = Vector3(1.5, 1.5, 1.5)
 
-[node name="Coin" type="Node3D"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_moc27"]
+
+[sub_resource type="Curve" id="Curve_r0sii"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_b41lw"]
+curve = SubResource("Curve_r0sii")
+
+[sub_resource type="Curve" id="Curve_b2shb"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_r5exl"]
+curve = SubResource("Curve_b2shb")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_jcyaa"]
+direction = Vector3(1, 1, 1)
+spread = 180.0
+initial_velocity_min = 5.0
+initial_velocity_max = 5.0
+gravity = Vector3(0, 0, 0)
+scale_curve = SubResource("CurveTexture_r5exl")
+alpha_curve = SubResource("CurveTexture_b41lw")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_aia0k"]
+transparency = 1
+shading_mode = 0
+vertex_color_use_as_albedo = true
+albedo_texture = ExtResource("2_nu2p0")
+billboard_mode = 3
+billboard_keep_scale = true
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="QuadMesh" id="QuadMesh_jj6tq"]
+material = SubResource("StandardMaterial3D_aia0k")
+
+[node name="Coin" type="RigidBody3D"]
+axis_lock_angular_x = true
+axis_lock_angular_y = true
+axis_lock_angular_z = true
+physics_material_override = SubResource("PhysicsMaterial_snevw")
+gravity_scale = 3.0
 script = ExtResource("1_dg68g")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
@@ -68,5 +117,19 @@ autoplay = "turn_animation"
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.593381, 0)
 shape = SubResource("BoxShape3D_l5cdv")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.594838, 0)
+shape = SubResource("BoxShape3D_moc27")
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.602987, 0)
+emitting = false
+lifetime = 0.5
+one_shot = true
+explosiveness = 1.0
+visibility_aabb = AABB(-16.1107, -13.3113, -13.5274, 32.2214, 26.6227, 27.0549)
+process_material = SubResource("ParticleProcessMaterial_jcyaa")
+draw_pass_1 = SubResource("QuadMesh_jj6tq")
 
 [connection signal="input_event" from="Area3D" to="." method="_on_area_3d_input_event"]

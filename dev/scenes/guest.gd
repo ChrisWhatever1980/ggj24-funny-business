@@ -2,6 +2,8 @@ extends RigidBody3D
 
 
 var humor_modifier = 0
+var max_amusement = 2
+var tip_probability = 0.3
 
 
 # Called when the node enters the scene tree for the first time.
@@ -24,6 +26,10 @@ func on_audience_react(joke_quality):
 			freeze = false
 			print("rofl")
 			$AnimationPlayer.play("rofl")
+	
+	if guest_react == max_amusement and randf() <= tip_probability:
+		for c in range(0, randi_range(1, 2)):
+			GameEvents.emit_signal("spawn_coin", position)
 
 
 func on_audience_rofl():
