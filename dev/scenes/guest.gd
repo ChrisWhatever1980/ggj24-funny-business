@@ -3,8 +3,9 @@ extends RigidBody3D
 
 var humor_modifier = 0
 var max_amusement = 2
+var min_amusement = -3
 var tip_probability = 0.3
-
+var mood = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -12,8 +13,14 @@ func _ready():
 	humor_modifier = randi_range(-1, 1)
 
 
+func set_mood(_mood):
+	
+
+
+
 func on_audience_react(joke_quality):
 	await get_tree().create_timer(randf()).timeout
+
 	var guest_react = clamp(joke_quality + humor_modifier, -1, 3)
 	
 	match guest_react:
@@ -33,6 +40,10 @@ func on_audience_react(joke_quality):
 	if guest_react == max_amusement and randf() <= tip_probability:
 		for c in range(0, randi_range(1, 2)):
 			GameEvents.emit_signal("spawn_coin", position)
+	
+	if guest_react == min_amusement:
+		queue_free()
+		
 
 
 func on_audience_rofl():
