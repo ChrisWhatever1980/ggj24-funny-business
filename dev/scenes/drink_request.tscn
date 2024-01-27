@@ -1,0 +1,42 @@
+[gd_scene load_steps=5 format=3 uid="uid://behqxgbrq61sp"]
+
+[ext_resource type="Script" path="res://scenes/drink_request.gd" id="1_0mn4s"]
+[ext_resource type="Texture2D" uid="uid://ppbilry0a53g" path="res://textures/beer_request.png" id="2_rsdt7"]
+[ext_resource type="Script" path="res://scenes/FailureProgressBar.gd" id="3_bnotm"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6k5pm"]
+size = Vector2(72, 72)
+
+[node name="Area2D" type="Area2D"]
+script = ExtResource("1_0mn4s")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_6k5pm")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_rsdt7")
+
+[node name="FailureTimer" type="Timer" parent="."]
+wait_time = 10.0
+one_shot = true
+autostart = true
+
+[node name="TipTimer" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+autostart = true
+
+[node name="FailureProgressBar" type="ProgressBar" parent="."]
+offset_left = -42.0
+offset_top = 39.0
+offset_right = 39.0
+offset_bottom = 56.0
+max_value = 1.0
+value = 1.0
+show_percentage = false
+script = ExtResource("3_bnotm")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="timeout" from="FailureTimer" to="." method="_on_failure_timer_timeout"]
+[connection signal="timeout" from="TipTimer" to="." method="_on_tip_timer_timeout"]
+[connection signal="timeout" from="TipTimer" to="FailureProgressBar" method="_on_tip_timer_timeout"]

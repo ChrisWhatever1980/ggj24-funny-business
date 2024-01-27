@@ -7,7 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://ii7lpcj3odym" path="res://scenes/coin.tscn" id="3_e5f0h"]
 [ext_resource type="PackedScene" uid="uid://c4fuk2e1l2kf1" path="res://models/stage.glb" id="3_lcvpm"]
 [ext_resource type="PackedScene" uid="uid://dh1iy0je7c6l7" path="res://scenes/spot_light.tscn" id="8_3sd2r"]
-[ext_resource type="PackedScene" uid="uid://xw4q52xtmcl5" path="res://scenes/laptop.tscn" id="8_6tjwg"]
+[ext_resource type="PackedScene" uid="uid://xw4q52xtmcl5" path="res://scenes/laptop/laptop.tscn" id="8_6tjwg"]
 [ext_resource type="AudioStream" uid="uid://cuevafyfretln" path="res://audio/kaching_0.ogg" id="10_7w2yh"]
 [ext_resource type="AudioStream" uid="uid://gkkwi1qrw4pg" path="res://audio/kaching_1.ogg" id="11_ganae"]
 [ext_resource type="PackedScene" uid="uid://bnkasdwoiayuj" path="res://scenes/underworld.tscn" id="12_gmibf"]

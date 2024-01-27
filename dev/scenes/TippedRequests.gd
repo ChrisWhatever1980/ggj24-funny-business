@@ -1,6 +1,5 @@
-extends Area2D
+extends Control
 
-var beer_request = preload("res://scenes/drink_request.tscn")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -11,8 +10,6 @@ func _ready():
 func _process(delta):
 	pass
 
-func spawn_request(x, y):
-	var request = beer_request.instantiate()
-	request.position = Vector2(x, y)
-	add_child(request)
-	return request
+
+func _on_root_update_tipped_requests(count: int):
+	$Counter.text = str(count)

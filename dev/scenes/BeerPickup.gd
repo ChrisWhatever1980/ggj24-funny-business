@@ -2,7 +2,7 @@ extends Area2D
 
 var hovering= false
 
-var draggable_beer = preload("res://draggable_beer.tscn")
+var draggable_beer = preload("res://scenes/draggable_beer.tscn")
 var dragging = false
 var dragged_beer = null
 
@@ -14,7 +14,7 @@ func _ready():
 func _process(delta):
 	if dragging and Input.is_action_just_released("click_left"):
 		dragging = false
-		dragged_beer.disappear()
+		dragged_beer.drop()
 		dragged_beer = null
 	
 	if hovering and not dragging and Input.is_action_just_pressed("click_left"):
