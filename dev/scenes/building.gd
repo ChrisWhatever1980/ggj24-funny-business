@@ -20,16 +20,17 @@ extends Node3D
 
 var current_wait_slot = 0
 var money = 0
-
+var in_the_club = true
 var current_comedian = null
 
 
 func _ready():
 
 	GameEvents.connect_event("spawn_coin", self, "on_spawn_coin")
-	GameEvents.connect_event("increase_money", self, "on_increase_money")
 	GameEvents.connect_event("spawn_tomato", self, "on_spawn_tomato")
 	GameEvents.connect_event("spawn_tomato_splat", self, "on_spawn_tomato_splat")
+	GameEvents.connect_event("spawn_puddle", self, "on_spawn_puddle")
+	GameEvents.connect_event("change_money", self, "on_change_money")
 
 	var pos = $comedy_club/FloorArea.position
 	var size = $comedy_club/FloorArea/CollisionShape3D.shape.size
@@ -60,6 +61,13 @@ func spawn_comedian(comedian_idx):
 	add_child(new_comedian)
 
 
+func on_spawn_puddle(pos):
+	var new_puddle = preload("res://scenes/puddle.tscn").instantiate()
+	new_puddle.position = pos
+	print("puddle")
+	add_child(new_puddle)
+
+
 func on_spawn_tomato_splat(pos):
 	var new_splat = preload("res://scenes/tomato_splat.tscn").instantiate()
 	new_splat.position = pos
@@ -77,8 +85,8 @@ func on_spawn_tomato(pos):
 		new_tomato.apply_impulse(to_comedian * 10.0 + to_right * 0.2 * randf_range(-1, 1) + Vector3(0, 10.0,0))
 
 
-func on_increase_money():
-	money += 1
+func on_change_money(value):
+	GameState.money = max(GameState.money + value, 0)
 	match randi_range(0, 2):
 		0:
 			$MoneyEarnedAudio0.play()
@@ -86,7 +94,9 @@ func on_increase_money():
 			$MoneyEarnedAudio1.play()
 		2:
 			$MoneyEarnedAudio2.play()
-	print("Money: " + str(money))
+			
+	$AspectRatioContainer/HBoxContainer/MoneyAmount.text = str(GameState.money)
+	print("Money: " + str(GameState.money))
 
 
 func on_spawn_coin(pos):
@@ -98,13 +108,12 @@ func on_spawn_coin(pos):
 
 
 func _process(delta):
+	if in_the_club and Input.is_action_just_pressed("ui_down"):
+		go_to_underworld()
+	if !in_the_club and Input.is_action_just_pressed("ui_up"):
+		go_to_club()
+	
 	pass
-
-
-func _on_timer_timeout():
-	var joke_quality = 2#randi_range(-1, 2)
-	print("joke_quality: " + str(joke_quality))
-	GameEvents.emit_signal("audience_react", joke_quality)
 
 
 func _on_exit_entered(area):
@@ -122,3 +131,21 @@ func _on_stage_entered(area):
 	# save for post show evaluation
 	current_comedian = area.get_parent()
 	current_comedian.begin_performance()
+
+
+func go_to_underworld():
+	$AnimationPlayer.play("to_underworld")
+	$BartenderMinigame.visible = false
+
+
+func set_location(_upstairs):
+	in_the_club = _upstairs
+	print("In the club: " + str(in_the_club))
+	$Underworld/AspectRatioContainer/Button.visible = !in_the_club
+
+
+func go_to_club():
+	$AnimationPlayer.play_backwards("to_underworld")
+	$Underworld/AspectRatioContainer/Button.visible = false
+	$BartenderMinigame.visible = true
+

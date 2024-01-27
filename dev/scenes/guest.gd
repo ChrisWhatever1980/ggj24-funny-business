@@ -6,7 +6,9 @@ var max_amusement = 2
 var min_amusement = -3
 var tip_probability = 0.3
 var throw_probability = 0.6
+var thirsty_probability = 0.3
 var mood = 0
+var requesting_drink = false
 
 
 var moods = [
@@ -32,6 +34,8 @@ func _ready():
 	humor_modifier = randi_range(-4, 4)
 	$AnimationPlayer.seek($AnimationPlayer.current_animation_length * randf())
 
+	$Timer.wait_time = 5.0 + randf() * 10.0
+
 
 func set_mood(_mood):
 	$Node3D/person/Sprite3D.frame = moods[_mood]
@@ -45,23 +49,54 @@ func on_audience_idle():
 func on_audience_react(joke_quality):
 	await get_tree().create_timer(randf()).timeout
 
-	var guest_react = clamp(joke_quality + humor_modifier, -1, 3)
+	#var guest_react = clamp(joke_quality + humor_modifier, -1, 3)
+	var guest_react = joke_quality#clamp( + humor_modifier, -1, 3)
+	
+	print("AUdience reacting: " + str(guest_react))
 
 	match guest_react:
-		0:	# throw tomatoes
+		0:		# mood 8: dead
+			# explode
+			pass
+		1:		# angry
 			if randf() < throw_probability:
 				GameEvents.emit_signal("spawn_tomato", position)
-		1:	# gut-shaking laugh
-			freeze = true
-			$AnimationPlayer.play("laugh")
-		2:	# jump up and drop
+		2:		# lame
+			if randf() < throw_probability:
+				GameEvents.emit_signal("spawn_tomato", position)
+			pass
+		3:		# sad
+			if randf() < throw_probability:
+				GameEvents.emit_signal("spawn_tomato", position)
+			pass
+		4:		# worst joke ever
+			if randf() < throw_probability:
+				GameEvents.emit_signal("spawn_tomato", position)
+			pass
+		5:		# dont get it
+			GameEvents.emit_signal("spawn_puddle", position)
+			pass
+		6:		# amused
+			print("spawn_puddle")
+			GameEvents.emit_signal("spawn_puddle", position)
+			pass
+		7:		# chuckle
+			GameEvents.emit_signal("spawn_puddle", position)
+			pass
+		8:		# schadenfreude
 			freeze = false
 			apply_impulse(Vector3.UP * 0.4)
-		3:	#rofl
+			pass
+		9:		# thats me
+			freeze = true
+			$AnimationPlayer.play("laugh")
+		10:		# good one
+			GameEvents.emit_signal("spawn_puddle", position)
+		11:		# hilarious
 			freeze = false
 			$AnimationPlayer.play("rofl_animation")
 
-	set_mood(clamp(guest_react, 0, moods.size()))
+	set_mood(clamp(guest_react, 0, moods.size() - 1))
 
 	if guest_react == max_amusement and randf() <= tip_probability:
 		for c in range(0, randi_range(1, 2)):
@@ -83,3 +118,14 @@ func _process(delta):
 		var to_comedian = get_parent().current_comedian.position - position
 		to_comedian.y = 0.0
 		look_at(position + to_comedian)
+
+
+func received_drink():
+	print("PROST!")
+
+
+func _on_timer_timeout():
+	if !requesting_drink and randf() < thirsty_probability:
+		GameEvents.emit_signal("request_drink", position)
+		$Timer.wait_time = 5.0 + randf() * 10.0
+		requesting_drink = true

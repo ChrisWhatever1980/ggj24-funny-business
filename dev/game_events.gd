@@ -3,10 +3,12 @@ extends Node
 
 signal audience_react
 signal spawn_coin
-signal increase_money
+signal change_money
 signal spawn_tomato
 signal spawn_tomato_splat
 signal audience_idle
+signal spawn_puddle
+signal request_drink
 
 
 func connect_event(_signal: String, target: Object, method: String, binds: Array = [  ], flags: int = 0):

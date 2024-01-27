@@ -1,0 +1,100 @@
+[gd_scene load_steps=14 format=3 uid="uid://bnkasdwoiayuj"]
+
+[ext_resource type="Script" path="res://scenes/underworld.gd" id="1_12n00"]
+[ext_resource type="PackedScene" uid="uid://gxe2huwq8y5s" path="res://models/underworld.glb" id="1_ti1ah"]
+[ext_resource type="AudioStream" uid="uid://bpgrj3a82tdp0" path="res://audio/devil_laugh.ogg" id="3_ns2dr"]
+[ext_resource type="Shader" uid="uid://divbrtdl6nbrx" path="res://scenes/sacrifice_pool.tres" id="4_q377h"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_prmot"]
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_n44ud"]
+albedo_color = Color(0.145098, 0, 0, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_b7t5u"]
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8f15r"]
+render_priority = 0
+shader = ExtResource("4_q377h")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nkxvx"]
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8k1ax"]
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_j7uww"]
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_r6p5u"]
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="FogMaterial" id="FogMaterial_tia53"]
+albedo = Color(1, 0.133333, 0.00392157, 1)
+emission = Color(0.741176, 0.027451, 0.0784314, 1)
+height_falloff = 2.0
+
+[node name="Underworld" type="Node3D"]
+script = ExtResource("1_12n00")
+
+[node name="underworld" parent="." instance=ExtResource("1_ti1ah")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.04989, 0, 0)
+
+[node name="Underworld" parent="underworld" index="0"]
+surface_material_override/0 = SubResource("StandardMaterial3D_prmot")
+
+[node name="TheDevil" parent="underworld" index="1"]
+transform = Transform3D(1, 0, 0, 0, 0.958591, -0.284785, 0, 0.284785, 0.958591, 0, 0.836732, 2.39237)
+surface_material_override/0 = SubResource("StandardMaterial3D_n44ud")
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="underworld/TheDevil" index="0"]
+stream = ExtResource("3_ns2dr")
+
+[node name="SoulSacrificeAltar" parent="underworld" index="2"]
+surface_material_override/0 = SubResource("StandardMaterial3D_b7t5u")
+
+[node name="PoolSurface" parent="underworld" index="3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.278502, -10.4285, 12.6293)
+surface_material_override/0 = SubResource("ShaderMaterial_8f15r")
+
+[node name="SpotLight3D" type="SpotLight3D" parent="underworld"]
+transform = Transform3D(-1, 0, -8.74228e-08, -3.40028e-08, 0.92126, 0.388947, 8.05391e-08, 0.388947, -0.92126, 0, -4.82555, 3.96676)
+light_color = Color(1, 0, 0, 1)
+light_energy = 16.0
+spot_range = 14.8043
+spot_angle = 56.9232
+
+[node name="Icosphere_010" parent="underworld" index="5"]
+surface_material_override/0 = SubResource("StandardMaterial3D_nkxvx")
+
+[node name="Icosphere_011" parent="underworld" index="6"]
+surface_material_override/0 = SubResource("StandardMaterial3D_8k1ax")
+
+[node name="Icosphere_012" parent="underworld" index="7"]
+surface_material_override/0 = SubResource("StandardMaterial3D_j7uww")
+
+[node name="Icosphere_013" parent="underworld" index="8"]
+surface_material_override/0 = SubResource("StandardMaterial3D_r6p5u")
+
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Button" type="Button" parent="AspectRatioContainer"]
+visible = false
+layout_mode = 2
+size_flags_vertical = 8
+text = "SACRIFICE"
+
+[node name="FogVolume" type="FogVolume" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.09158, -11.1979, 12.5973)
+size = Vector3(12.6928, 1, 14)
+material = SubResource("FogMaterial_tia53")
+
+[connection signal="pressed" from="AspectRatioContainer/Button" to="." method="_on_button_pressed"]
+
+[editable path="underworld"]
