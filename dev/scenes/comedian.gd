@@ -13,7 +13,7 @@ var exiting_speed = 5.0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	$NameLabel.text = stats.name
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -68,9 +68,3 @@ func _on_area_3d_input_event(camera, event, position, normal, shape_idx):
 					to_target.y = 0.0
 					to_target = to_target.normalized()
 					GameEvents.emit_signal("audience_idle")
-
-
-func show_earnings(earnings):
-	$EarningsLabel.text = "Earnings: " + str(earnings)
-	$EarningsLabel.visible = true
-	

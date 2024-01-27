@@ -222,6 +222,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="AspectRatioContainer"]
+visible = false
 layout_mode = 2
 size_flags_vertical = 0
 mouse_filter = 2
@@ -297,7 +298,7 @@ transform = Transform3D(0.968876, -0.244586, -0.0381449, 0.219846, 0.921022, -0.
 light_color = Color(0.705882, 0, 0.145098, 1)
 
 [node name="SpotLight2" parent="." instance=ExtResource("8_3sd2r")]
-transform = Transform3D(0.980499, 0.00739001, 0.196382, 0.0348713, 0.976892, -0.210867, -0.193402, 0.213603, 0.957585, -14.7558, 10, 0)
+transform = Transform3D(0.980498, 0.00739001, 0.196382, 0.0348713, 0.976892, -0.210867, -0.193402, 0.213603, 0.957585, -14.7558, 10, 0)
 light_color = Color(0.627451, 0.0313726, 0.172549, 1)
 
 [node name="FloorBody" type="StaticBody3D" parent="."]
