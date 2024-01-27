@@ -2,14 +2,13 @@
 
 [ext_resource type="PackedScene" uid="uid://bwh85febtw78q" path="res://models/person.glb" id="1_dad64"]
 [ext_resource type="Script" path="res://scenes/comedian.gd" id="1_o08b2"]
-[ext_resource type="Resource" uid="uid://1h6yuhexhaf6" path="res://resources/comedian_stats.tres" id="2_3sjw3"]
 
 [sub_resource type="Animation" id="Animation_egt2o"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("position")
+tracks/0/path = NodePath(".:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -26,7 +25,7 @@ loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("position")
+tracks/0/path = NodePath(".:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -42,9 +41,12 @@ _data = {
 "comedian_routine": SubResource("Animation_8evor")
 }
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_cxc56"]
+size = Vector3(2.31738, 3.8208, 2.35645)
+
 [node name="Comedian" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.18501, 1.07653, -14.677)
 script = ExtResource("1_o08b2")
-stats = ExtResource("2_3sjw3")
 
 [node name="person" parent="." instance=ExtResource("1_dad64")]
 
@@ -58,4 +60,12 @@ libraries = {
 }
 autoplay = "comedian_routine"
 
+[node name="Area3D" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.370006, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0307617, 1.4104, -0.0102539)
+shape = SubResource("BoxShape3D_cxc56")
+
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="input_event" from="Area3D" to="." method="_on_area_3d_input_event"]

@@ -1,4 +1,6 @@
-[gd_scene format=3 uid="uid://bi62kfqbonnfa"]
+[gd_scene load_steps=2 format=3 uid="uid://bi62kfqbonnfa"]
+
+[ext_resource type="Theme" path="res://addons/windows_95_theme/save1.tres" id="1_vbaug"]
 
 [node name="Node2D" type="Node2D"]
 
@@ -13,10 +15,12 @@ offset_bottom = 333.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
+theme = ExtResource("1_vbaug")
 metadata/_edit_group_ = true
 
 [node name="HBoxContainer" type="HBoxContainer" parent="AspectRatioContainer"]
 layout_mode = 2
+theme = ExtResource("1_vbaug")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="AspectRatioContainer/HBoxContainer"]
 layout_mode = 2
@@ -29,6 +33,7 @@ text = "Comedians:
 
 [node name="Button" type="Button" parent="AspectRatioContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
+theme = ExtResource("1_vbaug")
 text = "Comedian_1
 "
 
@@ -57,6 +62,7 @@ text = "Comedian_6
 "
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="AspectRatioContainer/HBoxContainer"]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 0
 

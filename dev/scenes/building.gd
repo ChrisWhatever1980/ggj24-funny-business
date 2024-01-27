@@ -5,7 +5,17 @@ extends Node3D
 @export var CoinScene:PackedScene
 
 
+@onready var ComedianExit = $comedy_club/ComedianExit
+@onready var ComedianWait1 = $comedy_club/ComedianWait1
+@onready var ComedianWait2 = $comedy_club/ComedianWait2
+@onready var ComedianWait3 = $comedy_club/ComedianWait3
+@onready var ComedianWait4 = $comedy_club/ComedianWait4
+@onready var ComedianWait5 = $comedy_club/ComedianWait5
+
+
 @onready var Comedian = $Comedian
+
+
 var money = 0
 
 
@@ -32,6 +42,11 @@ func _ready():
 		new_guest.rotation.y = randf() * 2.0 * PI
 		add_child(new_guest)
 		points.erase(point)
+
+
+func spawn_comedian():
+	var new_comedian = preload("res://scenes/comedian.tscn")
+	new_comedian.position = $comedy_club/ComedianWait1.position
 
 
 func on_spawn_tomato_splat(pos):
@@ -78,3 +93,9 @@ func _on_timer_timeout():
 	var joke_quality = 2#randi_range(-1, 2)
 	print("joke_quality: " + str(joke_quality))
 	GameEvents.emit_signal("audience_react", joke_quality)
+
+
+func _on_area_3d_area_entered(area):
+	# comedian entered exit
+	print("Comedian has left the building")
+	# save for post show evaluation
