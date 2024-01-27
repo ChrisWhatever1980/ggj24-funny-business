@@ -7,6 +7,7 @@ extends Node3D
 
 @onready var ComedianExit = $comedy_club/ComedianExit
 @onready var StagePosition = $StagePosition
+@onready var LaptopCamera = $Laptop/laptop/Camera3D
 
 
 @onready var ComedianWaitSlots = [
@@ -22,9 +23,12 @@ var current_wait_slot = 0
 var money = 0
 var in_the_club = true
 var current_comedian = null
+var floor_rect
 
 
 func _ready():
+
+	LaptopCamera.current = true
 
 	GameEvents.connect_event("spawn_coin", self, "on_spawn_coin")
 	GameEvents.connect_event("spawn_tomato", self, "on_spawn_tomato")
@@ -34,13 +38,18 @@ func _ready():
 
 	var pos = $comedy_club/FloorArea.position
 	var size = $comedy_club/FloorArea/CollisionShape3D.shape.size
-	var floor_rect = Rect2(pos.x - size.x / 2, pos.z - size.z / 2, size.x, size.z)
-	print(str(floor_rect))
-	
+	floor_rect = Rect2(pos.x - size.x / 2, pos.z - size.z / 2, size.x, size.z)
+
+
+func start_show():
+	generate_audience(30)
+
+
+func generate_audience(num_guests):
 	var sampling = PoissonDiscSampling.new()
 	var points = sampling.generate_2d_points(3.0, floor_rect, 5)
 	print("Points: " + str(points.size()))
-	var num_guests = points.size()
+	num_guests = max(num_guests, points.size())
 	for g in num_guests:
 		var point = points.pick_random()
 		var new_guest = GuestScene.instantiate()
@@ -48,7 +57,7 @@ func _ready():
 		new_guest.rotation.y = randf() * 2.0 * PI
 		add_child(new_guest)
 		points.erase(point)
-	
+
 	for c in range(0, 5):
 		spawn_comedian(c + 1)
 
@@ -87,16 +96,16 @@ func on_spawn_tomato(pos):
 
 func on_change_money(value):
 	GameState.money = max(GameState.money + value, 0)
-	match randi_range(0, 2):
-		0:
-			$MoneyEarnedAudio0.play()
-		1:
-			$MoneyEarnedAudio1.play()
-		2:
-			$MoneyEarnedAudio2.play()
-			
+	if value > 0:
+		match randi_range(0, 2):
+			0:
+				$MoneyEarnedAudio0.play()
+			1:
+				$MoneyEarnedAudio1.play()
+			2:
+				$MoneyEarnedAudio2.play()
 	$AspectRatioContainer/HBoxContainer/MoneyAmount.text = str(GameState.money)
-	print("Money: " + str(GameState.money))
+	$Laptop/SubViewport/Node2D/Container/VBoxContainer/MarginContainer/HBoxContainer2/HBoxContainer/Budget#.text = "$" + str(money)
 
 
 func on_spawn_coin(pos):
@@ -112,7 +121,9 @@ func _process(delta):
 		go_to_underworld()
 	if !in_the_club and Input.is_action_just_pressed("ui_up"):
 		go_to_club()
-	
+	if Input.is_action_just_pressed("ui_cancel"):
+		get_tree().quit()
+
 	pass
 
 

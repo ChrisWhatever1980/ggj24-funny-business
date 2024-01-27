@@ -189,7 +189,6 @@ current = true
 fov = 77.3
 
 [node name="AudioListener3D" type="AudioListener3D" parent="Camera3D"]
-current = true
 
 [node name="SpotLight" parent="." instance=ExtResource("8_3sd2r")]
 transform = Transform3D(0.968877, -0.244587, -0.0381451, 0.219847, 0.921022, -0.321537, 0.113776, 0.303144, 0.946128, 17, 10, 0)
@@ -205,9 +204,6 @@ collision_mask = 6
 [node name="CollisionShape3D" type="CollisionShape3D" parent="FloorBody"]
 shape = SubResource("BoxShape3D_4hxpl")
 
-[node name="Laptop" parent="." instance=ExtResource("8_6tjwg")]
-transform = Transform3D(0.788043, 0, -0.61562, 0, 1, 0, 0.61562, 0, 0.788043, -14.392, 2.7058, 2.72985)
-
 [node name="MoneyEarnedAudio0" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource("10_7w2yh")
 
@@ -222,6 +218,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.185, 1.077, -14.677)
 
 [node name="StageArea" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.18343, 0, -14.7074)
+input_ray_pickable = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StageArea"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.28202, 3.20389, -1.53896)
@@ -235,6 +232,9 @@ libraries = {
 [node name="Underworld" parent="." instance=ExtResource("12_gmibf")]
 
 [node name="BartenderMinigame" parent="." instance=ExtResource("13_l0k3m")]
+
+[node name="Laptop" parent="." instance=ExtResource("8_6tjwg")]
+transform = Transform3D(0.788043, 0, -0.61562, 0, 1, 0, 0.61562, 0, 0.788043, -14.392, 2.7058, 2.72985)
 
 [connection signal="area_entered" from="comedy_club/ExitArea3D" to="." method="_on_exit_entered"]
 [connection signal="area_entered" from="StageArea" to="." method="_on_stage_entered"]
