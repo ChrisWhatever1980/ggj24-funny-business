@@ -5,6 +5,8 @@ var interface
 
 func set_booked( state : bool):
 	book = state
+	disabled = false
+	show()
 	if book:
 		text = "Book"
 	else:
@@ -19,5 +21,8 @@ func _on_button_up():
 		interface.add_available(interface.active_button.comedian)
 		# add money
 		pass
-	
+		
 	interface.active_button.queue_free()
+	
+	disabled = true
+	hide()
