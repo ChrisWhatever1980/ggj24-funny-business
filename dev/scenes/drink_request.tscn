@@ -1,19 +1,27 @@
-[gd_scene load_steps=5 format=3 uid="uid://behqxgbrq61sp"]
+[gd_scene load_steps=6 format=3 uid="uid://behqxgbrq61sp"]
 
 [ext_resource type="Script" path="res://scenes/drink_request.gd" id="1_0mn4s"]
 [ext_resource type="Texture2D" uid="uid://ppbilry0a53g" path="res://textures/beer_request.png" id="2_rsdt7"]
 [ext_resource type="Script" path="res://scenes/FailureProgressBar.gd" id="3_bnotm"]
+[ext_resource type="Texture2D" uid="uid://ddl4cg3xp751w" path="res://textures/requestbubble.png" id="4_l0tsc"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6k5pm"]
-size = Vector2(72, 72)
+size = Vector2(80, 103)
 
 [node name="Area2D" type="Area2D"]
+position = Vector2(192, 155)
 script = ExtResource("1_0mn4s")
 
+[node name="Requestbubble" type="Sprite2D" parent="."]
+position = Vector2(0, -55)
+texture = ExtResource("4_l0tsc")
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -62.5)
 shape = SubResource("RectangleShape2D_6k5pm")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -73)
 texture = ExtResource("2_rsdt7")
 
 [node name="FailureTimer" type="Timer" parent="."]
@@ -27,10 +35,10 @@ one_shot = true
 autostart = true
 
 [node name="FailureProgressBar" type="ProgressBar" parent="."]
-offset_left = -42.0
-offset_top = 39.0
-offset_right = 39.0
-offset_bottom = 56.0
+offset_left = -31.0
+offset_top = -36.0
+offset_right = 32.0
+offset_bottom = -19.0
 max_value = 1.0
 value = 1.0
 show_percentage = false
