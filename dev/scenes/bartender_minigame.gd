@@ -18,6 +18,11 @@ func _ready():
 	GameEvents.connect_event("request_fulfilled", self, "_on_request_fulfilled")
 
 
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	pass
+	
+
 func on_request_drink(pos3D):
 	cam = get_viewport().get_camera_3d()
 	if cam:
