@@ -1,0 +1,15 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://dq1dcekrdgmlh"]
+
+[ext_resource type="Script" path="res://resources/comedian_stats.gd" id="1_opwja"]
+
+[resource]
+script = ExtResource("1_opwja")
+name = "Eduard Murphy"
+cost = 20
+fame = 15
+comedy = 30
+bomb_chance = 10
+hit_chance = 15
+availability = 100
+club_fame_requirement = 0
+endurance = 30

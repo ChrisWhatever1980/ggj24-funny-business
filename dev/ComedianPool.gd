@@ -11,16 +11,21 @@ func _ready():
 	
 	print("Loaded " + str(pool.size()) + " comedian stats")
 
-func get_available_comedians( count : int ) -> Array:
+func get_available_comedians() -> Array:
 	var selection_pool = pool.duplicate()
 	var available = []
 	var index = 0
 	var emergencyCounter = 0
+	var comedian
+	var count = randi_range(3, 5) + randi_range(0, GameState.fame)
 	
 	while available.size() < count:
 		index = randi_range( 0 , selection_pool.size() - 1 )
-		available.append( selection_pool[index])
-		selection_pool.remove_at( index )
+		comedian = selection_pool[index]
+		
+		if comedian.club_fame_requirement <= GameState.fame and comedian.availability >= randi_range(0,100):
+			available.append( selection_pool[index] )
+			selection_pool.remove_at( index )
 		
 		emergencyCounter += 1
 		if emergencyCounter > 100:

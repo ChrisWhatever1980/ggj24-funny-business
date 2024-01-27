@@ -5,11 +5,11 @@
 [resource]
 script = ExtResource("1_y15fb")
 name = "Bobby Williams"
-cost = 10
-fame = 10
-comedy = 10
-bomb_chance = 10
+cost = 1000
+fame = 100
+comedy = 50
+bomb_chance = 0
 hit_chance = 10
 availability = 10
-club_fame_requirement = 0
-endurance = 10
+club_fame_requirement = 10
+endurance = 100

@@ -1,0 +1,15 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://cy30gfmidi4g6"]
+
+[ext_resource type="Script" path="res://resources/comedian_stats.gd" id="1_ial0s"]
+
+[resource]
+script = ExtResource("1_ial0s")
+name = "Steffi Martin"
+cost = 75
+fame = 15
+comedy = 15
+bomb_chance = 15
+hit_chance = 15
+availability = 90
+club_fame_requirement = 0
+endurance = 10

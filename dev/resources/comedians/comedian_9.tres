@@ -1,0 +1,15 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://5vx23j1xrlnj"]
+
+[ext_resource type="Script" path="res://resources/comedian_stats.gd" id="1_4dsiy"]
+
+[resource]
+script = ExtResource("1_4dsiy")
+name = "Mitchell Hetberg"
+cost = 60
+fame = 45
+comedy = 45
+bomb_chance = 50
+hit_chance = 50
+availability = 10
+club_fame_requirement = 0
+endurance = 100

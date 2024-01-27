@@ -16,7 +16,7 @@ func _ready():
 	reset()
 
 func reset():
-	comedians = ComedianPool.get_available_comedians(6)
+	comedians = ComedianPool.get_available_comedians()
 	
 	for comedian in comedians:
 		add_available(comedian)

@@ -1,0 +1,15 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://hd6febfe8by"]
+
+[ext_resource type="Script" path="res://resources/comedian_stats.gd" id="1_tqpt3"]
+
+[resource]
+script = ExtResource("1_tqpt3")
+name = "Rose Dangerfield"
+cost = 85
+fame = 60
+comedy = 60
+bomb_chance = 10
+hit_chance = 10
+availability = 70
+club_fame_requirement = 0
+endurance = 50
