@@ -14,8 +14,9 @@ func set_booked( state : bool):
 
 func _on_button_up():
 	if book:
-		interface.add_booked(interface.active_button.comedian)
-		GameEvents.emit_signal("change_money", -interface.active_button.comedian.cost)
+		if GameState.money > 0:
+			interface.add_booked(interface.active_button.comedian)
+			GameEvents.emit_signal("change_money", -interface.active_button.comedian.cost)
 	else:
 		interface.add_available(interface.active_button.comedian)
 		GameEvents.emit_signal("change_money", interface.active_button.comedian.cost)
