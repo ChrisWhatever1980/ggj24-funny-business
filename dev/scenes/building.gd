@@ -32,10 +32,18 @@ func _ready():
 	GameEvents.connect_event("spawn_puddle", self, "on_spawn_puddle")
 	GameEvents.connect_event("change_money", self, "on_change_money")
 	GameEvents.connect_event("start_show", self, "on_start_show")
+	GameEvents.connect_event("start_game", self, "on_start_game")
 
 	var pos = $comedy_club/FloorArea.position
 	var size = $comedy_club/FloorArea/CollisionShape3D.shape.size
 	floor_rect = Rect2(pos.x - size.x / 2, pos.z - size.z / 2, size.x, size.z)
+
+	$AnimationPlayer.play_backwards("start_game_animation")
+
+
+func on_start_game():
+	$MainCamera.current = true
+	$TitleScreen.visible = false
 
 
 func on_start_show():
