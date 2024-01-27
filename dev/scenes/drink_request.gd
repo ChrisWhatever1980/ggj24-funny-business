@@ -1,7 +1,9 @@
 extends Area2D
 
-signal fulfilled
+signal fulfilled(tip: bool)
 signal timed_out
+
+var tip = true
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -25,6 +27,9 @@ func _on_failure_timer_timeout():
 	timed_out.emit()
 	disappear()
 
+func _on_tip_timer_timeout():
+	tip = false
+
 func highlight_fulfillable(fulfillable: bool):
 	if fulfillable:
 		$Sprite2D.modulate = Color.YELLOW
@@ -33,7 +38,7 @@ func highlight_fulfillable(fulfillable: bool):
 
 func fulfill():
 	$FailureTimer.stop()
-	fulfilled.emit()
+	fulfilled.emit(tip)
 	disappear()
 
 func disappear():

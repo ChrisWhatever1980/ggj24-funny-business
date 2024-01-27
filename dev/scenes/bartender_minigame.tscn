@@ -1,9 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://cilm3p2aktmlp"]
+[gd_scene load_steps=9 format=3 uid="uid://cilm3p2aktmlp"]
 
 [ext_resource type="Script" path="res://scenes/bartender_minigame.gd" id="1_tuwpd"]
 [ext_resource type="Script" path="res://scenes/BeerPickup.gd" id="2_0cwur"]
 [ext_resource type="Script" path="res://scenes/RequestSpawnArea.gd" id="3_3nuw4"]
 [ext_resource type="Texture2D" uid="uid://cqxiulu1khllp" path="res://textures/beer.png" id="3_227f5"]
+[ext_resource type="Script" path="res://scenes/TippedRequests.gd" id="5_a3gsb"]
 [ext_resource type="Script" path="res://scenes/FulfilledRequests.gd" id="5_vwhit"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_o5u7s"]
@@ -63,7 +64,33 @@ offset_right = 141.0
 offset_bottom = 551.0
 text = "0"
 
+[node name="TippedRequests" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 1.0
+offset_top = 68.0
+offset_right = 41.0
+offset_bottom = 108.0
+script = ExtResource("5_a3gsb")
+
+[node name="Label" type="Label" parent="TippedRequests"]
+layout_mode = 0
+offset_left = 52.0
+offset_top = 503.0
+offset_right = 191.0
+offset_bottom = 526.0
+text = "Requests tipped:"
+
+[node name="Counter" type="Label" parent="TippedRequests"]
+layout_mode = 0
+offset_left = 101.0
+offset_top = 528.0
+offset_right = 141.0
+offset_bottom = 551.0
+text = "0"
+
 [connection signal="update_fulfilled_requests" from="." to="FulfilledRequests" method="_on_root_update_fulfilled_requests"]
+[connection signal="update_tipped_requests" from="." to="TippedRequests" method="_on_root_update_tipped_requests"]
 [connection signal="mouse_entered" from="BeerPickupArea" to="BeerPickupArea" method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="BeerPickupArea" to="BeerPickupArea" method="_on_mouse_exited"]
 [connection signal="pressed" from="Button" to="." method="_on_spawn_button_pressed"]
