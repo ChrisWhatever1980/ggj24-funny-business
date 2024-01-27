@@ -20,7 +20,7 @@ func get_available_comedians( count : int ) -> Array:
 	while available.size() < count:
 		index = randi_range( 0 , selection_pool.size() - 1 )
 		available.append( selection_pool[index])
-		available.remove_at( index )
+		selection_pool.remove_at( index )
 		
 		emergencyCounter += 1
 		if emergencyCounter > 100:

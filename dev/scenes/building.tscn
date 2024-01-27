@@ -189,7 +189,6 @@ current = true
 fov = 77.3
 
 [node name="AudioListener3D" type="AudioListener3D" parent="Camera3D"]
-current = true
 
 [node name="SpotLight" parent="." instance=ExtResource("8_3sd2r")]
 transform = Transform3D(0.968877, -0.244587, -0.0381451, 0.219847, 0.921022, -0.321537, 0.113776, 0.303144, 0.946128, 17, 10, 0)

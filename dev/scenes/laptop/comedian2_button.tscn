@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://bjiqerwdngedf"]
+
+[ext_resource type="Script" path="res://scenes/laptop/comedian_button.gd" id="1_ggvk0"]
+
+[node name="Button" type="Button"]
+size_flags_vertical = 3
+text = "Comedian_1
+"
+alignment = 0
+script = ExtResource("1_ggvk0")
+book = false
+
+[connection signal="button_up" from="." to="." method="_on_button_up"]
