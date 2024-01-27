@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://cttwgoog81shd"]
+
+[ext_resource type="PackedScene" uid="uid://xw4q52xtmcl5" path="res://scenes/laptop.tscn" id="1_k77ex"]
+
+[node name="LaptopTest" type="Node3D"]
+
+[node name="Laptop" parent="." instance=ExtResource("1_k77ex")]
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(0.729971, 0, -0.683478, 0, 1, 0, 0.683478, 0, 0.729971, -14.4151, 3.41928, 5.08199)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.71048, 0.393829, -0.583195, 0, 0.828735, 0.559641, 0.703717, -0.397614, 0.5888, -18.4369, 0, 0)

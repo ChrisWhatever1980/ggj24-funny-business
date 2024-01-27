@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://b54hgw30ohhce"]
+
+[ext_resource type="PackedScene" uid="uid://bwh85febtw78q" path="res://models/person.glb" id="1_dad64"]
+
+[node name="Comedian" type="Node3D"]
+
+[node name="person" parent="." instance=ExtResource("1_dad64")]
