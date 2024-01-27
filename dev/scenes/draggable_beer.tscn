@@ -6,7 +6,7 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_juoxx"]
 size = Vector2(74, 72)
 
-[node name="DraggableBeer" type="Area2D"]
+[node name="DraggableBeer" type="Area2D" groups=["Drinks"]]
 script = ExtResource("1_2oql5")
 
 [node name="Beer" type="Sprite2D" parent="."]

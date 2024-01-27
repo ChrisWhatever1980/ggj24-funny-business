@@ -1,6 +1,6 @@
 extends Area2D
 
-var beer_request = preload("res://scenes/drink_request.tscn")
+signal fulfilled
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -11,8 +11,8 @@ func _ready():
 func _process(delta):
 	pass
 
-func spawn_request(x, y):
-	var request = beer_request.instantiate()
-	request.position = Vector2(x, y)
-	add_child(request)
-	return request
+
+func _on_area_entered(area: Area2D):
+	if area.is_in_group("Drinks"):
+		fulfilled.emit()
+		queue_free()

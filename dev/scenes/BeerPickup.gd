@@ -2,7 +2,7 @@ extends Area2D
 
 var hovering= false
 
-var draggable_beer = preload("res://draggable_beer.tscn")
+var draggable_beer = preload("res://scenes/draggable_beer.tscn")
 var dragging = false
 var dragged_beer = null
 
