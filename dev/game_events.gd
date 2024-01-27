@@ -11,6 +11,7 @@ signal spawn_puddle
 signal request_drink
 signal request_fulfilled
 signal start_show
+signal start_game
 
 
 func connect_event(_signal: String, target: Object, method: String, binds: Array = [  ], flags: int = 0):
