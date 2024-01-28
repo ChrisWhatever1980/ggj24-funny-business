@@ -24,14 +24,12 @@ func _process(delta):
 
 func _on_timer_timeout():
 	if performing:
-		var joke_quality
+		var joke_quality = 0
 		
-		if randi_range(0, 100) >= stats.bomb_chance:
-			joke_quality = 0
-		else: 
-			joke_quality = randi_range(stats.comedy / 10, stats.comedy)
+		if randi_range(0, 100) > stats.bomb_chance:
+			joke_quality = randi_range(stats.comedy / 5, stats.comedy)
 			
-			if randi_range(0, 100) >= stats.hit_chance:
+			if randi_range(0, 100) < stats.hit_chance:
 				joke_quality *= 2
 		
 		$Timer.wait_time = 4.0 + 4.0 * clamp(1.0 - (stats.endurance / 10.0), 0.0, 1.0)
