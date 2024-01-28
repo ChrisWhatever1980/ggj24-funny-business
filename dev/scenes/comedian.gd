@@ -112,7 +112,7 @@ func _on_area_3d_input_event(camera, event, position, normal, shape_idx):
 		if event.button_index == MOUSE_BUTTON_LEFT:
 			if event.pressed:
 
-				if in_hell:
+				if in_hell and !dying:
 					exiting = false
 					entering = false
 					performing = false

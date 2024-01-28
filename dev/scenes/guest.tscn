@@ -81,7 +81,6 @@ collision_mask = 2049
 mass = 0.1
 center_of_mass_mode = 1
 center_of_mass = Vector3(0, 0.5, 0)
-freeze = true
 freeze_mode = 1
 script = ExtResource("1_ndfc7")
 

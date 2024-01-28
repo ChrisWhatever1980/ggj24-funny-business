@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=3 uid="uid://4xkgb6wyhpkb"]
+[gd_scene load_steps=43 format=3 uid="uid://4xkgb6wyhpkb"]
 
 [ext_resource type="Script" path="res://scenes/building.gd" id="1_no7ks"]
 [ext_resource type="PackedScene" uid="uid://bdlhljeuhdyc0" path="res://models/comedy_club.glb" id="1_xfk75"]
@@ -8,7 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://bjw6r72huloyy" path="res://models/stool.glb" id="3_lcvpm"]
 [ext_resource type="PackedScene" uid="uid://bfbesy8cfyatg" path="res://message_box.tscn" id="5_4l3or"]
 [ext_resource type="PackedScene" uid="uid://c4fuk2e1l2kf1" path="res://models/stage.glb" id="6_g7yxt"]
-[ext_resource type="Texture2D" uid="uid://bbimvc1lrdwom" path="res://textures/neonsign.png" id="7_sefth"]
+[ext_resource type="Shader" uid="uid://dl04sy36kd7c" path="res://scenes/neon_sign_shader.tres" id="7_coh8m"]
 [ext_resource type="PackedScene" uid="uid://dh1iy0je7c6l7" path="res://scenes/spot_light.tscn" id="8_3sd2r"]
 [ext_resource type="PackedScene" uid="uid://xw4q52xtmcl5" path="res://scenes/laptop/laptop.tscn" id="8_6tjwg"]
 [ext_resource type="Script" path="res://scenes/MainCamera.gd" id="9_or7ru"]
@@ -41,6 +41,13 @@ size = Vector3(25.1349, 1, 22.321)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_51fvb"]
 size = Vector3(3.75342, 5.27991, 3.39282)
+
+[sub_resource type="QuadMesh" id="QuadMesh_xyx34"]
+size = Vector2(24.8, 17.54)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_bp5rd"]
+render_priority = 0
+shader = ExtResource("7_coh8m")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_m1jn1"]
 size = Vector3(15.2056, 1, 7.06836)
@@ -362,9 +369,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24.139, 0.986889, -16.4871)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.229248, 2.13702, 0.330444)
 shape = SubResource("BoxShape3D_51fvb")
 
-[node name="Sprite3D" type="Sprite3D" parent="comedy_club"]
-transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 7.72991, 9.80572, -19.489)
-texture = ExtResource("7_sefth")
+[node name="NeonSign" type="MeshInstance3D" parent="comedy_club"]
+transform = Transform3D(0.4843, 0.124311, 0, -0.124311, 0.4843, 0, 0, 0, 0.5, 9.9163, 9.08628, -19.489)
+mesh = SubResource("QuadMesh_xyx34")
+surface_material_override/0 = SubResource("ShaderMaterial_bp5rd")
 
 [node name="bar" parent="." instance=ExtResource("2_5gooh")]
 

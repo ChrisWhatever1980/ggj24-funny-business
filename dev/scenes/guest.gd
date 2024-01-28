@@ -91,20 +91,20 @@ func on_audience_react(joke_quality):
 		3:		# sad
 			mood -= 2
 			if randf() < throw_probability:
-				freeze = true
+				freeze = false
 				GameEvents.emit_signal("spawn_tomato", position)
 		4:		# worst joke ever
 			mood -= 1
 			if randf() < throw_probability:
-				freeze = true
+				freeze = false
 				GameEvents.emit_signal("spawn_tomato", position)
 		5:		# dont get it
-			freeze = true
+			freeze = false
 			$AnimationPlayer.play("laugh")
 			pass
 		6:		# amused
 			mood += 1
-			freeze = true
+			freeze = false
 			$AnimationPlayer.play("laugh")
 		7:		# chuckle
 			mood += 2
