@@ -1,0 +1,15 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://cmmq8rixmucmx"]
+
+[ext_resource type="Script" path="res://resources/comedian_stats.gd" id="1_ooic6"]
+
+[resource]
+script = ExtResource("1_ooic6")
+name = "Robdog Goldthwait"
+cost = 15
+fame = 5
+comedy = 15
+bomb_chance = 25
+hit_chance = 35
+availability = 90
+club_fame_requirement = 0
+endurance = 10

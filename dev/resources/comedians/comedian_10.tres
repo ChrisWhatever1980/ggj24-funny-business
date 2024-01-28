@@ -5,7 +5,7 @@
 [resource]
 script = ExtResource("1_tqpt3")
 name = "Rose Dangerfield"
-cost = 85
+cost = 185
 fame = 60
 comedy = 60
 bomb_chance = 10
