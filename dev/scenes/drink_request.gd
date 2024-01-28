@@ -42,9 +42,10 @@ func highlight_fulfillable(fulfillable: bool):
 	else:
 		$Requestbubble.modulate = Color.WHITE
 
-func fulfill():
+func fulfill(dropped_drink_type):
 	$FailureTimer.stop()
-	GameEvents.emit_signal("request_fulfilled", tip, position3D)
+	if dropped_drink_type == drink_type:
+		GameEvents.emit_signal("request_fulfilled", tip, position3D)
 	disappear()
 
 func disappear():

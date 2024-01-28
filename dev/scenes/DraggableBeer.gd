@@ -57,5 +57,5 @@ func remove_request(request):
 	
 func drop():
 	if closest_request != null:
-		closest_request.fulfill()
+		closest_request.fulfill(drink_type)
 	disappear()
