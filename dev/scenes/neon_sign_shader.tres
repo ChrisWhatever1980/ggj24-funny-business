@@ -1,4 +1,4 @@
-[gd_resource type="VisualShader" load_steps=8 format=3 uid="uid://dl04sy36kd7c"]
+[gd_resource type="VisualShader" load_steps=8 format=3 uid="uid://ck6ilrww8qkw2"]
 
 [ext_resource type="Texture2D" uid="uid://d0s1q1iy45cy2" path="res://textures/neonsign.png" id="1_see8e"]
 [ext_resource type="Texture2D" uid="uid://drots0clmdloh" path="res://models/person_DW 1 Color Palette - color-hex.png" id="2_y82si"]

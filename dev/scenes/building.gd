@@ -61,6 +61,11 @@ func on_start_game():
 	$SpotLight2.light_color = Color.WHITE
 	#$BartenderMinigame.visible = true
 	$AspectRatioContainer/MoneyDisplay.visible = true
+	
+	on_show_message("Your wish was granted. You are a comedy club manager, now.", 5)
+	await get_tree().create_timer(5).timeout
+	on_show_message("You get $333 to start out, but you may not leave until you made $666!", 5)
+	await get_tree().create_timer(5).timeout
 	open_laptop()
 
 
@@ -69,13 +74,13 @@ func open_laptop():
 	$Laptop/SubViewport/Node2D.open()
 	
 	if !tutorial_finished:
-		on_show_message("Book comedians, set prices, buy beverages and place ads. When you are ready, click <Start Show>.")
+		on_show_message("Use the laptop to book comedians, buy beverages and place ads before you start the show.", 7)
 
 
 func on_start_show():
 
 	if !tutorial_finished:
-		on_show_message("Click a comedian to get them on stage. Click a comedian on the stage if you want them to leave. Drag drinks to thirsty guests. Collect the coins with the mouse. Click <END SHOW>.", 8.0)
+		on_show_message("The comedians wait in the back. Click on them to get them on and off the stage.", 7)
 	
 	for comedian_stats in ComedianPool.selected:
 		spawn_comedian(comedian_stats)
@@ -95,6 +100,10 @@ func on_start_show():
 	$AnimationPlayer.play("laptop_to_main_animation")
 	$AspectRatioContainer/EndShowButton.visible = true
 	$BartenderMinigame.visible = true
+	
+	if !tutorial_finished:
+		await get_tree().create_timer(7).timeout
+		on_show_message("The comedians wait in the back. Click on them to get them on and off the stage.", 7)
 	
 func spawn_comedian(comedian_stats):
 	var new_comedian = preload("res://scenes/comedian.tscn").instantiate()
