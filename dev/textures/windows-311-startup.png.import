@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dm5whq2origwd"
-path="res://.godot/imported/Box.png-65ee5fe91fbe0e4d7c86d01f8c15d53a.ctex"
+uid="uid://bp11pwcehhvsd"
+path="res://.godot/imported/windows-311-startup.png-fad5790e97db899643ebd9a5cb18ec60.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Themes/Classic95/Styles/General/Box.png"
-dest_files=["res://.godot/imported/Box.png-65ee5fe91fbe0e4d7c86d01f8c15d53a.ctex"]
+source_file="res://textures/windows-311-startup.png"
+dest_files=["res://.godot/imported/windows-311-startup.png-fad5790e97db899643ebd9a5cb18ec60.ctex"]
 
 [params]
 

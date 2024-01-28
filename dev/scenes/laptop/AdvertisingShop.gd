@@ -1,4 +1,6 @@
 extends VBoxContainer
+@export var audio_ding : AudioStreamPlayer
+
 
 @export var container : VBoxContainer
 
@@ -30,6 +32,8 @@ func increase_hype(reach, efficiency, price, label):
 		GameState.hype += reach * efficiency / 10
 		label.text = str(str_to_var(label.text)+1)
 		print("Hype: " + str(GameState.hype))
+	else:
+		audio_ding.play()
 
 func decrease_hype(reach, efficiency, price, label):
 	if str_to_var(label.text) > 0:
@@ -37,3 +41,5 @@ func decrease_hype(reach, efficiency, price, label):
 		GameState.hype -= reach * efficiency / 10
 		label.text = str(str_to_var(label.text)-1)
 		print("Hype: " + str(GameState.hype))
+	else:
+		audio_ding.play()

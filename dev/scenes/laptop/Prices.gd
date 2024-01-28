@@ -1,4 +1,5 @@
 extends VBoxContainer
+@export var audio_ding : AudioStreamPlayer
 
 @export var increaseBeerPrice : Button
 @export var decreaseBeerPrice : Button
@@ -38,38 +39,54 @@ func increase_beer_price():
 	if GameState.beer_price < 99:
 		GameState.beer_price += 1
 		beerPrice.text = "$" + str(GameState.beer_price)
+	else:
+		audio_ding.play()
 
 func decrease_beer_price():
 	if GameState.beer_price > 1:
 		GameState.beer_price -= 1
 		beerPrice.text = "$" + str(GameState.beer_price)
+	else:
+		audio_ding.play()
 
 func increase_wine_price():
 	if GameState.wine_price < 99:
 		GameState.wine_price += 1
 		winePrice.text = "$" + str(GameState.wine_price)
+	else:
+		audio_ding.play()
 
 func decrease_wine_price():
 	if GameState.wine_price > 1:
 		GameState.wine_price -= 1
 		winePrice.text = "$" + str(GameState.wine_price)
+	else:
+		audio_ding.play()
 
 func increase_lemonade_price():
 	if GameState.lemonade_price < 99:
 		GameState.lemonade_price += 1
 		lemonadePrice.text = "$" + str(GameState.lemonade_price)
+	else:
+		audio_ding.play()
 
 func decrease_lemonade_price():
 	if GameState.lemonade_price > 1:
 		GameState.lemonade_price -= 1
 		lemonadePrice.text = "$" + str(GameState.lemonade_price)
+	else:
+		audio_ding.play()
 		
 func increase_ticket_price():
 	if GameState.ticket_price < 99:
 		GameState.ticket_price += 1
 		ticketPrice.text = "$" + str(GameState.ticket_price)
+	else:
+		audio_ding.play()
 
 func decrease_ticket_price():
 	if GameState.ticket_price > 0:
 		GameState.ticket_price -= 1
 		ticketPrice.text = "$" + str(GameState.ticket_price)
+	else:
+		audio_ding.play()

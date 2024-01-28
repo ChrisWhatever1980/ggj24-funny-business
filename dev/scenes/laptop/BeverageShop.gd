@@ -1,4 +1,6 @@
 extends VBoxContainer
+@export var audio_ding : AudioStreamPlayer
+
 @export var buyBeer : Button
 @export var sellBeer : Button
 @export var beerStock : Label
@@ -44,6 +46,9 @@ func buy_beer():
 		GameState.beer += 1
 		beersAmount += 1
 		beerBuy.text = str(beersAmount)
+		beerStock.text = str(GameState.beer)
+	else:
+		audio_ding.play()
 
 func sell_beer():
 	if beersAmount > 0:
@@ -51,6 +56,9 @@ func sell_beer():
 		GameState.beer -= 1
 		beersAmount -= 1
 		beerBuy.text = str(beersAmount)
+		beerStock.text = str(GameState.beer)
+	else:
+		audio_ding.play()
 		
 func buy_wine():
 	if GameState.money > 2:
@@ -58,6 +66,9 @@ func buy_wine():
 		GameState.wine += 1
 		wineAmount += 1
 		wineBuy.text = str(wineAmount)
+		wineStock.text = str(GameState.wine)
+	else:
+		audio_ding.play()
 
 func sell_wine():
 	if wineAmount > 0:
@@ -65,6 +76,9 @@ func sell_wine():
 		GameState.wine -= 1
 		wineAmount -= 1
 		wineBuy.text = str(wineAmount)
+		wineStock.text = str(GameState.wine)
+	else:
+		audio_ding.play()
 		
 func buy_lemonade():
 	if GameState.money > 0:
@@ -72,6 +86,9 @@ func buy_lemonade():
 		GameState.lemonade += 1
 		lemonadeAmount += 1
 		lemonadeBuy.text = str(lemonadeAmount)
+		lemonadeStock.text = str(GameState.lemonade)
+	else:
+		audio_ding.play()
 
 func sell_lemonade():
 	if lemonadeAmount > 0:
@@ -79,3 +96,6 @@ func sell_lemonade():
 		GameState.lemonade -= 1
 		lemonadeAmount -= 1
 		lemonadeBuy.text = str(lemonadeAmount)
+		lemonadeStock.text = str(GameState.lemonade)
+	else:
+		audio_ding.play()

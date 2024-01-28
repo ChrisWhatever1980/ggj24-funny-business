@@ -2,13 +2,13 @@
 
 importer="wav"
 type="AudioStreamWAV"
-uid="uid://db10ygp2nhwi4"
-path="res://.godot/imported/CHIMES.WAV-0e645472cab993c9a8e32b2e1d423311.sample"
+uid="uid://c8bfnfq64yybt"
+path="res://.godot/imported/owin31.wav-5e919717e751e2bf49c48eb8f852c6b6.sample"
 
 [deps]
 
-source_file="res://audio/CHIMES.WAV"
-dest_files=["res://.godot/imported/CHIMES.WAV-0e645472cab993c9a8e32b2e1d423311.sample"]
+source_file="res://audio/owin31.wav"
+dest_files=["res://.godot/imported/owin31.wav-5e919717e751e2bf49c48eb8f852c6b6.sample"]
 
 [params]
 
