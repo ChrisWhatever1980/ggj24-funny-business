@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://cdk2g5fvmr53k"]
+
+[ext_resource type="Script" path="res://scenes/DraggableBeer.gd" id="1_yr5q1"]
+[ext_resource type="Texture2D" uid="uid://gs0o7knfbxjf" path="res://textures/lemonade.png" id="2_11v3k"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_juoxx"]
+size = Vector2(74, 72)
+
+[node name="DraggableLemonade" type="Area2D" groups=["Drinks"]]
+script = ExtResource("1_yr5q1")
+drink_type = 2
+
+[node name="Lemonade" type="Sprite2D" parent="."]
+texture = ExtResource("2_11v3k")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_juoxx")
+
+[connection signal="input_event" from="." to="." method="_on_input_event"]

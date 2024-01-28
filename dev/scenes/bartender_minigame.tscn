@@ -6,7 +6,7 @@
 [ext_resource type="Script" path="res://scenes/TippedRequests.gd" id="5_a3gsb"]
 [ext_resource type="Texture2D" uid="uid://gs0o7knfbxjf" path="res://textures/lemonade.png" id="5_b80r5"]
 [ext_resource type="Script" path="res://scenes/FulfilledRequests.gd" id="5_vwhit"]
-[ext_resource type="Texture2D" path="res://textures/wine.png" id="5_xk4e1"]
+[ext_resource type="Texture2D" uid="uid://dn56sq6wgh4ly" path="res://textures/wine.png" id="5_xk4e1"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_r4gse"]
 size = Vector2(76, 76)
@@ -27,6 +27,7 @@ texture = ExtResource("3_227f5")
 [node name="WinePickupArea" type="Area2D" parent="."]
 position = Vector2(132, 231)
 script = ExtResource("2_0cwur")
+drink_type = 1
 
 [node name="MouseArea" type="CollisionShape2D" parent="WinePickupArea"]
 shape = SubResource("RectangleShape2D_r4gse")
@@ -37,6 +38,7 @@ texture = ExtResource("5_xk4e1")
 [node name="LemonadePickupArea" type="Area2D" parent="."]
 position = Vector2(132, 138)
 script = ExtResource("2_0cwur")
+drink_type = 2
 
 [node name="MouseArea" type="CollisionShape2D" parent="LemonadePickupArea"]
 shape = SubResource("RectangleShape2D_r4gse")

@@ -8,6 +8,7 @@ signal update_tipped_requests(count: int)
 var fulfilled_requests = 0
 var tipped_requests = 0
 
+var drink_type: DraggableBeer.DrinkType = DraggableBeer.DrinkType.BEER
 
 var cam = null
 

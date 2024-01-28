@@ -1,8 +1,17 @@
 extends Area2D
+class_name DraggableBeer
 
 var fulfillable_requests = []
 var smallest_square_distance = INF
 var closest_request = null
+
+enum DrinkType {
+	BEER,
+	WINE,
+	LEMONADE,
+}
+
+@export var drink_type: DrinkType = DrinkType.BEER
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
