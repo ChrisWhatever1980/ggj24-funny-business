@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://bi62kfqbonnfa"]
+[gd_scene load_steps=11 format=3 uid="uid://bi62kfqbonnfa"]
 
 [ext_resource type="Script" path="res://scenes/laptop/laptop_ui.gd" id="1_tslm7"]
 [ext_resource type="Theme" uid="uid://cycenb0gvsi2l" path="res://Themes/Classic311/Classic311.tres" id="2_a8gvu"]
@@ -6,23 +6,25 @@
 [ext_resource type="Script" path="res://scenes/laptop/start_show_button.gd" id="4_gnypp"]
 [ext_resource type="Script" path="res://scenes/laptop/BeverageShop.gd" id="4_utcwm"]
 [ext_resource type="Script" path="res://scenes/laptop/AdvertisingShop.gd" id="5_yaj07"]
+[ext_resource type="Script" path="res://scenes/laptop/Prices.gd" id="6_ge06v"]
 [ext_resource type="Texture2D" uid="uid://d3pv6ivse4ogc" path="res://textures/windows_95.jpg" id="7_0bh5n"]
 [ext_resource type="AudioStream" uid="uid://db10ygp2nhwi4" path="res://audio/CHIMES.WAV" id="8_d8huo"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bl8mt"]
 bg_color = Color(0, 0, 0, 1)
 
-[node name="Laptop UI" type="Node2D" node_paths=PackedStringArray("panel", "logo", "audio", "available_buttons", "booked_buttons", "stats_container", "book_button", "start_button", "budget")]
+[node name="Laptop UI" type="Node2D" node_paths=PackedStringArray("panel", "logo", "audio", "available_buttons", "booked_buttons", "stats_container", "book_button", "start_button", "budget", "tabs")]
 script = ExtResource("1_tslm7")
 panel = NodePath("Container/VBoxContainer2/Panel")
 logo = NodePath("Container/VBoxContainer2/Panel/TextureRect")
 audio = NodePath("Container/VBoxContainer2/AudioStreamPlayer")
-available_buttons = NodePath("Container/VBoxContainer/TabContainer/Booking/HBoxContainer/Comedians/ScrollContainer/Buttons")
-booked_buttons = NodePath("Container/VBoxContainer/TabContainer/Booking/HBoxContainer/Booked/ScrollContainer/Buttons")
-stats_container = NodePath("Container/VBoxContainer/TabContainer/Booking/HBoxContainer/Infos/VBoxContainer/HBoxContainer/Stats")
-book_button = NodePath("Container/VBoxContainer/TabContainer/Booking/HBoxContainer/Infos/VBoxContainer2/Button")
+available_buttons = NodePath("Container/VBoxContainer/TabContainer/Booking/MarginContainer/HBoxContainer/Comedians/ScrollContainer/Buttons")
+booked_buttons = NodePath("Container/VBoxContainer/TabContainer/Booking/MarginContainer/HBoxContainer/Booked/ScrollContainer/Buttons")
+stats_container = NodePath("Container/VBoxContainer/TabContainer/Booking/MarginContainer/HBoxContainer/Infos/VBoxContainer/HBoxContainer/Stats")
+book_button = NodePath("Container/VBoxContainer/TabContainer/Booking/MarginContainer/HBoxContainer/Infos/VBoxContainer2/Button")
 start_button = NodePath("Container/VBoxContainer/TabContainer/Start Show/HBoxContainer/Start Button")
 budget = NodePath("Container/VBoxContainer/MarginContainer/HBoxContainer2/HBoxContainer/Budget#")
+tabs = NodePath("Container/VBoxContainer/TabContainer")
 
 [node name="Container" type="AspectRatioContainer" parent="."]
 custom_minimum_size = Vector2(595, 480)
@@ -49,46 +51,55 @@ layout_mode = 2
 custom_minimum_size = Vector2(450, 0)
 layout_mode = 2
 size_flags_vertical = 3
+current_tab = 1
 
 [node name="Booking" type="VBoxContainer" parent="Container/VBoxContainer/TabContainer"]
+visible = false
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Container/VBoxContainer/TabContainer/Booking"]
+[node name="MarginContainer" type="MarginContainer" parent="Container/VBoxContainer/TabContainer/Booking"]
+custom_minimum_size = Vector2(590, 400)
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Container/VBoxContainer/TabContainer/Booking/MarginContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Comedians" type="VBoxContainer" parent="Container/VBoxContainer/TabContainer/Booking/HBoxContainer"]
+[node name="Comedians" type="VBoxContainer" parent="Container/VBoxContainer/TabContainer/Booking/MarginContainer/HBoxContainer"]
 custom_minimum_size = Vector2(145, 0)
 layout_mode = 2
 
-[node name="Label" type="Label" parent="Container/VBoxContainer/TabContainer/Booking/HBoxContainer/Comedians"]
+[node name="Label" type="Label" parent="Container/VBoxContainer/TabContainer/Booking/MarginContainer/HBoxContainer/Comedians"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 text = "Available"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="VSplitContainer" type="VSplitContainer" parent="Container/VBoxContainer/TabContainer/Booking/HBoxContainer/Comedians"]
+[node name="VSplitContainer" type="VSplitContainer" parent="Container/VBoxContainer/TabContainer/Booking/MarginContainer/HBoxContainer/Comedians"]
 layout_mode = 2
 
-[node name="ScrollContainer" type="ScrollContainer" parent="Container/VBoxContainer/TabContainer/Booking/HBoxContainer/Comedians"]
+[node name="ScrollContainer" type="ScrollContainer" parent="Container/VBoxContainer/TabContainer/Booking/MarginContainer/HBoxContainer/Comedians"]
 layout_mode = 2
 size_flags_vertical = 3
 horizontal_scroll_mode = 0
 vertical_scroll_mode = 0
 
-[node name="Buttons" type="VBoxContainer" parent="Container/VBoxContainer/TabContainer/Booking/HBoxContainer/Comedians/ScrollContainer"]
+[node name="Buttons" type="VBoxContainer" parent="Container/VBoxContainer/TabContainer/Booking/MarginContainer/HBoxContainer/Comedians/ScrollContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="HSplitContainer" type="HSplitContainer" parent="Container/VBoxContainer/TabContainer/Booking/HBoxContainer"]
+[node name="HSplitContainer" type="HSplitContainer" parent="Container/VBoxContainer/TabContainer/Booking/MarginContainer/HBoxContainer"]
 layout_mode = 2
 
-[node name="Infos" type="VBoxContainer" parent="Container/VBoxContainer/TabContainer/Booking/HBoxContainer"]
+[node name="Infos" type="VBoxContainer" parent="Container/VBoxContainer/TabContainer/Booking/MarginContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Label" type="Label" parent="Container/VBoxContainer/TabContainer/Booking/HBoxContainer/Infos"]
+[node name="Label" type="Label" parent="Container/VBoxContainer/TabContainer/Booking/MarginContainer/HBoxContainer/Infos"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_vertical = 1
@@ -96,463 +107,697 @@ text = "Information"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="VSplitContainer" type="VSplitContainer" parent="Container/VBoxContainer/TabContainer/Booking/HBoxContainer/Infos"]
+[node name="VSplitContainer" type="VSplitContainer" parent="Container/VBoxContainer/TabContainer/Booking/MarginContainer/HBoxContainer/Infos"]
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Container/VBoxContainer/TabContainer/Booking/HBoxContainer/Infos"]
-layout_mode = 2
-size_flags_vertical = 3
-
-[node name="HBoxContainer" type="HBoxContainer" parent="Container/VBoxContainer/TabContainer/Booking/HBoxContainer/Infos/VBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Container/VBoxContainer/TabContainer/Booking/MarginContainer/HBoxContainer/Infos"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Labels" type="VBoxContainer" parent="Container/VBoxContainer/TabContainer/Booking/HBoxContainer/Infos/VBoxContainer/HBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Container/VBoxContainer/TabContainer/Booking/MarginContainer/HBoxContainer/Infos/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Labels" type="VBoxContainer" parent="Container/VBoxContainer/TabContainer/Booking/MarginContainer/HBoxContainer/Infos/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 0
 alignment = 1
 
-[node name="Name" type="Label" parent="Container/VBoxContainer/TabContainer/Booking/HBoxContainer/Infos/VBoxContainer/HBoxContainer/Labels"]
+[node name="Name" type="Label" parent="Container/VBoxContainer/TabContainer/Booking/MarginContainer/HBoxContainer/Infos/VBoxContainer/HBoxContainer/Labels"]
 layout_mode = 2
 text = "Name:"
 horizontal_alignment = 2
 
-[node name="Fame" type="Label" parent="Container/VBoxContainer/TabContainer/Booking/HBoxContainer/Infos/VBoxContainer/HBoxContainer/Labels"]
+[node name="Fame" type="Label" parent="Container/VBoxContainer/TabContainer/Booking/MarginContainer/HBoxContainer/Infos/VBoxContainer/HBoxContainer/Labels"]
 layout_mode = 2
 text = "Fame:"
 horizontal_alignment = 2
 
-[node name="Comedy" type="Label" parent="Container/VBoxContainer/TabContainer/Booking/HBoxContainer/Infos/VBoxContainer/HBoxContainer/Labels"]
+[node name="Comedy" type="Label" parent="Container/VBoxContainer/TabContainer/Booking/MarginContainer/HBoxContainer/Infos/VBoxContainer/HBoxContainer/Labels"]
 layout_mode = 2
 text = "Humor:"
 horizontal_alignment = 2
 
-[node name="Endurance" type="Label" parent="Container/VBoxContainer/TabContainer/Booking/HBoxContainer/Infos/VBoxContainer/HBoxContainer/Labels"]
+[node name="Endurance" type="Label" parent="Container/VBoxContainer/TabContainer/Booking/MarginContainer/HBoxContainer/Infos/VBoxContainer/HBoxContainer/Labels"]
 layout_mode = 2
 text = "Endurance:"
 horizontal_alignment = 2
 
-[node name="Cost" type="Label" parent="Container/VBoxContainer/TabContainer/Booking/HBoxContainer/Infos/VBoxContainer/HBoxContainer/Labels"]
+[node name="Cost" type="Label" parent="Container/VBoxContainer/TabContainer/Booking/MarginContainer/HBoxContainer/Infos/VBoxContainer/HBoxContainer/Labels"]
 layout_mode = 2
 text = "Cost:
 "
 horizontal_alignment = 2
 
-[node name="Stats" type="VBoxContainer" parent="Container/VBoxContainer/TabContainer/Booking/HBoxContainer/Infos/VBoxContainer/HBoxContainer"]
+[node name="Stats" type="VBoxContainer" parent="Container/VBoxContainer/TabContainer/Booking/MarginContainer/HBoxContainer/Infos/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 2
 alignment = 1
 
-[node name="Name" type="Label" parent="Container/VBoxContainer/TabContainer/Booking/HBoxContainer/Infos/VBoxContainer/HBoxContainer/Stats"]
+[node name="Name" type="Label" parent="Container/VBoxContainer/TabContainer/Booking/MarginContainer/HBoxContainer/Infos/VBoxContainer/HBoxContainer/Stats"]
 layout_mode = 2
 text = "Comedian 1
 "
 
-[node name="Fame" type="Label" parent="Container/VBoxContainer/TabContainer/Booking/HBoxContainer/Infos/VBoxContainer/HBoxContainer/Stats"]
+[node name="Fame" type="Label" parent="Container/VBoxContainer/TabContainer/Booking/MarginContainer/HBoxContainer/Infos/VBoxContainer/HBoxContainer/Stats"]
 layout_mode = 2
 text = "10"
 
-[node name="Comedy" type="Label" parent="Container/VBoxContainer/TabContainer/Booking/HBoxContainer/Infos/VBoxContainer/HBoxContainer/Stats"]
+[node name="Comedy" type="Label" parent="Container/VBoxContainer/TabContainer/Booking/MarginContainer/HBoxContainer/Infos/VBoxContainer/HBoxContainer/Stats"]
 layout_mode = 2
 text = "10"
 
-[node name="Endurance" type="Label" parent="Container/VBoxContainer/TabContainer/Booking/HBoxContainer/Infos/VBoxContainer/HBoxContainer/Stats"]
+[node name="Endurance" type="Label" parent="Container/VBoxContainer/TabContainer/Booking/MarginContainer/HBoxContainer/Infos/VBoxContainer/HBoxContainer/Stats"]
 layout_mode = 2
 text = "10"
 
-[node name="Cost" type="Label" parent="Container/VBoxContainer/TabContainer/Booking/HBoxContainer/Infos/VBoxContainer/HBoxContainer/Stats"]
+[node name="Cost" type="Label" parent="Container/VBoxContainer/TabContainer/Booking/MarginContainer/HBoxContainer/Infos/VBoxContainer/HBoxContainer/Stats"]
 layout_mode = 2
 text = "$ 10"
 
-[node name="VSplitContainer2" type="VSplitContainer" parent="Container/VBoxContainer/TabContainer/Booking/HBoxContainer/Infos"]
+[node name="VSplitContainer2" type="VSplitContainer" parent="Container/VBoxContainer/TabContainer/Booking/MarginContainer/HBoxContainer/Infos"]
 layout_mode = 2
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="Container/VBoxContainer/TabContainer/Booking/HBoxContainer/Infos"]
+[node name="VBoxContainer2" type="VBoxContainer" parent="Container/VBoxContainer/TabContainer/Booking/MarginContainer/HBoxContainer/Infos"]
 layout_mode = 2
 size_flags_vertical = 3
 alignment = 1
 
-[node name="Button" type="Button" parent="Container/VBoxContainer/TabContainer/Booking/HBoxContainer/Infos/VBoxContainer2"]
+[node name="Button" type="Button" parent="Container/VBoxContainer/TabContainer/Booking/MarginContainer/HBoxContainer/Infos/VBoxContainer2"]
 layout_mode = 2
 text = "Book"
 script = ExtResource("3_xcsk7")
 
-[node name="HSplitContainer2" type="HSplitContainer" parent="Container/VBoxContainer/TabContainer/Booking/HBoxContainer"]
+[node name="HSplitContainer2" type="HSplitContainer" parent="Container/VBoxContainer/TabContainer/Booking/MarginContainer/HBoxContainer"]
 layout_mode = 2
 
-[node name="Booked" type="VBoxContainer" parent="Container/VBoxContainer/TabContainer/Booking/HBoxContainer"]
+[node name="Booked" type="VBoxContainer" parent="Container/VBoxContainer/TabContainer/Booking/MarginContainer/HBoxContainer"]
 custom_minimum_size = Vector2(145, 0)
 layout_mode = 2
 
-[node name="Label" type="Label" parent="Container/VBoxContainer/TabContainer/Booking/HBoxContainer/Booked"]
+[node name="Label" type="Label" parent="Container/VBoxContainer/TabContainer/Booking/MarginContainer/HBoxContainer/Booked"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 text = "Booked"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="VSplitContainer" type="VSplitContainer" parent="Container/VBoxContainer/TabContainer/Booking/HBoxContainer/Booked"]
+[node name="VSplitContainer" type="VSplitContainer" parent="Container/VBoxContainer/TabContainer/Booking/MarginContainer/HBoxContainer/Booked"]
 layout_mode = 2
 
-[node name="ScrollContainer" type="ScrollContainer" parent="Container/VBoxContainer/TabContainer/Booking/HBoxContainer/Booked"]
+[node name="ScrollContainer" type="ScrollContainer" parent="Container/VBoxContainer/TabContainer/Booking/MarginContainer/HBoxContainer/Booked"]
 layout_mode = 2
 size_flags_vertical = 3
 horizontal_scroll_mode = 0
 vertical_scroll_mode = 0
 
-[node name="Buttons" type="VBoxContainer" parent="Container/VBoxContainer/TabContainer/Booking/HBoxContainer/Booked/ScrollContainer"]
+[node name="Buttons" type="VBoxContainer" parent="Container/VBoxContainer/TabContainer/Booking/MarginContainer/HBoxContainer/Booked/ScrollContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Beverages" type="VBoxContainer" parent="Container/VBoxContainer/TabContainer" node_paths=PackedStringArray("buyBeer", "sellBeer", "increaseBeerPrice", "decreaseBeerPrice", "beerStock", "beerBuy", "beerPrice")]
-visible = false
+[node name="Beverages" type="VBoxContainer" parent="Container/VBoxContainer/TabContainer" node_paths=PackedStringArray("buyBeer", "sellBeer", "beerStock", "beerBuy", "buyWine", "sellWine", "wineStock", "wineBuy", "buyLemonade", "sellLemonade", "lemonadeStock", "lemonadeBuy")]
 layout_mode = 2
 script = ExtResource("4_utcwm")
-buyBeer = NodePath("Shop/Values/HBoxContainer/BuyButton")
-sellBeer = NodePath("Shop/Values/HBoxContainer/SellButton")
-increaseBeerPrice = NodePath("Prices/HBoxContainer2/HBoxContainer/IncreaseButton")
-decreaseBeerPrice = NodePath("Prices/HBoxContainer2/HBoxContainer/DecreaseButton")
-beerStock = NodePath("Shop/Values/Stock")
-beerBuy = NodePath("Shop/Values/HBoxContainer/BuyAmount")
-beerPrice = NodePath("Prices/HBoxContainer2/HBoxContainer/Price")
+buyBeer = NodePath("MarginContainer/VBoxContainer/Shop/Beer/HBoxContainer/BuyButton")
+sellBeer = NodePath("MarginContainer/VBoxContainer/Shop/Beer/HBoxContainer/SellButton")
+beerStock = NodePath("MarginContainer/VBoxContainer/Shop/Beer/Stock")
+beerBuy = NodePath("MarginContainer/VBoxContainer/Shop/Beer/HBoxContainer/BuyAmount")
+buyWine = NodePath("MarginContainer/VBoxContainer/Shop/Wine/HBoxContainer/BuyButton")
+sellWine = NodePath("MarginContainer/VBoxContainer/Shop/Wine/HBoxContainer/SellButton")
+wineStock = NodePath("MarginContainer/VBoxContainer/Shop/Wine/Stock")
+wineBuy = NodePath("MarginContainer/VBoxContainer/Shop/Wine/HBoxContainer/BuyAmount")
+buyLemonade = NodePath("MarginContainer/VBoxContainer/Shop/Lemonade/HBoxContainer/BuyButton")
+sellLemonade = NodePath("MarginContainer/VBoxContainer/Shop/Lemonade/HBoxContainer/SellButton")
+lemonadeStock = NodePath("MarginContainer/VBoxContainer/Shop/Lemonade/Stock")
+lemonadeBuy = NodePath("MarginContainer/VBoxContainer/Shop/Lemonade/HBoxContainer/BuyAmount")
 
-[node name="Shop" type="VBoxContainer" parent="Container/VBoxContainer/TabContainer/Beverages"]
+[node name="MarginContainer" type="MarginContainer" parent="Container/VBoxContainer/TabContainer/Beverages"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Container/VBoxContainer/TabContainer/Beverages/MarginContainer"]
 layout_mode = 2
 
-[node name="Labels" type="HBoxContainer" parent="Container/VBoxContainer/TabContainer/Beverages/Shop"]
+[node name="Shop" type="VBoxContainer" parent="Container/VBoxContainer/TabContainer/Beverages/MarginContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="Beverage" type="Label" parent="Container/VBoxContainer/TabContainer/Beverages/Shop/Labels"]
+[node name="Labels" type="HBoxContainer" parent="Container/VBoxContainer/TabContainer/Beverages/MarginContainer/VBoxContainer/Shop"]
+layout_mode = 2
+
+[node name="Beverage" type="Label" parent="Container/VBoxContainer/TabContainer/Beverages/MarginContainer/VBoxContainer/Shop/Labels"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Beverage"
 
-[node name="Price" type="Label" parent="Container/VBoxContainer/TabContainer/Beverages/Shop/Labels"]
+[node name="Price" type="Label" parent="Container/VBoxContainer/TabContainer/Beverages/MarginContainer/VBoxContainer/Shop/Labels"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Price"
 
-[node name="Stock" type="Label" parent="Container/VBoxContainer/TabContainer/Beverages/Shop/Labels"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "Stock"
-
-[node name="Buy" type="Label" parent="Container/VBoxContainer/TabContainer/Beverages/Shop/Labels"]
+[node name="Buy" type="Label" parent="Container/VBoxContainer/TabContainer/Beverages/MarginContainer/VBoxContainer/Shop/Labels"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Buy"
 horizontal_alignment = 1
 
-[node name="Values" type="HBoxContainer" parent="Container/VBoxContainer/TabContainer/Beverages/Shop"]
+[node name="Stock" type="Label" parent="Container/VBoxContainer/TabContainer/Beverages/MarginContainer/VBoxContainer/Shop/Labels"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Stock"
+horizontal_alignment = 1
+
+[node name="Beer" type="HBoxContainer" parent="Container/VBoxContainer/TabContainer/Beverages/MarginContainer/VBoxContainer/Shop"]
 layout_mode = 2
 
-[node name="Beverage" type="Label" parent="Container/VBoxContainer/TabContainer/Beverages/Shop/Values"]
+[node name="Beverage" type="Label" parent="Container/VBoxContainer/TabContainer/Beverages/MarginContainer/VBoxContainer/Shop/Beer"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Beer"
 
-[node name="Price" type="Label" parent="Container/VBoxContainer/TabContainer/Beverages/Shop/Values"]
+[node name="Price" type="Label" parent="Container/VBoxContainer/TabContainer/Beverages/MarginContainer/VBoxContainer/Shop/Beer"]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "$ 1"
+text = "$ 2"
 
-[node name="Stock" type="Label" parent="Container/VBoxContainer/TabContainer/Beverages/Shop/Values"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "21"
-
-[node name="HBoxContainer" type="HBoxContainer" parent="Container/VBoxContainer/TabContainer/Beverages/Shop/Values"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Container/VBoxContainer/TabContainer/Beverages/MarginContainer/VBoxContainer/Shop/Beer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="BuyButton" type="Button" parent="Container/VBoxContainer/TabContainer/Beverages/Shop/Values/HBoxContainer"]
+[node name="BuyButton" type="Button" parent="Container/VBoxContainer/TabContainer/Beverages/MarginContainer/VBoxContainer/Shop/Beer/HBoxContainer"]
 custom_minimum_size = Vector2(30, 0)
 layout_mode = 2
 text = "+"
 
-[node name="BuyAmount" type="Label" parent="Container/VBoxContainer/TabContainer/Beverages/Shop/Values/HBoxContainer"]
+[node name="BuyAmount" type="Label" parent="Container/VBoxContainer/TabContainer/Beverages/MarginContainer/VBoxContainer/Shop/Beer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "0"
 horizontal_alignment = 1
 
-[node name="SellButton" type="Button" parent="Container/VBoxContainer/TabContainer/Beverages/Shop/Values/HBoxContainer"]
+[node name="SellButton" type="Button" parent="Container/VBoxContainer/TabContainer/Beverages/MarginContainer/VBoxContainer/Shop/Beer/HBoxContainer"]
 custom_minimum_size = Vector2(30, 0)
 layout_mode = 2
 text = "-"
 
-[node name="Spacer" type="Label" parent="Container/VBoxContainer/TabContainer/Beverages"]
+[node name="Stock" type="Label" parent="Container/VBoxContainer/TabContainer/Beverages/MarginContainer/VBoxContainer/Shop/Beer"]
 layout_mode = 2
 size_flags_horizontal = 3
-
-[node name="Prices" type="VBoxContainer" parent="Container/VBoxContainer/TabContainer/Beverages"]
-layout_mode = 2
-
-[node name="HBoxContainer" type="HBoxContainer" parent="Container/VBoxContainer/TabContainer/Beverages/Prices"]
-layout_mode = 2
-
-[node name="Spacer" type="Label" parent="Container/VBoxContainer/TabContainer/Beverages/Prices/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="Spacer2" type="Label" parent="Container/VBoxContainer/TabContainer/Beverages/Prices/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="Price" type="Label" parent="Container/VBoxContainer/TabContainer/Beverages/Prices/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "Sell Price"
+text = "21"
 horizontal_alignment = 1
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="Container/VBoxContainer/TabContainer/Beverages/Prices"]
+[node name="Wine" type="HBoxContainer" parent="Container/VBoxContainer/TabContainer/Beverages/MarginContainer/VBoxContainer/Shop"]
 layout_mode = 2
 
-[node name="Spacer2" type="Label" parent="Container/VBoxContainer/TabContainer/Beverages/Prices/HBoxContainer2"]
+[node name="Beverage" type="Label" parent="Container/VBoxContainer/TabContainer/Beverages/MarginContainer/VBoxContainer/Shop/Wine"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Wine"
+
+[node name="Price" type="Label" parent="Container/VBoxContainer/TabContainer/Beverages/MarginContainer/VBoxContainer/Shop/Wine"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "$ 3"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Container/VBoxContainer/TabContainer/Beverages/MarginContainer/VBoxContainer/Shop/Wine"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Beverage" type="Label" parent="Container/VBoxContainer/TabContainer/Beverages/Prices/HBoxContainer2"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "Beer"
-
-[node name="HBoxContainer" type="HBoxContainer" parent="Container/VBoxContainer/TabContainer/Beverages/Prices/HBoxContainer2"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="IncreaseButton" type="Button" parent="Container/VBoxContainer/TabContainer/Beverages/Prices/HBoxContainer2/HBoxContainer"]
+[node name="BuyButton" type="Button" parent="Container/VBoxContainer/TabContainer/Beverages/MarginContainer/VBoxContainer/Shop/Wine/HBoxContainer"]
 custom_minimum_size = Vector2(30, 0)
 layout_mode = 2
 text = "+"
 
-[node name="Price" type="Label" parent="Container/VBoxContainer/TabContainer/Beverages/Prices/HBoxContainer2/HBoxContainer"]
+[node name="BuyAmount" type="Label" parent="Container/VBoxContainer/TabContainer/Beverages/MarginContainer/VBoxContainer/Shop/Wine/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "$ 2"
+text = "0"
 horizontal_alignment = 1
 
-[node name="DecreaseButton" type="Button" parent="Container/VBoxContainer/TabContainer/Beverages/Prices/HBoxContainer2/HBoxContainer"]
+[node name="SellButton" type="Button" parent="Container/VBoxContainer/TabContainer/Beverages/MarginContainer/VBoxContainer/Shop/Wine/HBoxContainer"]
 custom_minimum_size = Vector2(30, 0)
 layout_mode = 2
 text = "-"
+
+[node name="Stock" type="Label" parent="Container/VBoxContainer/TabContainer/Beverages/MarginContainer/VBoxContainer/Shop/Wine"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "21"
+horizontal_alignment = 1
+
+[node name="Lemonade" type="HBoxContainer" parent="Container/VBoxContainer/TabContainer/Beverages/MarginContainer/VBoxContainer/Shop"]
+layout_mode = 2
+
+[node name="Beverage" type="Label" parent="Container/VBoxContainer/TabContainer/Beverages/MarginContainer/VBoxContainer/Shop/Lemonade"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Lemonade"
+
+[node name="Price" type="Label" parent="Container/VBoxContainer/TabContainer/Beverages/MarginContainer/VBoxContainer/Shop/Lemonade"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "$ 1"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Container/VBoxContainer/TabContainer/Beverages/MarginContainer/VBoxContainer/Shop/Lemonade"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="BuyButton" type="Button" parent="Container/VBoxContainer/TabContainer/Beverages/MarginContainer/VBoxContainer/Shop/Lemonade/HBoxContainer"]
+custom_minimum_size = Vector2(30, 0)
+layout_mode = 2
+text = "+"
+
+[node name="BuyAmount" type="Label" parent="Container/VBoxContainer/TabContainer/Beverages/MarginContainer/VBoxContainer/Shop/Lemonade/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "0"
+horizontal_alignment = 1
+
+[node name="SellButton" type="Button" parent="Container/VBoxContainer/TabContainer/Beverages/MarginContainer/VBoxContainer/Shop/Lemonade/HBoxContainer"]
+custom_minimum_size = Vector2(30, 0)
+layout_mode = 2
+text = "-"
+
+[node name="Stock" type="Label" parent="Container/VBoxContainer/TabContainer/Beverages/MarginContainer/VBoxContainer/Shop/Lemonade"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "21"
+horizontal_alignment = 1
 
 [node name="Advertising" type="VBoxContainer" parent="Container/VBoxContainer/TabContainer" node_paths=PackedStringArray("container")]
 visible = false
 layout_mode = 2
 script = ExtResource("5_yaj07")
-container = NodePath("Shop")
+container = NodePath("MarginContainer/VBoxContainer/Shop")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Container/VBoxContainer/TabContainer/Advertising"]
+[node name="MarginContainer" type="MarginContainer" parent="Container/VBoxContainer/TabContainer/Advertising"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Container/VBoxContainer/TabContainer/Advertising/MarginContainer"]
 layout_mode = 2
 
-[node name="Shop" type="VBoxContainer" parent="Container/VBoxContainer/TabContainer/Advertising"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Container/VBoxContainer/TabContainer/Advertising/MarginContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="Labels" type="HBoxContainer" parent="Container/VBoxContainer/TabContainer/Advertising/Shop"]
+[node name="Shop" type="VBoxContainer" parent="Container/VBoxContainer/TabContainer/Advertising/MarginContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="Medium" type="Label" parent="Container/VBoxContainer/TabContainer/Advertising/Shop/Labels"]
+[node name="Labels" type="HBoxContainer" parent="Container/VBoxContainer/TabContainer/Advertising/MarginContainer/VBoxContainer/Shop"]
+layout_mode = 2
+
+[node name="Medium" type="Label" parent="Container/VBoxContainer/TabContainer/Advertising/MarginContainer/VBoxContainer/Shop/Labels"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Medium"
 
-[node name="Reach" type="Label" parent="Container/VBoxContainer/TabContainer/Advertising/Shop/Labels"]
+[node name="Reach" type="Label" parent="Container/VBoxContainer/TabContainer/Advertising/MarginContainer/VBoxContainer/Shop/Labels"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Reach"
 
-[node name="Efficency" type="Label" parent="Container/VBoxContainer/TabContainer/Advertising/Shop/Labels"]
+[node name="Efficency" type="Label" parent="Container/VBoxContainer/TabContainer/Advertising/MarginContainer/VBoxContainer/Shop/Labels"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Efficency"
 
-[node name="Price" type="Label" parent="Container/VBoxContainer/TabContainer/Advertising/Shop/Labels"]
+[node name="Price" type="Label" parent="Container/VBoxContainer/TabContainer/Advertising/MarginContainer/VBoxContainer/Shop/Labels"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Price"
 
-[node name="Buy" type="Label" parent="Container/VBoxContainer/TabContainer/Advertising/Shop/Labels"]
+[node name="Buy" type="Label" parent="Container/VBoxContainer/TabContainer/Advertising/MarginContainer/VBoxContainer/Shop/Labels"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Buy"
 horizontal_alignment = 1
 
-[node name="Newspaper" type="HBoxContainer" parent="Container/VBoxContainer/TabContainer/Advertising/Shop"]
+[node name="Newspaper" type="HBoxContainer" parent="Container/VBoxContainer/TabContainer/Advertising/MarginContainer/VBoxContainer/Shop"]
 layout_mode = 2
 
-[node name="Medium" type="Label" parent="Container/VBoxContainer/TabContainer/Advertising/Shop/Newspaper"]
+[node name="Medium" type="Label" parent="Container/VBoxContainer/TabContainer/Advertising/MarginContainer/VBoxContainer/Shop/Newspaper"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Newspaper"
 
-[node name="Reach" type="Label" parent="Container/VBoxContainer/TabContainer/Advertising/Shop/Newspaper"]
+[node name="Reach" type="Label" parent="Container/VBoxContainer/TabContainer/Advertising/MarginContainer/VBoxContainer/Shop/Newspaper"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "10"
 
-[node name="Efficiency" type="Label" parent="Container/VBoxContainer/TabContainer/Advertising/Shop/Newspaper"]
+[node name="Efficiency" type="Label" parent="Container/VBoxContainer/TabContainer/Advertising/MarginContainer/VBoxContainer/Shop/Newspaper"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "10"
 
-[node name="Price" type="Label" parent="Container/VBoxContainer/TabContainer/Advertising/Shop/Newspaper"]
+[node name="Price" type="Label" parent="Container/VBoxContainer/TabContainer/Advertising/MarginContainer/VBoxContainer/Shop/Newspaper"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "$10"
 
-[node name="Buy" type="HBoxContainer" parent="Container/VBoxContainer/TabContainer/Advertising/Shop/Newspaper"]
+[node name="Buy" type="HBoxContainer" parent="Container/VBoxContainer/TabContainer/Advertising/MarginContainer/VBoxContainer/Shop/Newspaper"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="BuyButton" type="Button" parent="Container/VBoxContainer/TabContainer/Advertising/Shop/Newspaper/Buy"]
+[node name="BuyButton" type="Button" parent="Container/VBoxContainer/TabContainer/Advertising/MarginContainer/VBoxContainer/Shop/Newspaper/Buy"]
 custom_minimum_size = Vector2(30, 0)
 layout_mode = 2
 text = "+"
 
-[node name="BuyAmount" type="Label" parent="Container/VBoxContainer/TabContainer/Advertising/Shop/Newspaper/Buy"]
+[node name="BuyAmount" type="Label" parent="Container/VBoxContainer/TabContainer/Advertising/MarginContainer/VBoxContainer/Shop/Newspaper/Buy"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "0"
 horizontal_alignment = 1
 
-[node name="SellButton" type="Button" parent="Container/VBoxContainer/TabContainer/Advertising/Shop/Newspaper/Buy"]
+[node name="SellButton" type="Button" parent="Container/VBoxContainer/TabContainer/Advertising/MarginContainer/VBoxContainer/Shop/Newspaper/Buy"]
 custom_minimum_size = Vector2(30, 0)
 layout_mode = 2
 text = "-"
 
-[node name="TV" type="HBoxContainer" parent="Container/VBoxContainer/TabContainer/Advertising/Shop"]
+[node name="TV" type="HBoxContainer" parent="Container/VBoxContainer/TabContainer/Advertising/MarginContainer/VBoxContainer/Shop"]
 layout_mode = 2
 
-[node name="Medium" type="Label" parent="Container/VBoxContainer/TabContainer/Advertising/Shop/TV"]
+[node name="Medium" type="Label" parent="Container/VBoxContainer/TabContainer/Advertising/MarginContainer/VBoxContainer/Shop/TV"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "TV"
 
-[node name="Reach" type="Label" parent="Container/VBoxContainer/TabContainer/Advertising/Shop/TV"]
+[node name="Reach" type="Label" parent="Container/VBoxContainer/TabContainer/Advertising/MarginContainer/VBoxContainer/Shop/TV"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "20"
 
-[node name="Efficiency" type="Label" parent="Container/VBoxContainer/TabContainer/Advertising/Shop/TV"]
+[node name="Efficiency" type="Label" parent="Container/VBoxContainer/TabContainer/Advertising/MarginContainer/VBoxContainer/Shop/TV"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "20"
 
-[node name="Price" type="Label" parent="Container/VBoxContainer/TabContainer/Advertising/Shop/TV"]
+[node name="Price" type="Label" parent="Container/VBoxContainer/TabContainer/Advertising/MarginContainer/VBoxContainer/Shop/TV"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "$100"
 
-[node name="Buy" type="HBoxContainer" parent="Container/VBoxContainer/TabContainer/Advertising/Shop/TV"]
+[node name="Buy" type="HBoxContainer" parent="Container/VBoxContainer/TabContainer/Advertising/MarginContainer/VBoxContainer/Shop/TV"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="BuyButton" type="Button" parent="Container/VBoxContainer/TabContainer/Advertising/Shop/TV/Buy"]
+[node name="BuyButton" type="Button" parent="Container/VBoxContainer/TabContainer/Advertising/MarginContainer/VBoxContainer/Shop/TV/Buy"]
 custom_minimum_size = Vector2(30, 0)
 layout_mode = 2
 text = "+"
 
-[node name="BuyAmount" type="Label" parent="Container/VBoxContainer/TabContainer/Advertising/Shop/TV/Buy"]
+[node name="BuyAmount" type="Label" parent="Container/VBoxContainer/TabContainer/Advertising/MarginContainer/VBoxContainer/Shop/TV/Buy"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "0"
 horizontal_alignment = 1
 
-[node name="SellButton" type="Button" parent="Container/VBoxContainer/TabContainer/Advertising/Shop/TV/Buy"]
+[node name="SellButton" type="Button" parent="Container/VBoxContainer/TabContainer/Advertising/MarginContainer/VBoxContainer/Shop/TV/Buy"]
 custom_minimum_size = Vector2(30, 0)
 layout_mode = 2
 text = "-"
 
-[node name="Radio" type="HBoxContainer" parent="Container/VBoxContainer/TabContainer/Advertising/Shop"]
+[node name="Radio" type="HBoxContainer" parent="Container/VBoxContainer/TabContainer/Advertising/MarginContainer/VBoxContainer/Shop"]
 layout_mode = 2
 
-[node name="Medium" type="Label" parent="Container/VBoxContainer/TabContainer/Advertising/Shop/Radio"]
+[node name="Medium" type="Label" parent="Container/VBoxContainer/TabContainer/Advertising/MarginContainer/VBoxContainer/Shop/Radio"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Radio"
 
-[node name="Reach" type="Label" parent="Container/VBoxContainer/TabContainer/Advertising/Shop/Radio"]
+[node name="Reach" type="Label" parent="Container/VBoxContainer/TabContainer/Advertising/MarginContainer/VBoxContainer/Shop/Radio"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "15"
 
-[node name="Efficiency" type="Label" parent="Container/VBoxContainer/TabContainer/Advertising/Shop/Radio"]
+[node name="Efficiency" type="Label" parent="Container/VBoxContainer/TabContainer/Advertising/MarginContainer/VBoxContainer/Shop/Radio"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "5"
 
-[node name="Price" type="Label" parent="Container/VBoxContainer/TabContainer/Advertising/Shop/Radio"]
+[node name="Price" type="Label" parent="Container/VBoxContainer/TabContainer/Advertising/MarginContainer/VBoxContainer/Shop/Radio"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "$8"
 
-[node name="Buy" type="HBoxContainer" parent="Container/VBoxContainer/TabContainer/Advertising/Shop/Radio"]
+[node name="Buy" type="HBoxContainer" parent="Container/VBoxContainer/TabContainer/Advertising/MarginContainer/VBoxContainer/Shop/Radio"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="BuyButton" type="Button" parent="Container/VBoxContainer/TabContainer/Advertising/Shop/Radio/Buy"]
+[node name="BuyButton" type="Button" parent="Container/VBoxContainer/TabContainer/Advertising/MarginContainer/VBoxContainer/Shop/Radio/Buy"]
 custom_minimum_size = Vector2(30, 0)
 layout_mode = 2
 text = "+"
 
-[node name="BuyAmount" type="Label" parent="Container/VBoxContainer/TabContainer/Advertising/Shop/Radio/Buy"]
+[node name="BuyAmount" type="Label" parent="Container/VBoxContainer/TabContainer/Advertising/MarginContainer/VBoxContainer/Shop/Radio/Buy"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "0"
 horizontal_alignment = 1
 
-[node name="SellButton" type="Button" parent="Container/VBoxContainer/TabContainer/Advertising/Shop/Radio/Buy"]
+[node name="SellButton" type="Button" parent="Container/VBoxContainer/TabContainer/Advertising/MarginContainer/VBoxContainer/Shop/Radio/Buy"]
 custom_minimum_size = Vector2(30, 0)
 layout_mode = 2
 text = "-"
 
-[node name="Zeppelin" type="HBoxContainer" parent="Container/VBoxContainer/TabContainer/Advertising/Shop"]
+[node name="Zeppelin" type="HBoxContainer" parent="Container/VBoxContainer/TabContainer/Advertising/MarginContainer/VBoxContainer/Shop"]
 layout_mode = 2
 
-[node name="Medium" type="Label" parent="Container/VBoxContainer/TabContainer/Advertising/Shop/Zeppelin"]
+[node name="Medium" type="Label" parent="Container/VBoxContainer/TabContainer/Advertising/MarginContainer/VBoxContainer/Shop/Zeppelin"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Zeppelin"
 
-[node name="Reach" type="Label" parent="Container/VBoxContainer/TabContainer/Advertising/Shop/Zeppelin"]
+[node name="Reach" type="Label" parent="Container/VBoxContainer/TabContainer/Advertising/MarginContainer/VBoxContainer/Shop/Zeppelin"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "10"
 
-[node name="Efficiency" type="Label" parent="Container/VBoxContainer/TabContainer/Advertising/Shop/Zeppelin"]
+[node name="Efficiency" type="Label" parent="Container/VBoxContainer/TabContainer/Advertising/MarginContainer/VBoxContainer/Shop/Zeppelin"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "15"
 
-[node name="Price" type="Label" parent="Container/VBoxContainer/TabContainer/Advertising/Shop/Zeppelin"]
+[node name="Price" type="Label" parent="Container/VBoxContainer/TabContainer/Advertising/MarginContainer/VBoxContainer/Shop/Zeppelin"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "$15"
 
-[node name="Buy" type="HBoxContainer" parent="Container/VBoxContainer/TabContainer/Advertising/Shop/Zeppelin"]
+[node name="Buy" type="HBoxContainer" parent="Container/VBoxContainer/TabContainer/Advertising/MarginContainer/VBoxContainer/Shop/Zeppelin"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="BuyButton" type="Button" parent="Container/VBoxContainer/TabContainer/Advertising/Shop/Zeppelin/Buy"]
+[node name="BuyButton" type="Button" parent="Container/VBoxContainer/TabContainer/Advertising/MarginContainer/VBoxContainer/Shop/Zeppelin/Buy"]
 custom_minimum_size = Vector2(30, 0)
 layout_mode = 2
 text = "+"
 
-[node name="BuyAmount" type="Label" parent="Container/VBoxContainer/TabContainer/Advertising/Shop/Zeppelin/Buy"]
+[node name="BuyAmount" type="Label" parent="Container/VBoxContainer/TabContainer/Advertising/MarginContainer/VBoxContainer/Shop/Zeppelin/Buy"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "0"
 horizontal_alignment = 1
 
-[node name="SellButton" type="Button" parent="Container/VBoxContainer/TabContainer/Advertising/Shop/Zeppelin/Buy"]
+[node name="SellButton" type="Button" parent="Container/VBoxContainer/TabContainer/Advertising/MarginContainer/VBoxContainer/Shop/Zeppelin/Buy"]
 custom_minimum_size = Vector2(30, 0)
 layout_mode = 2
 text = "-"
 
-[node name="Spacer" type="Label" parent="Container/VBoxContainer/TabContainer/Advertising"]
+[node name="Spacer" type="Label" parent="Container/VBoxContainer/TabContainer/Advertising/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+
+[node name="Prices" type="VBoxContainer" parent="Container/VBoxContainer/TabContainer" node_paths=PackedStringArray("increaseBeerPrice", "decreaseBeerPrice", "beerPrice", "increaseWinePrice", "decreaseWinePrice", "winePrice", "increaseLemonadePrice", "decreaseLemonadePrice", "lemonadePrice", "increaseTicketPrice", "decreaseTicketPrice", "ticketPrice")]
+visible = false
+layout_mode = 2
+script = ExtResource("6_ge06v")
+increaseBeerPrice = NodePath("MarginContainer/VBoxContainer/Beverages/Beer/HBoxContainer/IncreaseButton")
+decreaseBeerPrice = NodePath("MarginContainer/VBoxContainer/Beverages/Beer/HBoxContainer/DecreaseButton")
+beerPrice = NodePath("MarginContainer/VBoxContainer/Beverages/Beer/HBoxContainer/Price")
+increaseWinePrice = NodePath("MarginContainer/VBoxContainer/Beverages/Wine/HBoxContainer/IncreaseButton")
+decreaseWinePrice = NodePath("MarginContainer/VBoxContainer/Beverages/Wine/HBoxContainer/DecreaseButton")
+winePrice = NodePath("MarginContainer/VBoxContainer/Beverages/Wine/HBoxContainer/Price")
+increaseLemonadePrice = NodePath("MarginContainer/VBoxContainer/Beverages/Lemonade/HBoxContainer/IncreaseButton")
+decreaseLemonadePrice = NodePath("MarginContainer/VBoxContainer/Beverages/Lemonade/HBoxContainer/DecreaseButton")
+lemonadePrice = NodePath("MarginContainer/VBoxContainer/Beverages/Lemonade/HBoxContainer/Price")
+increaseTicketPrice = NodePath("MarginContainer/VBoxContainer/Tickets/HBoxContainer2/HBoxContainer/IncreaseButton")
+decreaseTicketPrice = NodePath("MarginContainer/VBoxContainer/Tickets/HBoxContainer2/HBoxContainer/DecreaseButton")
+ticketPrice = NodePath("MarginContainer/VBoxContainer/Tickets/HBoxContainer2/HBoxContainer/Price")
+
+[node name="MarginContainer" type="MarginContainer" parent="Container/VBoxContainer/TabContainer/Prices"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Container/VBoxContainer/TabContainer/Prices/MarginContainer"]
+layout_mode = 2
+
+[node name="Beverages" type="VBoxContainer" parent="Container/VBoxContainer/TabContainer/Prices/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Spacer" type="Label" parent="Container/VBoxContainer/TabContainer/Prices/MarginContainer/VBoxContainer/Beverages"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Beverage Prices"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Container/VBoxContainer/TabContainer/Prices/MarginContainer/VBoxContainer/Beverages"]
+layout_mode = 2
+
+[node name="Spacer2" type="Label" parent="Container/VBoxContainer/TabContainer/Prices/MarginContainer/VBoxContainer/Beverages/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Price" type="Label" parent="Container/VBoxContainer/TabContainer/Prices/MarginContainer/VBoxContainer/Beverages/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Sell Price"
+horizontal_alignment = 1
+
+[node name="Beer" type="HBoxContainer" parent="Container/VBoxContainer/TabContainer/Prices/MarginContainer/VBoxContainer/Beverages"]
+layout_mode = 2
+
+[node name="Beverage" type="Label" parent="Container/VBoxContainer/TabContainer/Prices/MarginContainer/VBoxContainer/Beverages/Beer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Beer"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Container/VBoxContainer/TabContainer/Prices/MarginContainer/VBoxContainer/Beverages/Beer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="IncreaseButton" type="Button" parent="Container/VBoxContainer/TabContainer/Prices/MarginContainer/VBoxContainer/Beverages/Beer/HBoxContainer"]
+custom_minimum_size = Vector2(30, 0)
+layout_mode = 2
+text = "+"
+
+[node name="Price" type="Label" parent="Container/VBoxContainer/TabContainer/Prices/MarginContainer/VBoxContainer/Beverages/Beer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "$ 2"
+horizontal_alignment = 1
+
+[node name="DecreaseButton" type="Button" parent="Container/VBoxContainer/TabContainer/Prices/MarginContainer/VBoxContainer/Beverages/Beer/HBoxContainer"]
+custom_minimum_size = Vector2(30, 0)
+layout_mode = 2
+text = "-"
+
+[node name="Wine" type="HBoxContainer" parent="Container/VBoxContainer/TabContainer/Prices/MarginContainer/VBoxContainer/Beverages"]
+layout_mode = 2
+
+[node name="Beverage" type="Label" parent="Container/VBoxContainer/TabContainer/Prices/MarginContainer/VBoxContainer/Beverages/Wine"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Wine"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Container/VBoxContainer/TabContainer/Prices/MarginContainer/VBoxContainer/Beverages/Wine"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="IncreaseButton" type="Button" parent="Container/VBoxContainer/TabContainer/Prices/MarginContainer/VBoxContainer/Beverages/Wine/HBoxContainer"]
+custom_minimum_size = Vector2(30, 0)
+layout_mode = 2
+text = "+"
+
+[node name="Price" type="Label" parent="Container/VBoxContainer/TabContainer/Prices/MarginContainer/VBoxContainer/Beverages/Wine/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "$ 2"
+horizontal_alignment = 1
+
+[node name="DecreaseButton" type="Button" parent="Container/VBoxContainer/TabContainer/Prices/MarginContainer/VBoxContainer/Beverages/Wine/HBoxContainer"]
+custom_minimum_size = Vector2(30, 0)
+layout_mode = 2
+text = "-"
+
+[node name="Lemonade" type="HBoxContainer" parent="Container/VBoxContainer/TabContainer/Prices/MarginContainer/VBoxContainer/Beverages"]
+layout_mode = 2
+
+[node name="Beverage" type="Label" parent="Container/VBoxContainer/TabContainer/Prices/MarginContainer/VBoxContainer/Beverages/Lemonade"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Lemonade"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Container/VBoxContainer/TabContainer/Prices/MarginContainer/VBoxContainer/Beverages/Lemonade"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="IncreaseButton" type="Button" parent="Container/VBoxContainer/TabContainer/Prices/MarginContainer/VBoxContainer/Beverages/Lemonade/HBoxContainer"]
+custom_minimum_size = Vector2(30, 0)
+layout_mode = 2
+text = "+"
+
+[node name="Price" type="Label" parent="Container/VBoxContainer/TabContainer/Prices/MarginContainer/VBoxContainer/Beverages/Lemonade/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "$ 2"
+horizontal_alignment = 1
+
+[node name="DecreaseButton" type="Button" parent="Container/VBoxContainer/TabContainer/Prices/MarginContainer/VBoxContainer/Beverages/Lemonade/HBoxContainer"]
+custom_minimum_size = Vector2(30, 0)
+layout_mode = 2
+text = "-"
+
+[node name="Spacer" type="Label" parent="Container/VBoxContainer/TabContainer/Prices/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Spacer2" type="Label" parent="Container/VBoxContainer/TabContainer/Prices/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Tickets" type="VBoxContainer" parent="Container/VBoxContainer/TabContainer/Prices/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Spacer" type="Label" parent="Container/VBoxContainer/TabContainer/Prices/MarginContainer/VBoxContainer/Tickets"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Ticket Prices"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Container/VBoxContainer/TabContainer/Prices/MarginContainer/VBoxContainer/Tickets"]
+layout_mode = 2
+
+[node name="Spacer2" type="Label" parent="Container/VBoxContainer/TabContainer/Prices/MarginContainer/VBoxContainer/Tickets/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Price" type="Label" parent="Container/VBoxContainer/TabContainer/Prices/MarginContainer/VBoxContainer/Tickets/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Sell Price"
+horizontal_alignment = 1
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Container/VBoxContainer/TabContainer/Prices/MarginContainer/VBoxContainer/Tickets"]
+layout_mode = 2
+
+[node name="Ticket" type="Label" parent="Container/VBoxContainer/TabContainer/Prices/MarginContainer/VBoxContainer/Tickets/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "1 Ticket"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Container/VBoxContainer/TabContainer/Prices/MarginContainer/VBoxContainer/Tickets/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="IncreaseButton" type="Button" parent="Container/VBoxContainer/TabContainer/Prices/MarginContainer/VBoxContainer/Tickets/HBoxContainer2/HBoxContainer"]
+custom_minimum_size = Vector2(30, 0)
+layout_mode = 2
+text = "+"
+
+[node name="Price" type="Label" parent="Container/VBoxContainer/TabContainer/Prices/MarginContainer/VBoxContainer/Tickets/HBoxContainer2/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "$ 2"
+horizontal_alignment = 1
+
+[node name="DecreaseButton" type="Button" parent="Container/VBoxContainer/TabContainer/Prices/MarginContainer/VBoxContainer/Tickets/HBoxContainer2/HBoxContainer"]
+custom_minimum_size = Vector2(30, 0)
+layout_mode = 2
+text = "-"
 
 [node name="Start Show" type="VBoxContainer" parent="Container/VBoxContainer/TabContainer"]
 visible = false
@@ -618,5 +863,5 @@ texture = ExtResource("7_0bh5n")
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Container/VBoxContainer2"]
 stream = ExtResource("8_d8huo")
 
-[connection signal="button_up" from="Container/VBoxContainer/TabContainer/Booking/HBoxContainer/Infos/VBoxContainer2/Button" to="Container/VBoxContainer/TabContainer/Booking/HBoxContainer/Infos/VBoxContainer2/Button" method="_on_button_up"]
+[connection signal="button_up" from="Container/VBoxContainer/TabContainer/Booking/MarginContainer/HBoxContainer/Infos/VBoxContainer2/Button" to="Container/VBoxContainer/TabContainer/Booking/MarginContainer/HBoxContainer/Infos/VBoxContainer2/Button" method="_on_button_up"]
 [connection signal="button_up" from="Container/VBoxContainer/TabContainer/Start Show/HBoxContainer/Start Button" to="Container/VBoxContainer/TabContainer/Start Show/HBoxContainer/Start Button" method="_on_button_up"]

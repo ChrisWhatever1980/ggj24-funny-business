@@ -72,19 +72,20 @@ func open_laptop():
 
 
 func on_start_show():
+
 	if !tutorial_finished:
 		on_show_message("Click a comedian to get them on stage. Click a comedian on the stage if you want them to leave. Drag drinks to thirsty guests. Collect the coins with the mouse. Click <END SHOW>.", 8.0)
-
-	var base = 5 + GameState.fame / 10
-	var fame_today = randi_range(0, GameState.fame)
-	var hype_today = randi_range(0, GameState.hype / 10)
-	var comedian_bonus = 0
+	var price_malus = GameState.ticket_price + GameState.beer_price + GameState.wine_price / 2 + GameState.lemonade_price / 4
+	var base = max(0, 5 + GameState.fame / 10 - price_malus / 10)
+	var fame_today = max(0, randi_range(0, GameState.fame) - GameState.ticket_price) 
+	var hype_today = max(0, randi_range(0, GameState.hype / 10) - GameState.ticket_price)
 	
+	var comedian_bonus = 0
 	for comedian in get_tree().get_nodes_in_group("Comedians"):
 		comedian_bonus += randi_range(0, comedian.stats.fame)
-	
-	print("Spawn " + str(base)+ " base + " + str(fame_today) + " fame_today + " +str(comedian_bonus) + " comedian_bonus + " + str(hype_today) + " hype_today = " + str(base + fame_today + hype_today) + " Guests")
-	generate_audience(base + comedian_bonus + fame_today + hype_today)
+	var guests = max(0, base + fame_today + hype_today + comedian_bonus)
+	print("Spawn " + str(base)+ " base + " + str(fame_today) + " fame_today + " + str(hype_today) + " hype_today + " +str(comedian_bonus) + " comedian_bonus = " + str(guests) + " Guests")
+	generate_audience(guests)
 	$AnimationPlayer.play("laptop_to_main_animation")
 	$AspectRatioContainer/EndShowButton.visible = true
 	$BartenderMinigame.visible = true
