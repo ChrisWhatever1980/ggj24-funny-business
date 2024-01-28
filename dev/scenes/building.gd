@@ -49,6 +49,7 @@ func on_start_game():
 	$SpotLight.light_color = Color.WHITE
 	$SpotLight2.light_color = Color.WHITE
 	$BartenderMinigame.visible = true
+	$Laptop/AnimationPlayer.play("open_animation")
 
 
 func on_start_show():
