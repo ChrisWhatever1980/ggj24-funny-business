@@ -2,6 +2,7 @@ extends Node3D
 
 @export var GuestScene:PackedScene
 @export var CoinScene:PackedScene
+@export var MessageBoxScene: PackedScene
 
 
 @onready var ComedianExit = $comedy_club/ComedianExit
@@ -17,10 +18,12 @@ extends Node3D
 ]
 
 
+var tutorial_finished = false
 var current_wait_slot = 0
 var in_the_club = true
 var current_comedian = null
 var floor_rect
+var disappointed_the_devil = false
 
 
 func _ready():
@@ -34,12 +37,19 @@ func _ready():
 	GameEvents.connect_event("start_game", self, "on_start_game")
 	GameEvents.connect_event("comedian_judged", self, "on_comedian_judged")
 	GameEvents.connect_event("play_crickets", self, "on_play_crickets")
+	GameEvents.connect_event("show_message", self, "on_show_message")
 
 	var pos = $comedy_club/FloorArea.position
 	var size = $comedy_club/FloorArea/CollisionShape3D.shape.size
 	floor_rect = Rect2(pos.x - size.x / 2, pos.z - size.z / 2, size.x, size.z)
 
 	$AnimationPlayer.play_backwards("start_game_animation")
+
+
+func on_show_message(msg, duration = 5.0):
+	var new_message = MessageBoxScene.instantiate()
+	$AspectRatioContainer.add_child(new_message)
+	new_message.set_message(msg, duration)
 
 
 func on_start_game():
@@ -52,12 +62,19 @@ func on_start_game():
 	$BartenderMinigame.visible = true
 	open_laptop()
 
+
 func open_laptop():
 	$Laptop/AnimationPlayer.play("open_animation")
 	$Laptop/SubViewport/Node2D.open()
 	
+	if !tutorial_finished:
+		on_show_message("Book comedians, buy beverages and place ads. When you are set, click <Start Show>.")
+
 
 func on_start_show():
+	if !tutorial_finished:
+		on_show_message("Click a comedian to get them on stage. Click a comedian on the stage if you want them to leave. Drag drinks to thirsty guests. Collect the coins with the mouse. Click <END SHOW>.", 8.0)
+
 	var base = 5 + GameState.fame / 10
 	var fame_today = randi_range(0, GameState.fame)
 	var hype_today = randi_range(0, GameState.hype / 10)
@@ -200,21 +217,36 @@ func go_to_underworld():
 	$AnimationPlayer.play("to_underworld")
 	$BartenderMinigame.visible = false
 	$AspectRatioContainer/EndShowButton.visible = false
-	
+
 	if current_comedian:
 		current_comedian.stop_performing()
 	
 	# put up comedians for judgement
-	var death_idx = 0
-	for comedian in get_tree().get_nodes_in_group("Comedians"):
-		print("Put comedian on plank!")
-		comedian.to_target = Vector3.ZERO
-		comedian.position = get_node("Underworld/comedian_plank/ComedianDeath" + str(death_idx)).global_position
-		comedian.scale = Vector3.ONE * 0.25
-		comedian.in_hell = true
-		death_idx += 1
+	var comedians = get_tree().get_nodes_in_group("Comedians")
 
-	await get_tree().create_timer(1.0).timeout
+	if comedians.size() > 0:
+		var death_idx = 0
+		for comedian in get_tree().get_nodes_in_group("Comedians"):
+			print("Put comedian on plank!")
+			comedian.to_target = Vector3.ZERO
+			comedian.position = get_node("Underworld/comedian_plank/ComedianDeath" + str(death_idx)).global_position
+			comedian.scale = Vector3.ONE * 0.25
+			comedian.in_hell = true
+			death_idx += 1
+
+		await get_tree().create_timer(1.0).timeout
+
+		if !tutorial_finished:
+			on_show_message("Oh no, you sold your soul to the devil for a good joke. Which comedian will you send to hell in your place? Click <NEXT DAY> when the deal is done.")
+			tutorial_finished = true
+	else:
+		if !disappointed_the_devil:
+			on_show_message("YOU DARE TO COME BEFORE ME WITHOUT SACRIFICE? DISAPPOINT ME AGAIN AND YOUR SOUL WILL BE FORFEIT!")
+			disappointed_the_devil = true
+		else:
+			$GameOverScreen/AnimationPlayer.play("game_over_animation")
+			GameEvents.emit_signal("comedian_judged")
+
 	$EnterHellPlayer.play()
 	
 
@@ -264,3 +296,7 @@ func on_play_crickets():
 	await get_tree().create_timer(2.0).timeout
 	$MusicStreamPlayer.stream_paused = false
 	current_comedian.pause_standup_stream(false)
+
+
+func back_to_title():
+	get_tree().reload_current_scene()

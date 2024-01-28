@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=3 uid="uid://4xkgb6wyhpkb"]
+[gd_scene load_steps=39 format=3 uid="uid://4xkgb6wyhpkb"]
 
 [ext_resource type="Script" path="res://scenes/building.gd" id="1_no7ks"]
 [ext_resource type="PackedScene" uid="uid://bdlhljeuhdyc0" path="res://models/comedy_club.glb" id="1_xfk75"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://de25e4whii3qa" path="res://scenes/guest.tscn" id="2_idpge"]
 [ext_resource type="PackedScene" uid="uid://ii7lpcj3odym" path="res://scenes/coin.tscn" id="3_e5f0h"]
 [ext_resource type="PackedScene" uid="uid://bjw6r72huloyy" path="res://models/stool.glb" id="3_lcvpm"]
+[ext_resource type="PackedScene" uid="uid://bfbesy8cfyatg" path="res://message_box.tscn" id="5_4l3or"]
 [ext_resource type="PackedScene" uid="uid://c4fuk2e1l2kf1" path="res://models/stage.glb" id="6_g7yxt"]
 [ext_resource type="PackedScene" uid="uid://dh1iy0je7c6l7" path="res://scenes/spot_light.tscn" id="8_3sd2r"]
 [ext_resource type="PackedScene" uid="uid://xw4q52xtmcl5" path="res://scenes/laptop/laptop.tscn" id="8_6tjwg"]
@@ -208,7 +209,7 @@ _data = {
 }
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_bj2d1"]
-size = Vector3(2, 2, 2)
+size = Vector3(2, 1.87988, 2)
 
 [sub_resource type="BoxMesh" id="BoxMesh_ucph6"]
 size = Vector3(1, 5, 1)
@@ -216,10 +217,86 @@ size = Vector3(1, 5, 1)
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lo1fd"]
 albedo_color = Color(0, 0, 0, 1)
 
+[sub_resource type="Animation" id="Animation_f566w"]
+resource_name = "game_over_animation"
+length = 3.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("..")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(3),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"back_to_title"
+}]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_8x4o0"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_2lgvy"]
+_data = {
+"RESET": SubResource("Animation_8x4o0"),
+"game_over_animation": SubResource("Animation_f566w")
+}
+
 [node name="Building" type="Node3D"]
 script = ExtResource("1_no7ks")
 GuestScene = ExtResource("2_idpge")
 CoinScene = ExtResource("3_e5f0h")
+MessageBoxScene = ExtResource("5_4l3or")
 
 [node name="AspectRatioContainer" type="AspectRatioContainer" parent="."]
 anchors_preset = 15
@@ -249,6 +326,7 @@ layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 8
 mouse_filter = 1
+theme_override_font_sizes/font_size = 30
 text = "END SHOW"
 
 [node name="NextDayButton" type="Button" parent="AspectRatioContainer"]
@@ -257,6 +335,7 @@ layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 8
 mouse_filter = 1
+theme_override_font_sizes/font_size = 30
 text = "NEXT DAY"
 
 [node name="TitleScreen" parent="AspectRatioContainer" instance=ExtResource("14_lgqev")]
@@ -364,7 +443,7 @@ collision_layer = 256
 collision_mask = 4
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="CoinVacuumer"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.01153, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.951471, 0)
 shape = SubResource("BoxShape3D_bj2d1")
 
 [node name="TitleCamera" type="Camera3D" parent="."]
@@ -437,6 +516,40 @@ surface_material_override/0 = SubResource("StandardMaterial3D_lo1fd")
 
 [node name="EnterHellPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("20_leloh")
+
+[node name="GameOverScreen" type="ColorRect" parent="."]
+visible = false
+modulate = Color(1, 1, 1, 0)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Label" type="Label" parent="GameOverScreen"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+theme_override_font_sizes/font_size = 60
+text = "GAME OVER"
+horizontal_alignment = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="GameOverScreen"]
+libraries = {
+"": SubResource("AnimationLibrary_2lgvy")
+}
 
 [connection signal="pressed" from="AspectRatioContainer/EndShowButton" to="." method="_on_end_show_button_pressed"]
 [connection signal="pressed" from="AspectRatioContainer/NextDayButton" to="." method="_on_next_day_button_pressed"]
