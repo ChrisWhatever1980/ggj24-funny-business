@@ -1,7 +1,5 @@
 extends VBoxContainer
 @export var audio_ding : AudioStreamPlayer
-
-
 @export var container : VBoxContainer
 
 func _ready():
@@ -15,6 +13,7 @@ func _ready():
 
 func reset():
 	GameState.hype = 0
+	GameState.ads_placed = 0
 
 func setup_medium(medium : HBoxContainer):
 	var increase = medium.get_node("Buy/BuyButton")
@@ -30,7 +29,8 @@ func increase_hype(reach, efficiency, price, label):
 	if GameState.money > price and str_to_var(label.text) < 10:
 		GameEvents.emit_signal("change_money", -price)
 		GameState.hype += reach * efficiency / 10
-		label.text = str(str_to_var(label.text)+1)
+		label.text = str(str_to_var(label.text)+1)#
+		GameState.ads_placed += 1
 		print("Hype: " + str(GameState.hype))
 	else:
 		audio_ding.play()
@@ -40,6 +40,7 @@ func decrease_hype(reach, efficiency, price, label):
 		GameEvents.emit_signal("change_money", price)
 		GameState.hype -= reach * efficiency / 10
 		label.text = str(str_to_var(label.text)-1)
+		GameState.ads_placed -= 1
 		print("Hype: " + str(GameState.hype))
 	else:
 		audio_ding.play()

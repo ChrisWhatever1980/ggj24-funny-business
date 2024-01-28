@@ -11,6 +11,10 @@ extends Node2D
 @export var budget : Label
 @export var tabs : TabContainer
 
+@export var comedians_booked : Label
+@export var beverages_in_stock : Label
+@export var advetisements_placed : Label
+
 var comedians
 var selected_comedian
 var active_button
@@ -73,3 +77,52 @@ func finalize_booking():
 		button.queue_free()
 	
 	print("Selected " + str(ComedianPool.selected.size()) + " comedians for the show!")
+
+
+func _on_tab_container_tab_button_pressed(tab):
+	print(str(tab))
+	if tab == 4:
+		var count = booked_buttons.size
+		comedians_booked.text = str(count)
+		if count < 1:
+			comedians_booked.add_theme_color_override("font_color", Color.RED)
+		else:
+			comedians_booked.add_theme_color_override("font_color", Color.BLACK)
+			
+		count = GameState.beer + GameState.wine + GameState.lemonade
+		beverages_in_stock.text = str(count)
+		if count < 1:
+			beverages_in_stock.add_theme_color_override("font_color", Color.RED)
+		else:
+			comedians_booked.add_theme_color_override("font_color", Color.BLACK)
+		
+		count = GameState.ads_placed
+		advetisements_placed.text = str(count)
+		if count < 1:
+			advetisements_placed.add_theme_color_override("font_color", Color.RED)
+		else:
+			advetisements_placed.add_theme_color_override("font_color", Color.BLACK)
+
+
+func _on_tab_container_tab_selected(tab):
+	if tab == 4:
+		var count = booked_buttons.get_children().size()
+		comedians_booked.text = str(count)
+		if count < 1:
+			comedians_booked.add_theme_color_override("font_color", Color.RED)
+		else:
+			comedians_booked.add_theme_color_override("font_color", Color.BLACK)
+			
+		count = GameState.beer + GameState.wine + GameState.lemonade
+		beverages_in_stock.text = str(count)
+		if count < 1:
+			beverages_in_stock.add_theme_color_override("font_color", Color.RED)
+		else:
+			beverages_in_stock.add_theme_color_override("font_color", Color.BLACK)
+		
+		count = GameState.ads_placed
+		advetisements_placed.text = str(count)
+		if count < 1:
+			advetisements_placed.add_theme_color_override("font_color", Color.RED)
+		else:
+			advetisements_placed.add_theme_color_override("font_color", Color.BLACK)

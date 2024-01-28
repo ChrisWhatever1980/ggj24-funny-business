@@ -10,3 +10,4 @@ var wine = 0
 var wine_price = 6
 var lemonade = 0
 var lemonade_price = 2
+var ads_placed = 0
