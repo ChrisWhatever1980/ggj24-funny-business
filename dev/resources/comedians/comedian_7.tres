@@ -5,8 +5,8 @@
 [resource]
 script = ExtResource("1_opwja")
 name = "Eduard Murphy"
-cost = 20
-fame = 15
+cost = 25
+fame = 5
 comedy = 30
 bomb_chance = 10
 hit_chance = 15

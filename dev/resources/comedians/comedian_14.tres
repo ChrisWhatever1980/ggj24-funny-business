@@ -6,7 +6,7 @@
 script = ExtResource("1_nsk71")
 name = "Robert Hope"
 cost = 110
-fame = 45
+fame = 55
 comedy = 35
 bomb_chance = 15
 hit_chance = 30

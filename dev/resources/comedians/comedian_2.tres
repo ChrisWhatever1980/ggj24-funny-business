@@ -5,11 +5,11 @@
 [resource]
 script = ExtResource("1_w5ugn")
 name = "Randy Kaufman"
-cost = 25
+cost = 50
 fame = 20
 comedy = 10
 bomb_chance = 25
-hit_chance = 30
+hit_chance = 50
 availability = 100
 club_fame_requirement = 0
 endurance = 25

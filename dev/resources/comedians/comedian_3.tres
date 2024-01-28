@@ -5,7 +5,7 @@
 [resource]
 script = ExtResource("1_8b8uj")
 name = "Berry Seinfield"
-cost = 50
+cost = 10
 fame = 1
 comedy = 20
 bomb_chance = 10

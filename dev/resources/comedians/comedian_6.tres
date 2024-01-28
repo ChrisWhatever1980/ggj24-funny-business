@@ -5,7 +5,7 @@
 [resource]
 script = ExtResource("1_p25b8")
 name = "Phil Hicks"
-cost = 25
+cost = 45
 fame = 15
 comedy = 35
 bomb_chance = 10
