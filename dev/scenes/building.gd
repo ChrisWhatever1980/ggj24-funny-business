@@ -115,6 +115,7 @@ func spawn_comedian(comedian_stats):
 	add_child(new_comedian)
 
 func reset_day():
+	current_wait_slot = 0
 	current_comedian = null
 	for comedian in get_tree().get_nodes_in_group("Comedians"):
 		
