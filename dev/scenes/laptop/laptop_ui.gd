@@ -9,6 +9,7 @@ extends Node2D
 @export var book_button : Button
 @export var start_button : Button
 @export var budget : Label
+@export var tabs : TabContainer
 
 var comedians
 var selected_comedian
@@ -35,6 +36,7 @@ func reset():
 	reset_infos()
 	comedians = ComedianPool.get_available_comedians()
 	budget.text = "$" + str(GameState.money)
+	tabs.current_tab = 0
 	
 	for comedian in comedians:
 		add_available(comedian)
