@@ -1,6 +1,5 @@
 extends Node3D
 
-
 @export var GuestScene:PackedScene
 @export var CoinScene:PackedScene
 
@@ -51,8 +50,12 @@ func on_start_game():
 	$SpotLight.light_color = Color.WHITE
 	$SpotLight2.light_color = Color.WHITE
 	$BartenderMinigame.visible = true
-	$Laptop/AnimationPlayer.play("open_animation")
+	open_laptop()
 
+func open_laptop():
+	$Laptop/AnimationPlayer.play("open_animation")
+	$Laptop/SubViewport/Node2D.open()
+	
 
 func on_start_show():
 	var base = 5 + GameState.fame / 10

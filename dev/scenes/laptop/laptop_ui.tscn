@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://bi62kfqbonnfa"]
+[gd_scene load_steps=10 format=3 uid="uid://bi62kfqbonnfa"]
 
 [ext_resource type="Script" path="res://scenes/laptop/laptop_ui.gd" id="1_tslm7"]
 [ext_resource type="Theme" uid="uid://cycenb0gvsi2l" path="res://Themes/Classic311/Classic311.tres" id="2_a8gvu"]
@@ -6,9 +6,17 @@
 [ext_resource type="Script" path="res://scenes/laptop/start_show_button.gd" id="4_gnypp"]
 [ext_resource type="Script" path="res://scenes/laptop/BeverageShop.gd" id="4_utcwm"]
 [ext_resource type="Script" path="res://scenes/laptop/AdvertisingShop.gd" id="5_yaj07"]
+[ext_resource type="Texture2D" uid="uid://d3pv6ivse4ogc" path="res://textures/windows_95.jpg" id="7_0bh5n"]
+[ext_resource type="AudioStream" uid="uid://db10ygp2nhwi4" path="res://audio/CHIMES.WAV" id="8_d8huo"]
 
-[node name="Laptop UI" type="Node2D" node_paths=PackedStringArray("available_buttons", "booked_buttons", "stats_container", "book_button", "start_button", "budget")]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bl8mt"]
+bg_color = Color(0, 0, 0, 1)
+
+[node name="Laptop UI" type="Node2D" node_paths=PackedStringArray("panel", "logo", "audio", "available_buttons", "booked_buttons", "stats_container", "book_button", "start_button", "budget")]
 script = ExtResource("1_tslm7")
+panel = NodePath("Container/VBoxContainer2/Panel")
+logo = NodePath("Container/VBoxContainer2/Panel/TextureRect")
+audio = NodePath("Container/VBoxContainer2/AudioStreamPlayer")
 available_buttons = NodePath("Container/VBoxContainer/TabContainer/Booking/HBoxContainer/Comedians/ScrollContainer/Buttons")
 booked_buttons = NodePath("Container/VBoxContainer/TabContainer/Booking/HBoxContainer/Booked/ScrollContainer/Buttons")
 stats_container = NodePath("Container/VBoxContainer/TabContainer/Booking/HBoxContainer/Infos/VBoxContainer/HBoxContainer/Stats")
@@ -17,6 +25,7 @@ start_button = NodePath("Container/VBoxContainer/TabContainer/Start Show/HBoxCon
 budget = NodePath("Container/VBoxContainer/MarginContainer/HBoxContainer2/HBoxContainer/Budget#")
 
 [node name="Container" type="AspectRatioContainer" parent="."]
+custom_minimum_size = Vector2(595, 480)
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -33,7 +42,7 @@ alignment_vertical = 0
 metadata/_edit_group_ = true
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Container"]
-custom_minimum_size = Vector2(595, 400)
+custom_minimum_size = Vector2(595, 480)
 layout_mode = 2
 
 [node name="TabContainer" type="TabContainer" parent="Container/VBoxContainer"]
@@ -586,6 +595,28 @@ text = "Budget:"
 [node name="Budget#" type="Label" parent="Container/VBoxContainer/MarginContainer/HBoxContainer2/HBoxContainer"]
 layout_mode = 2
 text = "$ 666"
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="Container"]
+custom_minimum_size = Vector2(595, 480)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Panel" type="Panel" parent="Container/VBoxContainer2"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_bl8mt")
+
+[node name="TextureRect" type="TextureRect" parent="Container/VBoxContainer2/Panel"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+offset_left = -83.29
+offset_right = 1916.71
+offset_bottom = 1334.0
+scale = Vector2(0.36, 0.36)
+texture = ExtResource("7_0bh5n")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Container/VBoxContainer2"]
+stream = ExtResource("8_d8huo")
 
 [connection signal="button_up" from="Container/VBoxContainer/TabContainer/Booking/HBoxContainer/Infos/VBoxContainer2/Button" to="Container/VBoxContainer/TabContainer/Booking/HBoxContainer/Infos/VBoxContainer2/Button" method="_on_button_up"]
 [connection signal="button_up" from="Container/VBoxContainer/TabContainer/Start Show/HBoxContainer/Start Button" to="Container/VBoxContainer/TabContainer/Start Show/HBoxContainer/Start Button" method="_on_button_up"]

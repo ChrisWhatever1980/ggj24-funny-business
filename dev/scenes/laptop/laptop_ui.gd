@@ -1,5 +1,8 @@
 extends Node2D
 
+@export var panel : Panel
+@export var logo : TextureRect
+@export var audio : AudioStreamPlayer
 @export var available_buttons : VBoxContainer
 @export var booked_buttons : VBoxContainer
 @export var stats_container : VBoxContainer
@@ -10,11 +13,23 @@ extends Node2D
 var comedians
 var selected_comedian
 var active_button
+var tween
 
 func _ready():
 	book_button.interface = self
 	start_button.interface = self
 	reset()
+
+func open():
+	tween = get_tree().create_tween()
+	tween.tween_interval(3)
+	tween.tween_property(logo, "modulate", Color.WHITE/2, 1.5)
+	tween.tween_callback(audio.play)
+	tween.tween_property(logo, "modulate", Color.WHITE, 1.5)
+	tween.tween_interval(0.125)
+	tween.tween_property(logo, "modulate", Color.TRANSPARENT, 0.125)
+	tween.tween_callback(panel.hide)
+	tween.play()
 
 func reset():
 	reset_infos()
@@ -50,6 +65,9 @@ func finalize_booking():
 	
 	for button in booked_buttons.get_children():
 		ComedianPool.select_comedian(button.comedian)
+		button.queue_free()
+		
+	for button in available_buttons.get_children():
 		button.queue_free()
 	
 	print("Selected " + str(ComedianPool.selected.size()) + " comedians for the show!")
