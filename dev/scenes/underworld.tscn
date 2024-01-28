@@ -1,10 +1,11 @@
-[gd_scene load_steps=15 format=3 uid="uid://bnkasdwoiayuj"]
+[gd_scene load_steps=19 format=3 uid="uid://bnkasdwoiayuj"]
 
 [ext_resource type="Script" path="res://scenes/underworld.gd" id="1_12n00"]
 [ext_resource type="PackedScene" uid="uid://gxe2huwq8y5s" path="res://models/underworld.glb" id="1_ti1ah"]
 [ext_resource type="AudioStream" uid="uid://bpgrj3a82tdp0" path="res://audio/devil_laugh.ogg" id="3_ns2dr"]
 [ext_resource type="Shader" uid="uid://degalxcd65bed" path="res://scenes/sacrifice_pool.tres" id="4_q377h"]
 [ext_resource type="PackedScene" uid="uid://qvohshd3alue" path="res://models/comedian_plank.glb" id="5_butb1"]
+[ext_resource type="Texture2D" uid="uid://cr4o8omhgf2s0" path="res://addons/kenney_particle_pack/dirt_03.png" id="6_t1kd7"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_prmot"]
 albedo_color = Color(0, 0, 0, 1)
@@ -35,6 +36,27 @@ albedo_color = Color(0, 0, 0, 1)
 albedo = Color(1, 0.133333, 0.00392157, 1)
 emission = Color(0.741176, 0.027451, 0.0784314, 1)
 height_falloff = 2.0
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_s0i4q"]
+emission_shape = 6
+emission_ring_axis = Vector3(0, 1, 0)
+emission_ring_height = 0.0
+emission_ring_radius = 2.0
+emission_ring_inner_radius = 0.0
+gravity = Vector3(0, 100, 0)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8dnpl"]
+transparency = 1
+shading_mode = 0
+albedo_color = Color(0.792157, 0, 0.0352941, 1)
+albedo_texture = ExtResource("6_t1kd7")
+billboard_mode = 3
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="QuadMesh" id="QuadMesh_vq0ms"]
+material = SubResource("StandardMaterial3D_8dnpl")
 
 [node name="Underworld" type="Node3D"]
 script = ExtResource("1_12n00")
@@ -100,6 +122,17 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.34402, -9.87758, 14.5525)
 
 [node name="ComedianDeath4" parent="comedian_plank" index="4"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.120763, -9.87161, 14.9134)
+
+[node name="PoolCenter" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.23624, -10.5023, 12.3925)
+
+[node name="SoulFireParticles" type="GPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.26147, -11.5105, 12.4781)
+emitting = false
+amount = 1000
+one_shot = true
+process_material = SubResource("ParticleProcessMaterial_s0i4q")
+draw_pass_1 = SubResource("QuadMesh_vq0ms")
 
 [editable path="underworld"]
 [editable path="comedian_plank"]

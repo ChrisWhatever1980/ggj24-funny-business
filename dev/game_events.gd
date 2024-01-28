@@ -15,6 +15,8 @@ signal start_game
 signal comedian_judged
 signal play_crickets
 signal show_message
+signal comedian_failed
+signal screen_shake
 
 
 func connect_event(_signal: String, target: Object, method: String, binds: Array = [  ], flags: int = 0):

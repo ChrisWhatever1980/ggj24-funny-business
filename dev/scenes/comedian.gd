@@ -10,6 +10,7 @@ var entering = false
 var to_target = Vector3.ZERO
 var exiting_speed = 5.0
 var in_hell = false
+var dying = false
 
 
 # Called when the node enters the scene tree for the first time.
@@ -21,17 +22,25 @@ func _ready():
 func _process(delta):
 	if exiting or entering:
 		position += to_target * delta * exiting_speed
+	elif in_hell and dying:
+		position += (to_target) * delta
+		to_target += Vector3(0, -2.0, 0) * delta
+
+
+func get_joke_quality():
+	var joke_quality = 0
+	if randi_range(0, 100) > stats.bomb_chance:
+		joke_quality = randi_range(stats.comedy / 5, stats.comedy)
+
+		if randi_range(0, 100) < stats.hit_chance:
+			joke_quality *= 2
+
+	return joke_quality
 
 
 func _on_timer_timeout():
 	if performing:
-		var joke_quality = 0
-		
-		if randi_range(0, 100) > stats.bomb_chance:
-			joke_quality = randi_range(stats.comedy / 5, stats.comedy)
-			
-			if randi_range(0, 100) < stats.hit_chance:
-				joke_quality *= 2
+		var joke_quality = get_joke_quality()
 		
 		$Timer.wait_time = 4.0 + 4.0 * clamp(1.0 - (stats.endurance / 10.0), 0.0, 1.0)
 		stats.endurance -= 1
@@ -73,25 +82,59 @@ func stop_performing():
 	GameEvents.emit_signal("audience_idle")
 
 
+func die():
+	# jump into pool
+	dying = true
+
+	var pool_center = get_parent().get_node("Underworld/PoolCenter")
+	to_target = (pool_center.global_position - global_position).normalized()
+	to_target.y = 1.0
+
+	match randi() % 4:
+		0:
+			$Scream0.play()
+		1:
+			$Scream1.play()
+		2:
+			$Scream2.play()
+		3:
+			$Scream3.play()
+
+	# then show button next day
+	GameEvents.emit_signal("comedian_judged")
+	
+	# this comedian is no longer available
+	ComedianPool.dead.append(stats)
+
+
 func _on_area_3d_input_event(camera, event, position, normal, shape_idx):
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT:
 			if event.pressed:
 
 				if in_hell:
-					# jump into pool
-					
-					# then show button next day
-					match randi() % 4:
-						0:
-							$Scream0.play()
-						1:
-							$Scream1.play()
-						2:
-							$Scream2.play()
-						3:
-							$Scream3.play()
-					GameEvents.emit_signal("comedian_judged")
+					exiting = false
+					entering = false
+					performing = false
+					waiting = false
+
+					$StandupStream1.play()
+					await get_tree().create_timer(3.0).timeout
+					$StandupStream1.stop()
+
+					# evaluate joke
+					var devil_react = get_joke_quality() + randi_range(-2, 2)
+					if devil_react <= 5:
+						print("COMEDIAN FAILED")# comedian failed
+						GameEvents.emit_signal("show_message", "TERRIBLE.")
+						GameEvents.emit_signal("comedian_failed")
+						die()
+					else:
+						print("COMEDIAN SUCCEEDED")
+						GameEvents.emit_signal("show_message", "YOU AMUSE ME MORTAL. LEAVE.")
+						GameEvents.emit_signal("comedian_judged")
+						visible = false
+				
 
 				if waiting:
 					print("GET ON THE STAGE!")

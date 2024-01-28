@@ -2,6 +2,7 @@ extends Node
 
 var pool = []
 var selected = []
+var dead = []
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -10,6 +11,7 @@ func _ready():
 		pool.append(load("res://resources/comedians/" + path))
 	
 	print("Loaded " + str(pool.size()) + " comedian stats")
+
 
 func get_available_comedians() -> Array:
 	var selection_pool = pool.duplicate()
@@ -24,9 +26,10 @@ func get_available_comedians() -> Array:
 		comedian = selection_pool[index]
 		
 		if comedian.club_fame_requirement <= GameState.fame and comedian.availability >= randi_range(0,100):
-			available.append( selection_pool[index] )
-			selection_pool.remove_at( index )
-		
+			if !dead.has(selection_pool[index]):	# do not select dead comedians
+				available.append( selection_pool[index] )
+				selection_pool.remove_at( index )
+
 		emergencyCounter += 1
 		if emergencyCounter > 100:
 			break

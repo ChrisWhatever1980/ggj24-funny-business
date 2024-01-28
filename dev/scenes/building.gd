@@ -53,13 +53,14 @@ func on_show_message(msg, duration = 5.0):
 
 
 func on_start_game():
-	$MainCamera.current = true
+	$MainCamera/Camera3D.current = true
 	$AspectRatioContainer/TitleScreen.visible = false
 	$AspectRatioContainer.visible = true
 	$MusicStreamPlayer.volume_db = -10.0
 	$SpotLight.light_color = Color.WHITE
 	$SpotLight2.light_color = Color.WHITE
 	#$BartenderMinigame.visible = true
+	$AspectRatioContainer/MoneyDisplay.visible = true
 	open_laptop()
 
 
@@ -68,7 +69,7 @@ func open_laptop():
 	$Laptop/SubViewport/Node2D.open()
 	
 	if !tutorial_finished:
-		on_show_message("Book comedians, buy beverages and place ads. When you are set, click <Start Show>.")
+		on_show_message("Book comedians, set prices, buy beverages and place ads. When you are ready, click <Start Show>.")
 
 
 func on_start_show():
@@ -99,6 +100,7 @@ func reset_day():
 	for guest in get_tree().get_nodes_in_group("Guests"):
 		guest.queue_free()
 
+	$AspectRatioContainer/MoneyDisplay.visible = true
 	$BartenderMinigame.visible = false
 	$AspectRatioContainer/NextDayButton.visible = false
 
@@ -175,7 +177,7 @@ func on_change_money(value):
 				$MoneyEarnedAudio1.play()
 			2:
 				$MoneyEarnedAudio2.play()
-	$AspectRatioContainer/HBoxContainer/MoneyAmount.text = str(GameState.money)
+	$AspectRatioContainer/MoneyDisplay/MoneyAmount.text = str(GameState.money)
 	$"Laptop/SubViewport/Node2D/Container/VBoxContainer/MarginContainer/HBoxContainer2/HBoxContainer/Budget#".text = "$" + str(GameState.money)
 
 
@@ -188,12 +190,10 @@ func on_spawn_coin(pos):
 
 
 func _process(delta):
-	if in_the_club and Input.is_action_just_pressed("ui_down"):
-		go_to_underworld()
-	if !in_the_club and Input.is_action_just_pressed("ui_up"):
-		go_to_club()
 	if Input.is_action_just_pressed("ui_cancel"):
 		get_tree().quit()
+	if Input.is_action_just_pressed("ui_up"):
+		GameEvents.emit_signal("screen_shake")
 
 
 
@@ -218,38 +218,55 @@ func go_to_underworld():
 	$AnimationPlayer.play("to_underworld")
 	$BartenderMinigame.visible = false
 	$AspectRatioContainer/EndShowButton.visible = false
+	$AspectRatioContainer/MoneyDisplay.visible = false
 
 	if current_comedian:
 		current_comedian.stop_performing()
-	
-	# put up comedians for judgement
-	var comedians = get_tree().get_nodes_in_group("Comedians")
-
-	if comedians.size() > 0:
-		var death_idx = 0
-		for comedian in get_tree().get_nodes_in_group("Comedians"):
-			print("Put comedian on plank!")
-			comedian.to_target = Vector3.ZERO
-			comedian.position = get_node("Underworld/comedian_plank/ComedianDeath" + str(death_idx)).global_position
-			comedian.scale = Vector3.ONE * 0.25
-			comedian.in_hell = true
-			death_idx += 1
-
-		await get_tree().create_timer(1.0).timeout
-
-		if !tutorial_finished:
-			on_show_message("Oh no, you sold your soul to the devil for a good joke. Which comedian will you send to hell in your place? Click <NEXT DAY> when the deal is done.")
-			tutorial_finished = true
-	else:
-		if !disappointed_the_devil:
-			on_show_message("YOU DARE TO COME BEFORE ME WITHOUT SACRIFICE? DISAPPOINT ME AGAIN AND YOUR SOUL WILL BE FORFEIT!")
-			disappointed_the_devil = true
-		else:
-			$GameOverScreen/AnimationPlayer.play("game_over_animation")
-		GameEvents.emit_signal("comedian_judged")
 
 	$EnterHellPlayer.play()
+
+	if GameState.money >= 666:
+		# The player has won against the devile
+		await get_tree().create_timer(1.0).timeout
+		GameEvents.emit_signal("screen_shake", 3.0)
+		on_show_message("WHAT IS THIS. HOW CAN THAT BE. NOOOOOOOO.....", 3.0)
+		GameEvents.emit_signal("comedian_judged")
+		await get_tree().create_timer(1.0).timeout
+		$GameOverScreen/YouWonLabel.visible = true
+		$GameOverScreen/AnimationPlayer.play("game_over_animation")
+	else:
 	
+		# put up comedians for judgement
+		var comedians = get_tree().get_nodes_in_group("Comedians")
+
+		if comedians.size() > 0:
+			var death_idx = 0
+			for comedian in get_tree().get_nodes_in_group("Comedians"):
+				comedian.to_target = Vector3.ZERO
+				comedian.position = get_node("Underworld/comedian_plank/ComedianDeath" + str(death_idx)).global_position
+				comedian.scale = Vector3.ONE * 0.25
+				comedian.in_hell = true
+				death_idx += 1
+
+			await get_tree().create_timer(1.0).timeout
+
+			on_show_message("MAKE ME LAUGH AND I MIGHT SPARE YOUR SOUL, COMEDIAN.", 3.0)
+
+			if !tutorial_finished:
+				await get_tree().create_timer(4.0).timeout
+				on_show_message("Which comedian should tell a joke to the devil? Click <NEXT DAY> when the deal is done.")
+				tutorial_finished = true
+		else:
+			if !disappointed_the_devil:
+				on_show_message("YOU DARE TO COME BEFORE ME WITHOUT SACRIFICE? DISAPPOINT ME AGAIN AND YOUR SOUL WILL BE FORFEIT!")
+				disappointed_the_devil = true
+			else:
+				await get_tree().create_timer(1.0).timeout
+				on_show_message("I WARNED YOU, MORTAL!")
+				await get_tree().create_timer(1.0).timeout
+				$GameOverScreen/YouLostLabel.visible = true
+				$GameOverScreen/AnimationPlayer.play("game_over_animation")
+			GameEvents.emit_signal("comedian_judged")
 
 
 func set_location(_upstairs):
@@ -263,7 +280,7 @@ func go_to_club():
 
 func _physics_process(delta):
 	var space_state = get_world_3d().direct_space_state
-	var cam = $MainCamera
+	var cam = $MainCamera/Camera3D
 	var mousepos = get_viewport().get_mouse_position()
 
 	var origin = cam.project_ray_origin(mousepos)

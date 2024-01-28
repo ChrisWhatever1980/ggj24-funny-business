@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=3 uid="uid://4xkgb6wyhpkb"]
+[gd_scene load_steps=40 format=3 uid="uid://4xkgb6wyhpkb"]
 
 [ext_resource type="Script" path="res://scenes/building.gd" id="1_no7ks"]
 [ext_resource type="PackedScene" uid="uid://bdlhljeuhdyc0" path="res://models/comedy_club.glb" id="1_xfk75"]
@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://c4fuk2e1l2kf1" path="res://models/stage.glb" id="6_g7yxt"]
 [ext_resource type="PackedScene" uid="uid://dh1iy0je7c6l7" path="res://scenes/spot_light.tscn" id="8_3sd2r"]
 [ext_resource type="PackedScene" uid="uid://xw4q52xtmcl5" path="res://scenes/laptop/laptop.tscn" id="8_6tjwg"]
+[ext_resource type="Script" path="res://scenes/MainCamera.gd" id="9_or7ru"]
 [ext_resource type="AudioStream" uid="uid://cuevafyfretln" path="res://audio/kaching_0.ogg" id="10_7w2yh"]
 [ext_resource type="AudioStream" uid="uid://gkkwi1qrw4pg" path="res://audio/kaching_1.ogg" id="11_ganae"]
 [ext_resource type="PackedScene" uid="uid://bnkasdwoiayuj" path="res://scenes/underworld.tscn" id="12_gmibf"]
@@ -305,18 +306,18 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="AspectRatioContainer"]
+[node name="MoneyDisplay" type="HBoxContainer" parent="AspectRatioContainer"]
 visible = false
 layout_mode = 2
 size_flags_vertical = 0
 mouse_filter = 2
 
-[node name="MoneyLabel" type="Label" parent="AspectRatioContainer/HBoxContainer"]
+[node name="MoneyLabel" type="Label" parent="AspectRatioContainer/MoneyDisplay"]
 layout_mode = 2
 size_flags_horizontal = 0
 text = "MONEY: "
 
-[node name="MoneyAmount" type="Label" parent="AspectRatioContainer/HBoxContainer"]
+[node name="MoneyAmount" type="Label" parent="AspectRatioContainer/MoneyDisplay"]
 layout_mode = 2
 text = "0"
 
@@ -381,10 +382,11 @@ input_ray_pickable = false
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.28202, 3.20389, -1.53896)
 shape = SubResource("BoxShape3D_f5ker")
 
-[node name="MainCamera" type="Camera3D" parent="."]
+[node name="MainCamera" type="Node3D" parent="."]
 transform = Transform3D(0.782825, 0.21492, -0.583947, 0, 0.938457, 0.345396, 0.622241, -0.270385, 0.734648, -14.4892, 3.7441, 2.8161)
-fov = 77.3
-near = 0.01
+script = ExtResource("9_or7ru")
+
+[node name="Camera3D" type="Camera3D" parent="MainCamera"]
 
 [node name="AudioListener3D" type="AudioListener3D" parent="MainCamera"]
 
@@ -394,7 +396,7 @@ light_color = Color(0.705882, 0, 0.145098, 1)
 light_energy = 16.0
 
 [node name="SpotLight2" parent="." instance=ExtResource("8_3sd2r")]
-transform = Transform3D(0.980498, 0.00739001, 0.196382, 0.0348712, 0.976891, -0.210867, -0.193402, 0.213603, 0.957584, -14.7558, 10, 0)
+transform = Transform3D(0.980498, 0.00739, 0.196382, 0.0348712, 0.97689, -0.210867, -0.193402, 0.213603, 0.957584, -14.7558, 10, 0)
 light_color = Color(0.772549, 0.054902, 0.219608, 1)
 light_energy = 16.0
 light_specular = 3.0
@@ -528,7 +530,8 @@ grow_vertical = 2
 mouse_filter = 2
 color = Color(0, 0, 0, 1)
 
-[node name="Label" type="Label" parent="GameOverScreen"]
+[node name="YouLostLabel" type="Label" parent="GameOverScreen"]
+visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -544,6 +547,25 @@ grow_vertical = 2
 theme_override_colors/font_color = Color(1, 0, 0, 1)
 theme_override_font_sizes/font_size = 60
 text = "GAME OVER"
+horizontal_alignment = 1
+
+[node name="YouWonLabel" type="Label" parent="GameOverScreen"]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+theme_override_font_sizes/font_size = 60
+text = "YOU TRICKED THE DEVIL"
 horizontal_alignment = 1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="GameOverScreen"]
