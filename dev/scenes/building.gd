@@ -75,30 +75,49 @@ func on_start_show():
 
 	if !tutorial_finished:
 		on_show_message("Click a comedian to get them on stage. Click a comedian on the stage if you want them to leave. Drag drinks to thirsty guests. Collect the coins with the mouse. Click <END SHOW>.", 8.0)
+	
+	for comedian_stats in ComedianPool.selected:
+		spawn_comedian(comedian_stats)
+	
 	var price_malus = GameState.ticket_price + GameState.beer_price + GameState.wine_price / 2 + GameState.lemonade_price / 4
 	var base = max(0, 5 + GameState.fame / 10 - price_malus / 10)
 	var fame_today = max(0, randi_range(0, GameState.fame) - GameState.ticket_price) 
 	var hype_today = max(0, randi_range(0, GameState.hype / 10) - GameState.ticket_price)
+	print("Malus: "+ str(GameState.ticket_price)+ " ticket + "+ str(GameState.beer_price)+ " beer + "+ str(GameState.wine_price/2)+ " wine + "+ str(GameState.lemonade_price/4)+ " lemonade = "+ str(price_malus)+ " Malus")
 	
 	var comedian_bonus = 0
-	for comedian in get_tree().get_nodes_in_group("Comedians"):
-		comedian_bonus += randi_range(0, comedian.stats.fame)
+	for comedian in ComedianPool.selected:
+		comedian_bonus += randi_range(0, comedian.fame)
 	var guests = max(0, base + fame_today + hype_today + comedian_bonus)
-	print("Spawn " + str(base)+ " base + " + str(fame_today) + " fame_today + " + str(hype_today) + " hype_today + " +str(comedian_bonus) + " comedian_bonus = " + str(guests) + " Guests")
+	print("Audience " + str(base)+ " base + " + str(fame_today) + " fame_today + " + str(hype_today) + " hype_today + " +str(comedian_bonus) + " comedian_bonus = " + str(guests) + " Guests")
 	generate_audience(guests)
 	$AnimationPlayer.play("laptop_to_main_animation")
 	$AspectRatioContainer/EndShowButton.visible = true
 	$BartenderMinigame.visible = true
-
+	
+func spawn_comedian(comedian_stats):
+	var new_comedian = preload("res://scenes/comedian.tscn").instantiate()
+	new_comedian.stats = comedian_stats
+	new_comedian.position = ComedianWaitSlots[current_wait_slot].position
+	current_wait_slot += 1
+	add_child(new_comedian)
 
 func reset_day():
 	current_comedian = null
 	for comedian in get_tree().get_nodes_in_group("Comedians"):
+		
+		if comedian.stats.fame > GameState.fame / 10:
+			GameState.fame += 0.1
+		
 		comedian.queue_free()
-
+	
+	var day_mood = 0
 	for guest in get_tree().get_nodes_in_group("Guests"):
+		day_mood += guest.mood
 		guest.queue_free()
-
+	
+	GameState.fame += clampf(day_mood/100,-5,5)
+	print("Last days mood: " + str(day_mood) + " changes fame by " + str(clampf(day_mood/100,-5,5)) + " -> " + str(GameState.fame) + " Fame")
 	$BartenderMinigame.visible = false
 	$AspectRatioContainer/NextDayButton.visible = false
 
@@ -114,11 +133,12 @@ func reset_day():
 func generate_audience(num_guests):
 	var sampling = PoissonDiscSampling.new()
 	var points = sampling.generate_2d_points(2.0, floor_rect, 5)
+	var count = 0
 	print("Points: " + str(points.size()))
 	num_guests = min(num_guests, points.size())
 	for g in num_guests:
-		await get_tree().create_timer(randf() * 0.1).timeout
-
+		await get_tree().create_timer(randf() * 0.1 + randi_range(0, count)/2).timeout
+		count += 1
 		var point = points.pick_random()
 		var new_guest = GuestScene.instantiate()
 		new_guest.target_position = Vector3(point.x, 1.0, point.y)
@@ -127,18 +147,9 @@ func generate_audience(num_guests):
 		new_guest.rotation.y = randf() * 2.0 * PI
 		add_child(new_guest)
 		points.erase(point)
+		GameEvents.emit_signal("change_money", GameState.ticket_price)
 
 
-	for comedian_stats in ComedianPool.selected:
-		spawn_comedian(comedian_stats)
-
-
-func spawn_comedian(comedian_stats):
-	var new_comedian = preload("res://scenes/comedian.tscn").instantiate()
-	new_comedian.stats = comedian_stats
-	new_comedian.position = ComedianWaitSlots[current_wait_slot].position
-	current_wait_slot += 1
-	add_child(new_comedian)
 
 
 func on_spawn_puddle(pos):

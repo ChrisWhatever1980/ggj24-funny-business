@@ -851,17 +851,26 @@ layout_mode = 2
 mouse_filter = 2
 
 [node name="Panel" type="Panel" parent="Container/VBoxContainer2"]
+custom_minimum_size = Vector2(650, 550)
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_bl8mt")
 
 [node name="TextureRect" type="TextureRect" parent="Container/VBoxContainer2/Panel"]
 modulate = Color(1, 1, 1, 0)
-layout_mode = 0
-offset_left = -83.29
-offset_right = 1916.71
-offset_bottom = 1334.0
-scale = Vector2(0.36, 0.36)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -288.33
+offset_top = -186.205
+offset_right = 1711.67
+offset_bottom = 1147.8
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.275, 0.275)
 texture = ExtResource("8_wbdcg")
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Container/VBoxContainer2"]
