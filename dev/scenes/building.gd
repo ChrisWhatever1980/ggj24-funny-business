@@ -32,6 +32,7 @@ func _ready():
 	GameEvents.connect_event("change_money", self, "on_change_money")
 	GameEvents.connect_event("start_show", self, "on_start_show")
 	GameEvents.connect_event("start_game", self, "on_start_game")
+	GameEvents.connect_event("comedian_judged", self, "on_comedian_judged")
 
 	var pos = $comedy_club/FloorArea.position
 	var size = $comedy_club/FloorArea/CollisionShape3D.shape.size
@@ -68,6 +69,27 @@ func on_start_show():
 	generate_audience(base + comedian_bonus + fame_today + hype_today)
 	$AnimationPlayer.play("laptop_to_main_animation")
 	$AspectRatioContainer/EndShowButton.visible = true
+	$BartenderMinigame.visible = true
+
+
+func reset_day():
+	current_comedian = null
+	for comedian in get_tree().get_nodes_in_group("Comedians"):
+		comedian.queue_free()
+
+	for guest in get_tree().get_nodes_in_group("Guests"):
+		guest.queue_free()
+
+	$BartenderMinigame.visible = false
+	$AspectRatioContainer/NextDayButton.visible = false
+
+	$Laptop/SubViewport/Node2D.reset()
+	$Laptop/SubViewport/Node2D/Container/VBoxContainer/TabContainer/Beverages.reset()
+	$Laptop/SubViewport/Node2D/Container/VBoxContainer/TabContainer/Advertising.reset()
+
+	go_to_club()
+	await get_tree().create_timer(1.0).timeout
+	$AnimationPlayer.play_backwards("laptop_to_main_animation")
 
 
 func generate_audience(num_guests):
@@ -178,11 +200,18 @@ func go_to_underworld():
 	$BartenderMinigame.visible = false
 	$AspectRatioContainer/EndShowButton.visible = false
 	
+	if current_comedian:
+		current_comedian.stop_performing()
+	
 	# put up comedians for judgement
 	var death_idx = 0
 	for comedian in get_tree().get_nodes_in_group("Comedians"):
 		print("Put comedian on plank!")
-		comedian.position = get_node("Underworld/comedian_plank/ComedianDeath" + str(death_idx)).position
+		comedian.to_target = Vector3.ZERO
+		comedian.position = get_node("Underworld/comedian_plank/ComedianDeath" + str(death_idx)).global_position
+		comedian.scale = Vector3.ONE * 0.25
+		comedian.in_hell = true
+		death_idx += 1
 
 
 func set_location(_upstairs):
@@ -192,7 +221,6 @@ func set_location(_upstairs):
 
 func go_to_club():
 	$AnimationPlayer.play_backwards("to_underworld")
-	$BartenderMinigame.visible = true
 
 
 func _physics_process(delta):
@@ -213,3 +241,11 @@ func _physics_process(delta):
 func _on_end_show_button_pressed():
 	print("")
 	go_to_underworld()
+
+
+func _on_next_day_button_pressed():
+	reset_day()
+
+
+func on_comedian_judged():
+	$AspectRatioContainer/NextDayButton.visible = true

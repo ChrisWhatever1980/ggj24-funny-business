@@ -13,7 +13,7 @@ viewport_path = NodePath("SubViewport")
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_73pmr"]
 resource_local_to_scene = true
 albedo_texture = SubResource("ViewportTexture_s57xg")
-emission = Color(0.25098, 0.25098, 0.25098, 1)
+emission = Color(0.752941, 0.752941, 0.752941, 1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_hq15t"]
 size = Vector3(1.62891, 1, 0.1)
