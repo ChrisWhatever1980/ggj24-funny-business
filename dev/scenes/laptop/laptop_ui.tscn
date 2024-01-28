@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://bi62kfqbonnfa"]
+[gd_scene load_steps=12 format=3 uid="uid://bi62kfqbonnfa"]
 
 [ext_resource type="Script" path="res://scenes/laptop/laptop_ui.gd" id="1_tslm7"]
 [ext_resource type="Theme" uid="uid://cycenb0gvsi2l" path="res://Themes/Classic311/Classic311.tres" id="2_a8gvu"]
@@ -7,8 +7,9 @@
 [ext_resource type="Script" path="res://scenes/laptop/BeverageShop.gd" id="4_utcwm"]
 [ext_resource type="Script" path="res://scenes/laptop/AdvertisingShop.gd" id="5_yaj07"]
 [ext_resource type="Script" path="res://scenes/laptop/Prices.gd" id="6_ge06v"]
-[ext_resource type="Texture2D" uid="uid://d3pv6ivse4ogc" path="res://textures/windows_95.jpg" id="7_0bh5n"]
-[ext_resource type="AudioStream" uid="uid://db10ygp2nhwi4" path="res://audio/CHIMES.WAV" id="8_d8huo"]
+[ext_resource type="Texture2D" uid="uid://bp11pwcehhvsd" path="res://textures/windows-311-startup.png" id="8_wbdcg"]
+[ext_resource type="AudioStream" uid="uid://c8bfnfq64yybt" path="res://audio/owin31.wav" id="9_44bo4"]
+[ext_resource type="AudioStream" uid="uid://cf6fbiynfw7p0" path="res://audio/DING.WAV" id="10_qws4u"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bl8mt"]
 bg_color = Color(0, 0, 0, 1)
@@ -215,9 +216,10 @@ vertical_scroll_mode = 0
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Beverages" type="VBoxContainer" parent="Container/VBoxContainer/TabContainer" node_paths=PackedStringArray("buyBeer", "sellBeer", "beerStock", "beerBuy", "buyWine", "sellWine", "wineStock", "wineBuy", "buyLemonade", "sellLemonade", "lemonadeStock", "lemonadeBuy")]
+[node name="Beverages" type="VBoxContainer" parent="Container/VBoxContainer/TabContainer" node_paths=PackedStringArray("audio_ding", "buyBeer", "sellBeer", "beerStock", "beerBuy", "buyWine", "sellWine", "wineStock", "wineBuy", "buyLemonade", "sellLemonade", "lemonadeStock", "lemonadeBuy")]
 layout_mode = 2
 script = ExtResource("4_utcwm")
+audio_ding = NodePath("../../../AudioStreamPlayer")
 buyBeer = NodePath("MarginContainer/VBoxContainer/Shop/Beer/HBoxContainer/BuyButton")
 sellBeer = NodePath("MarginContainer/VBoxContainer/Shop/Beer/HBoxContainer/SellButton")
 beerStock = NodePath("MarginContainer/VBoxContainer/Shop/Beer/Stock")
@@ -385,10 +387,11 @@ size_flags_horizontal = 3
 text = "21"
 horizontal_alignment = 1
 
-[node name="Advertising" type="VBoxContainer" parent="Container/VBoxContainer/TabContainer" node_paths=PackedStringArray("container")]
+[node name="Advertising" type="VBoxContainer" parent="Container/VBoxContainer/TabContainer" node_paths=PackedStringArray("audio_ding", "container")]
 visible = false
 layout_mode = 2
 script = ExtResource("5_yaj07")
+audio_ding = NodePath("../../../AudioStreamPlayer")
 container = NodePath("MarginContainer/VBoxContainer/Shop")
 
 [node name="MarginContainer" type="MarginContainer" parent="Container/VBoxContainer/TabContainer/Advertising"]
@@ -611,10 +614,11 @@ text = "-"
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Prices" type="VBoxContainer" parent="Container/VBoxContainer/TabContainer" node_paths=PackedStringArray("increaseBeerPrice", "decreaseBeerPrice", "beerPrice", "increaseWinePrice", "decreaseWinePrice", "winePrice", "increaseLemonadePrice", "decreaseLemonadePrice", "lemonadePrice", "increaseTicketPrice", "decreaseTicketPrice", "ticketPrice")]
+[node name="Prices" type="VBoxContainer" parent="Container/VBoxContainer/TabContainer" node_paths=PackedStringArray("audio_ding", "increaseBeerPrice", "decreaseBeerPrice", "beerPrice", "increaseWinePrice", "decreaseWinePrice", "winePrice", "increaseLemonadePrice", "decreaseLemonadePrice", "lemonadePrice", "increaseTicketPrice", "decreaseTicketPrice", "ticketPrice")]
 visible = false
 layout_mode = 2
 script = ExtResource("6_ge06v")
+audio_ding = NodePath("../../../AudioStreamPlayer")
 increaseBeerPrice = NodePath("MarginContainer/VBoxContainer/Beverages/Beer/HBoxContainer/IncreaseButton")
 decreaseBeerPrice = NodePath("MarginContainer/VBoxContainer/Beverages/Beer/HBoxContainer/DecreaseButton")
 beerPrice = NodePath("MarginContainer/VBoxContainer/Beverages/Beer/HBoxContainer/Price")
@@ -847,21 +851,33 @@ layout_mode = 2
 mouse_filter = 2
 
 [node name="Panel" type="Panel" parent="Container/VBoxContainer2"]
+custom_minimum_size = Vector2(650, 550)
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_bl8mt")
 
 [node name="TextureRect" type="TextureRect" parent="Container/VBoxContainer2/Panel"]
 modulate = Color(1, 1, 1, 0)
-layout_mode = 0
-offset_left = -83.29
-offset_right = 1916.71
-offset_bottom = 1334.0
-scale = Vector2(0.36, 0.36)
-texture = ExtResource("7_0bh5n")
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -288.33
+offset_top = -186.205
+offset_right = 1711.67
+offset_bottom = 1147.8
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.275, 0.275)
+texture = ExtResource("8_wbdcg")
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Container/VBoxContainer2"]
-stream = ExtResource("8_d8huo")
+stream = ExtResource("9_44bo4")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Container"]
+stream = ExtResource("10_qws4u")
 
 [connection signal="button_up" from="Container/VBoxContainer/TabContainer/Booking/MarginContainer/HBoxContainer/Infos/VBoxContainer2/Button" to="Container/VBoxContainer/TabContainer/Booking/MarginContainer/HBoxContainer/Infos/VBoxContainer2/Button" method="_on_button_up"]
 [connection signal="button_up" from="Container/VBoxContainer/TabContainer/Start Show/HBoxContainer/Start Button" to="Container/VBoxContainer/TabContainer/Start Show/HBoxContainer/Start Button" method="_on_button_up"]

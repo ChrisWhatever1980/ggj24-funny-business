@@ -83,14 +83,18 @@ func on_audience_react(joke_quality):
 	match guest_react:
 		0:		# mood 8: dead
 			# explode
+			mood -= 5
 			pass
 		1:		# angry
+			mood -= 3
 			pass
 		3:		# sad
+			mood -= 2
 			if randf() < throw_probability:
 				freeze = true
 				GameEvents.emit_signal("spawn_tomato", position)
 		4:		# worst joke ever
+			mood -= 1
 			if randf() < throw_probability:
 				freeze = true
 				GameEvents.emit_signal("spawn_tomato", position)
@@ -99,23 +103,29 @@ func on_audience_react(joke_quality):
 			$AnimationPlayer.play("laugh")
 			pass
 		6:		# amused
+			mood += 1
 			freeze = true
 			$AnimationPlayer.play("laugh")
 		7:		# chuckle
+			mood += 2
 			freeze = false
 			apply_impulse(Vector3.UP * 0.8)
 			pass
 		8:		# schadenfreude
+			mood += 3
 			freeze = false
 			apply_impulse(Vector3.UP * 0.8)
 			pass
 		9:		# thats me
+			mood += 4
 			freeze = true
 			GameEvents.emit_signal("spawn_puddle", position)
 		10:		# good one
+			mood += 5
 			freeze = true
 			$AnimationPlayer.play("rofl_animation")
 		11:		# hilarious
+			mood += 6
 			freeze = true
 			$AnimationPlayer.play("rofl_animation")
 
@@ -126,6 +136,8 @@ func on_audience_react(joke_quality):
 			GameEvents.emit_signal("spawn_coin", position)
 
 	if guest_react == min_amusement:
+		GameState.fame -= 0.1
+		print("Guested left in disgust -0.1 fame -> " + str(GameState.fame) + " Fame")
 		queue_free()
 
 
