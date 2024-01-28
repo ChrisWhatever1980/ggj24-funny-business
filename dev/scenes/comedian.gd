@@ -80,6 +80,7 @@ func _on_area_3d_input_event(camera, event, position, normal, shape_idx):
 
 				if in_hell:
 					# jump into pool
+					
 					# then show button next day
 					match randi() % 4:
 						0:

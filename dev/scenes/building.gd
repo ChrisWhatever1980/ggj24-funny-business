@@ -59,7 +59,7 @@ func on_start_game():
 	$MusicStreamPlayer.volume_db = -10.0
 	$SpotLight.light_color = Color.WHITE
 	$SpotLight2.light_color = Color.WHITE
-	$BartenderMinigame.visible = true
+	#$BartenderMinigame.visible = true
 	open_laptop()
 
 
@@ -246,7 +246,7 @@ func go_to_underworld():
 			disappointed_the_devil = true
 		else:
 			$GameOverScreen/AnimationPlayer.play("game_over_animation")
-			GameEvents.emit_signal("comedian_judged")
+		GameEvents.emit_signal("comedian_judged")
 
 	$EnterHellPlayer.play()
 	
@@ -290,13 +290,14 @@ func on_comedian_judged():
 
 
 func on_play_crickets():
-	$MusicStreamPlayer.stream_paused = true
-	current_comedian.pause_standup_stream(true)
-	await get_tree().create_timer(2.0).timeout
-	$CricketsPlayer.play()
-	await get_tree().create_timer(2.0).timeout
-	$MusicStreamPlayer.stream_paused = false
-	current_comedian.pause_standup_stream(false)
+	if current_comedian:
+		$MusicStreamPlayer.stream_paused = true
+		current_comedian.pause_standup_stream(true)
+		await get_tree().create_timer(2.0).timeout
+		$CricketsPlayer.play()
+		await get_tree().create_timer(2.0).timeout
+		$MusicStreamPlayer.stream_paused = false
+		current_comedian.pause_standup_stream(false)
 
 
 func back_to_title():
