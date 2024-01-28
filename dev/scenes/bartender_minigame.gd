@@ -1,14 +1,14 @@
 extends Node2D
 
-var drink_request = preload("res://scenes/drink_request.tscn")
+var beer_request = preload("res://scenes/beer_request.tscn")
+var wine_request = preload("res://scenes/wine_request.tscn")
+var lemonade_request = preload("res://scenes/lemonade_request.tscn")
 
 signal update_fulfilled_requests(count: int)
 signal update_tipped_requests(count: int)
 
 var fulfilled_requests = 0
 var tipped_requests = 0
-
-var drink_type: DraggableBeer.DrinkType = DraggableBeer.DrinkType.BEER
 
 var cam = null
 
@@ -54,8 +54,20 @@ func _on_request_fulfilled(tip, pos3D):
 	for p in payment:
 		GameEvents.emit_signal("spawn_coin", pos3D)
 
+func instantiate_random_request():
+	var drink_type = DraggableBeer.DrinkType.values()[randi() % DraggableBeer.DrinkType.size()]
+	match drink_type:
+		DraggableBeer.DrinkType.BEER:
+			return beer_request.instantiate()
+		DraggableBeer.DrinkType.WINE:
+			return wine_request.instantiate()
+		DraggableBeer.DrinkType.LEMONADE:
+			return lemonade_request.instantiate()
+		_:
+			return beer_request.instantiate()
+
 func spawn_request(pos2D, pos3D=null):
-	var request = drink_request.instantiate()
+	var request = instantiate_random_request()
 	request.position = pos2D
 	request.position3D = pos3D
 	add_child(request)
