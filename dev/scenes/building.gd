@@ -62,10 +62,10 @@ func on_start_game():
 	#$BartenderMinigame.visible = true
 	$AspectRatioContainer/MoneyDisplay.visible = true
 	
-	on_show_message("Your wish was granted. You are a comedy club manager, now.", 5)
-	await get_tree().create_timer(5).timeout
-	on_show_message("You get $333 to start out, but you may not leave until you made $666!", 5)
-	await get_tree().create_timer(5).timeout
+	on_show_message("Your wish was granted.\nYou are a comedy club manager, now.", 4)
+	await get_tree().create_timer(5.5).timeout
+	on_show_message("You get $333 to start out, but you may not leave until you made $666!", 4)
+	await get_tree().create_timer(5.5).timeout
 	open_laptop()
 
 
@@ -74,13 +74,13 @@ func open_laptop():
 	$Laptop/SubViewport/Node2D.open()
 	
 	if !tutorial_finished:
-		on_show_message("Use the laptop to book comedians, buy beverages and place ads before you start the show.", 7)
+		on_show_message("Use the laptop to book comedians, buy beverages and place ads before you start the show.", 4)
 
 
 func on_start_show():
 
 	if !tutorial_finished:
-		on_show_message("The comedians wait in the back. Click on them to get them on and off the stage.", 7)
+		on_show_message("The comedians wait in the back.\nClick on them to get them on and off the stage.", 5)
 	
 	for comedian_stats in ComedianPool.selected:
 		spawn_comedian(comedian_stats)
@@ -102,8 +102,8 @@ func on_start_show():
 	$BartenderMinigame.visible = true
 	
 	if !tutorial_finished:
-		await get_tree().create_timer(7).timeout
-		on_show_message("The comedians wait in the back. Click on them to get them on and off the stage.", 7)
+		await get_tree().create_timer(6).timeout
+		on_show_message("Also make sure to serve your guests,\n by dragging the drinks they ordered on them", 7)
 	
 func spawn_comedian(comedian_stats):
 	var new_comedian = preload("res://scenes/comedian.tscn").instantiate()

@@ -1,5 +1,5 @@
-extends Area2D
 class_name DraggableBeer
+extends Area2D
 
 var fulfillable_requests = []
 var smallest_square_distance = INF
