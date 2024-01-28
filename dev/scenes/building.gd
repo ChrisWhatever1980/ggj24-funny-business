@@ -61,13 +61,15 @@ func on_start_game():
 	$SpotLight2.light_color = Color.WHITE
 	#$BartenderMinigame.visible = true
 	$AspectRatioContainer/MoneyDisplay.visible = true
+	$AspectRatioContainer/MoneyDisplay/MoneyDisplay/MoneyAmount.text = str(GameState.money)
+
 	open_laptop()
 
 
 func open_laptop():
 	$Laptop/AnimationPlayer.play("open_animation")
 	$Laptop/SubViewport/Node2D.open()
-	
+
 	if !tutorial_finished:
 		on_show_message("Book comedians, set prices, buy beverages and place ads. When you are ready, click <Start Show>.")
 
@@ -188,7 +190,7 @@ func on_change_money(value):
 				$MoneyEarnedAudio1.play()
 			2:
 				$MoneyEarnedAudio2.play()
-	$AspectRatioContainer/MoneyDisplay/MoneyAmount.text = str(GameState.money)
+	$AspectRatioContainer/MoneyDisplay/MoneyDisplay/MoneyAmount.text = str(GameState.money)
 	$"Laptop/SubViewport/Node2D/Container/VBoxContainer/MarginContainer/HBoxContainer2/HBoxContainer/Budget#".text = "$" + str(GameState.money)
 
 

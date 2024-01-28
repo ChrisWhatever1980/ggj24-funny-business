@@ -314,19 +314,48 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="MoneyDisplay" type="HBoxContainer" parent="AspectRatioContainer"]
+[node name="MoneyDisplay" type="Control" parent="AspectRatioContainer"]
 visible = false
 layout_mode = 2
+mouse_filter = 2
+
+[node name="ColorRect" type="ColorRect" parent="AspectRatioContainer/MoneyDisplay"]
+custom_minimum_size = Vector2(300, 70)
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -150.0
+offset_right = 150.0
+offset_bottom = 70.0
+grow_horizontal = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+mouse_filter = 2
+color = Color(0.243137, 0.243137, 0.243137, 0.690196)
+
+[node name="MoneyDisplay" type="HBoxContainer" parent="AspectRatioContainer/MoneyDisplay"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -31.0
+offset_right = 31.0
+offset_bottom = 69.0
+grow_horizontal = 2
+size_flags_horizontal = 4
 size_flags_vertical = 0
 mouse_filter = 2
 
-[node name="MoneyLabel" type="Label" parent="AspectRatioContainer/MoneyDisplay"]
+[node name="MoneyLabel" type="Label" parent="AspectRatioContainer/MoneyDisplay/MoneyDisplay"]
 layout_mode = 2
 size_flags_horizontal = 0
-text = "MONEY: "
+theme_override_font_sizes/font_size = 50
+text = "$"
 
-[node name="MoneyAmount" type="Label" parent="AspectRatioContainer/MoneyDisplay"]
+[node name="MoneyAmount" type="Label" parent="AspectRatioContainer/MoneyDisplay/MoneyDisplay"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 50
 text = "0"
 
 [node name="EndShowButton" type="Button" parent="AspectRatioContainer"]

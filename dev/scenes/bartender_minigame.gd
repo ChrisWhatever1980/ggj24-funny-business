@@ -40,12 +40,17 @@ func _on_spawn_button_pressed():
 
 
 func _on_request_fulfilled(tip, pos3D):
-	
+
+	if randi() % 2 == 0:
+		$DrinkPlayer.play()
+	else:
+		$Drink0Player.play()
+
 	var payment = 3
 	
 	fulfilled_requests += 1
 	update_fulfilled_requests.emit(fulfilled_requests)
-	
+
 	if tip:
 		payment += randi_range(1, 2)
 		tipped_requests += 1
