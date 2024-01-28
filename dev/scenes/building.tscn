@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://4xkgb6wyhpkb"]
+[gd_scene load_steps=35 format=3 uid="uid://4xkgb6wyhpkb"]
 
 [ext_resource type="Script" path="res://scenes/building.gd" id="1_no7ks"]
 [ext_resource type="PackedScene" uid="uid://bdlhljeuhdyc0" path="res://models/comedy_club.glb" id="1_xfk75"]
@@ -19,6 +19,7 @@
 [ext_resource type="AudioStream" uid="uid://dnphkf1m1q50" path="res://audio/music-loop.ogg" id="16_r4aer"]
 [ext_resource type="PackedScene" uid="uid://b6275b02hq4tp" path="res://models/microphone.glb" id="17_pcphu"]
 [ext_resource type="PackedScene" uid="uid://chgtbw2k7bja4" path="res://scenes/table.tscn" id="18_14rxn"]
+[ext_resource type="AudioStream" uid="uid://do55ea6ttqrb1" path="res://audio/got_to_hell.ogg" id="20_leloh"]
 
 [sub_resource type="Environment" id="Environment_nsomo"]
 background_mode = 1
@@ -433,6 +434,9 @@ surface_material_override/0 = SubResource("StandardMaterial3D_lo1fd")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.2288, 12.4536, 2.36883)
 mesh = SubResource("BoxMesh_ucph6")
 surface_material_override/0 = SubResource("StandardMaterial3D_lo1fd")
+
+[node name="EnterHellPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("20_leloh")
 
 [connection signal="pressed" from="AspectRatioContainer/EndShowButton" to="." method="_on_end_show_button_pressed"]
 [connection signal="pressed" from="AspectRatioContainer/NextDayButton" to="." method="_on_next_day_button_pressed"]

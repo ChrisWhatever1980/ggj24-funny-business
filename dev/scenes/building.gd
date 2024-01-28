@@ -214,6 +214,10 @@ func go_to_underworld():
 		comedian.in_hell = true
 		death_idx += 1
 
+	await get_tree().create_timer(1.0).timeout
+	$EnterHellPlayer.play()
+	
+
 
 func set_location(_upstairs):
 	in_the_club = _upstairs
