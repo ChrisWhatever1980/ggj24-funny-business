@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://4xkgb6wyhpkb"]
+[gd_scene load_steps=34 format=3 uid="uid://4xkgb6wyhpkb"]
 
 [ext_resource type="Script" path="res://scenes/building.gd" id="1_no7ks"]
 [ext_resource type="PackedScene" uid="uid://bdlhljeuhdyc0" path="res://models/comedy_club.glb" id="1_xfk75"]
@@ -12,6 +12,7 @@
 [ext_resource type="AudioStream" uid="uid://cuevafyfretln" path="res://audio/kaching_0.ogg" id="10_7w2yh"]
 [ext_resource type="AudioStream" uid="uid://gkkwi1qrw4pg" path="res://audio/kaching_1.ogg" id="11_ganae"]
 [ext_resource type="PackedScene" uid="uid://bnkasdwoiayuj" path="res://scenes/underworld.tscn" id="12_gmibf"]
+[ext_resource type="AudioStream" uid="uid://dwdiupiykfc1r" path="res://audio/crickets.ogg" id="12_ivf0u"]
 [ext_resource type="AudioStream" uid="uid://w6tn87txnwy" path="res://audio/kaching_2.ogg" id="12_m7fqk"]
 [ext_resource type="PackedScene" uid="uid://m0e7yyqwsep0" path="res://scenes/bartender_minigame.tscn" id="13_l0k3m"]
 [ext_resource type="PackedScene" uid="uid://ch6dqver80ept" path="res://scenes/title.tscn" id="14_lgqev"]
@@ -334,6 +335,9 @@ stream = ExtResource("11_ganae")
 
 [node name="MoneyEarnedAudio2" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource("12_m7fqk")
+
+[node name="CricketsPlayer" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("12_ivf0u")
 
 [node name="StagePosition" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.185, 1.077, -14.677)
