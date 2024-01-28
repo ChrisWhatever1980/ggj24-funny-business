@@ -7,6 +7,7 @@ var current_drink = null
 var tip = true
 var position3D = Vector3.ZERO
 
+@export var drink_type: DraggableBeer.DrinkType = DraggableBeer.DrinkType.BEER
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -37,14 +38,14 @@ func _on_tip_timer_timeout():
 
 func highlight_fulfillable(fulfillable: bool):
 	if fulfillable:
-		$Sprite2D.modulate = Color.YELLOW
+		$Requestbubble.modulate = Color.YELLOW
 	else:
-		$Sprite2D.modulate = Color.WHITE
+		$Requestbubble.modulate = Color.WHITE
 
-func fulfill():
+func fulfill(dropped_drink_type):
 	$FailureTimer.stop()
-	#fulfilled.emit(tip)
-	GameEvents.emit_signal("request_fulfilled", tip, position3D)
+	if dropped_drink_type == drink_type:
+		GameEvents.emit_signal("request_fulfilled", tip, position3D)
 	disappear()
 
 func disappear():

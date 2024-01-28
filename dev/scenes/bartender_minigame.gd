@@ -1,11 +1,14 @@
 extends Node2D
 
+var beer_request = preload("res://scenes/beer_request.tscn")
+var wine_request = preload("res://scenes/wine_request.tscn")
+var lemonade_request = preload("res://scenes/lemonade_request.tscn")
+
 signal update_fulfilled_requests(count: int)
 signal update_tipped_requests(count: int)
 
 var fulfilled_requests = 0
 var tipped_requests = 0
-
 
 var cam = null
 
@@ -16,17 +19,22 @@ func _ready():
 	GameEvents.connect_event("request_fulfilled", self, "_on_request_fulfilled")
 
 
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	pass
+	
+
 func on_request_drink(pos3D):
 	cam = get_viewport().get_camera_3d()
 	if cam:
 		var pos2D = cam.unproject_position(pos3D)
-		$RequestSpawnArea.spawn_request(pos2D.x, pos2D.y, pos3D)
+		spawn_request(pos2D, pos3D)
 
 
 func _on_spawn_button_pressed():
 	var x = randf_range(300, 800)
 	var y = randf_range(100, 800)
-	var request = $RequestSpawnArea.spawn_request(x, y)
+	var request = spawn_request(Vector2(x, y))
 	#request.fulfilled.connect(_on_request_fulfilled)
 	#GameEvents.connect_event("request_fulfilled")
 
@@ -45,3 +53,22 @@ func _on_request_fulfilled(tip, pos3D):
 
 	for p in payment:
 		GameEvents.emit_signal("spawn_coin", pos3D)
+
+func instantiate_random_request():
+	var drink_type = DraggableBeer.DrinkType.values()[randi() % DraggableBeer.DrinkType.size()]
+	match drink_type:
+		DraggableBeer.DrinkType.BEER:
+			return beer_request.instantiate()
+		DraggableBeer.DrinkType.WINE:
+			return wine_request.instantiate()
+		DraggableBeer.DrinkType.LEMONADE:
+			return lemonade_request.instantiate()
+		_:
+			return beer_request.instantiate()
+
+func spawn_request(pos2D, pos3D=null):
+	var request = instantiate_random_request()
+	request.position = pos2D
+	request.position3D = pos3D
+	add_child(request)
+	return request
