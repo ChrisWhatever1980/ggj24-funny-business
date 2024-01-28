@@ -10,7 +10,7 @@
 [ext_resource type="AudioStream" uid="uid://osgl6un2uixl" path="res://audio/boo_2.ogg" id="7_wt8to"]
 [ext_resource type="AudioStream" uid="uid://bxb3sy5t1ltgh" path="res://audio/boo_3.ogg" id="8_13gt1"]
 [ext_resource type="AudioStream" uid="uid://ckm7uvt77xrue" path="res://audio/boo_4.ogg" id="9_d4lon"]
-[ext_resource type="PackedScene" path="res://scenes/person.tscn" id="10_d8rxm"]
+[ext_resource type="PackedScene" uid="uid://drv2n0frdc02x" path="res://scenes/person.tscn" id="10_d8rxm"]
 
 [sub_resource type="Animation" id="Animation_5uu63"]
 length = 0.001
