@@ -34,7 +34,7 @@ func on_request_drink(pos3D):
 func _on_spawn_button_pressed():
 	var x = randf_range(300, 800)
 	var y = randf_range(100, 800)
-	var request = spawn_request(Vector2(x, y))
+	spawn_request(Vector2(x, y))
 	#request.fulfilled.connect(_on_request_fulfilled)
 	#GameEvents.connect_event("request_fulfilled")
 
