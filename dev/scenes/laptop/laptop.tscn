@@ -137,7 +137,7 @@ render_target_update_mode = 4
 [node name="Node2D" parent="SubViewport" instance=ExtResource("1_x1fjq")]
 
 [node name="laptop" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -0.350207, -0.936672, 0, 0.936672, -0.350207, 0, 0.0382888, -0.47421)
+transform = Transform3D(1, 0, 0, 0, -0.350208, -0.936671, 0, 0.936671, -0.350208, 0, 0.0382888, -0.47421)
 
 [node name="LaptopScreen" type="MeshInstance3D" parent="laptop"]
 transform = Transform3D(1, 0, 0, 0, 0.936219, 0.351417, 0, -0.351417, 0.936219, 0, 0.514992, -0.247138)
