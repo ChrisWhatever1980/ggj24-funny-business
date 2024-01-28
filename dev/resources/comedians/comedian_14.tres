@@ -1,0 +1,15 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://bdkdmsr4kgujd"]
+
+[ext_resource type="Script" path="res://resources/comedian_stats.gd" id="1_nsk71"]
+
+[resource]
+script = ExtResource("1_nsk71")
+name = "Robert Hope"
+cost = 110
+fame = 45
+comedy = 35
+bomb_chance = 15
+hit_chance = 30
+availability = 80
+club_fame_requirement = 20
+endurance = 30

@@ -1,0 +1,15 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://ktbrw4j517vm"]
+
+[ext_resource type="Script" path="res://resources/comedian_stats.gd" id="1_5yllj"]
+
+[resource]
+script = ExtResource("1_5yllj")
+name = "Tedd Foxx"
+cost = 65
+fame = 35
+comedy = 35
+bomb_chance = 15
+hit_chance = 20
+availability = 80
+club_fame_requirement = 15
+endurance = 30

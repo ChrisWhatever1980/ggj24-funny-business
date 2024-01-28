@@ -5,7 +5,7 @@
 [resource]
 script = ExtResource("1_4dsiy")
 name = "Mitchell Hetberg"
-cost = 60
+cost = 90
 fame = 45
 comedy = 45
 bomb_chance = 50

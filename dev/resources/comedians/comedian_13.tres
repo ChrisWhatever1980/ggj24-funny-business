@@ -1,0 +1,15 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://b1m8b2mf2tm36"]
+
+[ext_resource type="Script" path="res://resources/comedian_stats.gd" id="1_q4oc2"]
+
+[resource]
+script = ExtResource("1_q4oc2")
+name = "Phillip Diller"
+cost = 300
+fame = 80
+comedy = 65
+bomb_chance = 15
+hit_chance = 30
+availability = 80
+club_fame_requirement = 30
+endurance = 40
