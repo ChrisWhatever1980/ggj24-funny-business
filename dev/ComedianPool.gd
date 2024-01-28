@@ -4,11 +4,45 @@ var pool = []
 var selected = []
 var dead = []
 
+var comedians_resources = [
+	"res://resources/comedians/comedian_1.tres",
+	"res://resources/comedians/comedian_2.tres",
+	"res://resources/comedians/comedian_3.tres",
+	"res://resources/comedians/comedian_4.tres",
+	"res://resources/comedians/comedian_5.tres",
+	"res://resources/comedians/comedian_6.tres",
+	"res://resources/comedians/comedian_7.tres",
+	"res://resources/comedians/comedian_8.tres",
+	"res://resources/comedians/comedian_9.tres",
+	"res://resources/comedians/comedian_10.tres",
+	"res://resources/comedians/comedian_11.tres",
+	"res://resources/comedians/comedian_12.tres",
+	"res://resources/comedians/comedian_13.tres",
+	"res://resources/comedians/comedian_14.tres",
+	"res://resources/comedians/comedian_15.tres"
+]
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	var dir = DirAccess.get_files_at("res://resources/comedians/")
-	for path in dir:
-		pool.append(load("res://resources/comedians/" + path))
+	pool.append(preload("res://resources/comedians/comedian_1.tres"))
+	pool.append(preload("res://resources/comedians/comedian_2.tres"))
+	pool.append(preload("res://resources/comedians/comedian_3.tres"))
+	pool.append(preload("res://resources/comedians/comedian_4.tres"))
+	pool.append(preload("res://resources/comedians/comedian_5.tres"))
+	pool.append(preload("res://resources/comedians/comedian_6.tres"))
+	pool.append(preload("res://resources/comedians/comedian_7.tres"))
+	pool.append(preload("res://resources/comedians/comedian_8.tres"))
+	pool.append(preload("res://resources/comedians/comedian_9.tres"))
+	pool.append(preload("res://resources/comedians/comedian_10.tres"))
+	pool.append(preload("res://resources/comedians/comedian_11.tres"))
+	pool.append(preload("res://resources/comedians/comedian_12.tres"))
+	pool.append(preload("res://resources/comedians/comedian_13.tres"))
+	pool.append(preload("res://resources/comedians/comedian_14.tres"))
+	pool.append(preload("res://resources/comedians/comedian_15.tres"))
+	
+	#var dir = DirAccess.get_files_at("res://resources/comedians/")
+	#for path in comedians_resources:
+		#pool.append(load("res://resources/comedians/" + path))
 	
 	print("Loaded " + str(pool.size()) + " comedian stats")
 

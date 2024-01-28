@@ -1,7 +1,7 @@
 [gd_scene load_steps=16 format=3 uid="uid://b54hgw30ohhce"]
 
 [ext_resource type="Script" path="res://scenes/comedian.gd" id="1_o08b2"]
-[ext_resource type="PackedScene" path="res://scenes/person.tscn" id="2_6slvk"]
+[ext_resource type="PackedScene" uid="uid://drv2n0frdc02x" path="res://scenes/person.tscn" id="2_6slvk"]
 [ext_resource type="AudioStream" uid="uid://tp8yisoor1vx" path="res://audio/standup0.ogg" id="3_i1hs4"]
 [ext_resource type="AudioStream" uid="uid://b1mx42jfen2gd" path="res://audio/standup1.ogg" id="4_gxu0y"]
 [ext_resource type="AudioStream" uid="uid://k65srmbxstdi" path="res://audio/scream0.ogg" id="5_7y02l"]
