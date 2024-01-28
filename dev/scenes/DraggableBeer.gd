@@ -57,5 +57,12 @@ func remove_request(request):
 	
 func drop():
 	if closest_request != null:
+		match drink_type:
+			DrinkType.BEER:
+				GameState.beer = maxi(0, GameState.beer - 1)
+			DrinkType.WINE:
+				GameState.wine = maxi(0, GameState.wine - 1)
+			DrinkType.LEMONADE:
+				GameState.lemonade = maxi(0, GameState.lemonade - 1)
 		closest_request.fulfill(drink_type)
 	disappear()

@@ -61,6 +61,8 @@ func on_start_game():
 	$SpotLight2.light_color = Color.WHITE
 	#$BartenderMinigame.visible = true
 	$AspectRatioContainer/MoneyDisplay.visible = true
+	$AspectRatioContainer/MoneyDisplay/MoneyDisplay/MoneyAmount.text = str(GameState.money)
+
 	
 	on_show_message("Your wish was granted.\nYou are a comedy club manager, now.", 4)
 	await get_tree().create_timer(5.5).timeout
@@ -72,7 +74,7 @@ func on_start_game():
 func open_laptop():
 	$Laptop/AnimationPlayer.play("open_animation")
 	$Laptop/SubViewport/Node2D.open()
-	
+
 	if !tutorial_finished:
 		on_show_message("Use the laptop to book comedians, buy beverages and place ads before you start the show.", 4)
 
@@ -197,7 +199,7 @@ func on_change_money(value):
 				$MoneyEarnedAudio1.play()
 			2:
 				$MoneyEarnedAudio2.play()
-	$AspectRatioContainer/MoneyDisplay/MoneyAmount.text = str(GameState.money)
+	$AspectRatioContainer/MoneyDisplay/MoneyDisplay/MoneyAmount.text = str(GameState.money)
 	$"Laptop/SubViewport/Node2D/Container/VBoxContainer/MarginContainer/HBoxContainer2/HBoxContainer/Budget#".text = "$" + str(GameState.money)
 
 
