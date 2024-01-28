@@ -4,10 +4,8 @@ extends Node3D
 @export var CoinScene:PackedScene
 @export var MessageBoxScene: PackedScene
 
-
 @onready var ComedianExit = $comedy_club/ComedianExit
 @onready var StagePosition = $StagePosition
-
 
 @onready var ComedianWaitSlots = [
 	$comedy_club/ComedianWait1,
@@ -17,17 +15,16 @@ extends Node3D
 	$comedy_club/ComedianWait5
 ]
 
-
 var tutorial_finished = false
 var current_wait_slot = 0
 var in_the_club = true
 var current_comedian = null
 var floor_rect
 var disappointed_the_devil = false
+var show_ended = false
 
 
 func _ready():
-
 	GameEvents.connect_event("spawn_coin", self, "on_spawn_coin")
 	GameEvents.connect_event("spawn_tomato", self, "on_spawn_tomato")
 	GameEvents.connect_event("spawn_tomato_splat", self, "on_spawn_tomato_splat")
@@ -80,7 +77,7 @@ func open_laptop():
 
 
 func on_start_show():
-
+	show_ended = false
 	if !tutorial_finished:
 		on_show_message("The comedians wait in the back\nClick on them to get them on and off the stage.", 6)
 	
@@ -98,6 +95,7 @@ func on_start_show():
 		comedian_bonus += randi_range(0, comedian.fame)
 	var guests = max(0, base + fame_today + hype_today + comedian_bonus)
 	print("Audience " + str(base)+ " base + " + str(fame_today) + " fame_today + " + str(hype_today) + " hype_today + " +str(comedian_bonus) + " comedian_bonus = " + str(guests) + " Guests")
+	
 	generate_audience(guests)
 	$AnimationPlayer.play("laptop_to_main_animation")
 	$BartenderMinigame.visible = true
@@ -152,7 +150,11 @@ func generate_audience(num_guests):
 	var count = 0
 	print("Points: " + str(points.size()))
 	num_guests = min(num_guests, points.size())
+	
+	await get_tree().create_timer(3).timeout
 	for g in num_guests:
+		if show_ended:
+			break
 		await get_tree().create_timer(randf() * 0.1 + randi_range(0, count)/2).timeout
 		count += 1
 		var point = points.pick_random()
@@ -164,8 +166,6 @@ func generate_audience(num_guests):
 		add_child(new_guest)
 		points.erase(point)
 		GameEvents.emit_signal("change_money", GameState.ticket_price)
-
-
 
 
 func on_spawn_puddle(pos):
@@ -240,6 +240,7 @@ func _on_stage_entered(area):
 
 
 func go_to_underworld():
+	show_ended = true
 	$AnimationPlayer.play("to_underworld")
 	$BartenderMinigame.visible = false
 	$AspectRatioContainer/EndShowButton.visible = false
