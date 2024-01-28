@@ -5,11 +5,11 @@
 [resource]
 script = ExtResource("1_5yllj")
 name = "Tedd Foxx"
-cost = 65
+cost = 165
 fame = 35
 comedy = 35
 bomb_chance = 15
-hit_chance = 20
+hit_chance = 50
 availability = 80
 club_fame_requirement = 15
 endurance = 30
