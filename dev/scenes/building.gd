@@ -33,6 +33,7 @@ func _ready():
 	GameEvents.connect_event("start_show", self, "on_start_show")
 	GameEvents.connect_event("start_game", self, "on_start_game")
 	GameEvents.connect_event("comedian_judged", self, "on_comedian_judged")
+	GameEvents.connect_event("play_crickets", self, "on_play_crickets")
 
 	var pos = $comedy_club/FloorArea.position
 	var size = $comedy_club/FloorArea/CollisionShape3D.shape.size
@@ -214,6 +215,10 @@ func go_to_underworld():
 		comedian.in_hell = true
 		death_idx += 1
 
+	await get_tree().create_timer(1.0).timeout
+	$EnterHellPlayer.play()
+	
+
 
 func set_location(_upstairs):
 	in_the_club = _upstairs
@@ -250,3 +255,13 @@ func _on_next_day_button_pressed():
 
 func on_comedian_judged():
 	$AspectRatioContainer/NextDayButton.visible = true
+
+
+func on_play_crickets():
+	$MusicStreamPlayer.stream_paused = true
+	current_comedian.pause_standup_stream(true)
+	await get_tree().create_timer(2.0).timeout
+	$CricketsPlayer.play()
+	await get_tree().create_timer(2.0).timeout
+	$MusicStreamPlayer.stream_paused = false
+	current_comedian.pause_standup_stream(false)

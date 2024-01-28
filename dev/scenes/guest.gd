@@ -58,67 +58,65 @@ func on_audience_react(joke_quality):
 
 	var guest_react = clamp(joke_quality + humor_modifier, 0, 11)
 
-	if guest_react <= 5:
-		match randi() % 5:
-			0:
-				$BooPlayer0.play()
-			1:
-				$BooPlayer1.play()
-			2:
-				$BooPlayer2.play()
-			3:
-				$BooPlayer3.play()
-			4:
-				$BooPlayer4.play()
-	else:
-		match randi() % 3:
-			0:
-				$LaughPlayer.play()
-			1:
-				$LaughPlayer2.play()
-			1:
-				$LaughPlayer3.play()
+	if joke_quality > 0:
+		if guest_react <= 5:
+			match randi() % 5:
+				0:
+					$BooPlayer0.play()
+				1:
+					$BooPlayer1.play()
+				2:
+					$BooPlayer2.play()
+				3:
+					$BooPlayer3.play()
+				4:
+					$BooPlayer4.play()
+		else:
+			match randi() % 3:
+				0:
+					$LaughPlayer.play()
+				1:
+					$LaughPlayer2.play()
+				1:
+					$LaughPlayer3.play()
 
 	match guest_react:
 		0:		# mood 8: dead
 			# explode
 			pass
 		1:		# angry
-			if randf() < throw_probability:
-				GameEvents.emit_signal("spawn_tomato", position)
-		2:		# lame
-			if randf() < throw_probability:
-				GameEvents.emit_signal("spawn_tomato", position)
 			pass
 		3:		# sad
 			if randf() < throw_probability:
+				freeze = true
 				GameEvents.emit_signal("spawn_tomato", position)
-			pass
 		4:		# worst joke ever
 			if randf() < throw_probability:
+				freeze = true
 				GameEvents.emit_signal("spawn_tomato", position)
-			pass
 		5:		# dont get it
-			GameEvents.emit_signal("spawn_puddle", position)
+			freeze = true
+			$AnimationPlayer.play("laugh")
 			pass
 		6:		# amused
-			print("spawn_puddle")
-			GameEvents.emit_signal("spawn_puddle", position)
-			pass
+			freeze = true
+			$AnimationPlayer.play("laugh")
 		7:		# chuckle
-			GameEvents.emit_signal("spawn_puddle", position)
+			freeze = false
+			apply_impulse(Vector3.UP * 0.8)
 			pass
 		8:		# schadenfreude
 			freeze = false
-			apply_impulse(Vector3.UP * 0.4)
+			apply_impulse(Vector3.UP * 0.8)
 			pass
 		9:		# thats me
 			freeze = true
-			$AnimationPlayer.play("laugh")
-		10:		# good one
 			GameEvents.emit_signal("spawn_puddle", position)
+		10:		# good one
+			freeze = true
+			$AnimationPlayer.play("rofl_animation")
 		11:		# hilarious
-			freeze = false
+			freeze = true
 			$AnimationPlayer.play("rofl_animation")
 
 	set_mood(clamp(guest_react, 0, moods.size() - 1))

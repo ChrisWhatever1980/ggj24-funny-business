@@ -35,9 +35,19 @@ func _on_timer_timeout():
 		
 		$Timer.wait_time = 4.0 + 4.0 * clamp(1.0 - (stats.endurance / 10.0), 0.0, 1.0)
 		stats.endurance -= 1
-		
+
 		print("joke_quality: " + str(joke_quality))
+
+		if joke_quality == 0:
+			GameEvents.emit_signal("play_crickets")
+			$Timer.wait_time = 9.0	# recovery time
+
 		GameEvents.emit_signal("audience_react", joke_quality)
+
+
+func pause_standup_stream(value):
+	$StandupStream0.stream_paused = value
+	$StandupStream1.stream_paused = value
 
 
 func begin_performance():

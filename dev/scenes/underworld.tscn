@@ -84,7 +84,22 @@ size = Vector3(12.6928, 1, 14)
 material = SubResource("FogMaterial_tia53")
 
 [node name="comedian_plank" parent="." instance=ExtResource("5_butb1")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.07174, -0.558838, -0.137104)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.07174, -0.074278, -0.137104)
+
+[node name="ComedianDeath0" parent="comedian_plank" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.14344, -9.87043, 13.5661)
+
+[node name="ComedianDeath1" parent="comedian_plank" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.55789, -9.85284, 13.5098)
+
+[node name="ComedianDeath2" parent="comedian_plank" index="2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.16289, -9.75343, 14.4997)
+
+[node name="ComedianDeath3" parent="comedian_plank" index="3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.34402, -9.87758, 14.5525)
+
+[node name="ComedianDeath4" parent="comedian_plank" index="4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.120763, -9.87161, 14.9134)
 
 [editable path="underworld"]
 [editable path="comedian_plank"]
