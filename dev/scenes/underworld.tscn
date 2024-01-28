@@ -1,9 +1,9 @@
-[gd_scene load_steps=16 format=3 uid="uid://bnkasdwoiayuj"]
+[gd_scene load_steps=15 format=3 uid="uid://bnkasdwoiayuj"]
 
 [ext_resource type="Script" path="res://scenes/underworld.gd" id="1_12n00"]
 [ext_resource type="PackedScene" uid="uid://gxe2huwq8y5s" path="res://models/underworld.glb" id="1_ti1ah"]
 [ext_resource type="AudioStream" uid="uid://bpgrj3a82tdp0" path="res://audio/devil_laugh.ogg" id="3_ns2dr"]
-[ext_resource type="Shader" uid="uid://divbrtdl6nbrx" path="res://scenes/sacrifice_pool.tres" id="4_q377h"]
+[ext_resource type="Shader" uid="uid://degalxcd65bed" path="res://scenes/sacrifice_pool.tres" id="4_q377h"]
 [ext_resource type="PackedScene" uid="uid://qvohshd3alue" path="res://models/comedian_plank.glb" id="5_butb1"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_prmot"]
@@ -35,9 +35,6 @@ albedo_color = Color(0, 0, 0, 1)
 albedo = Color(1, 0.133333, 0.00392157, 1)
 emission = Color(0.741176, 0.027451, 0.0784314, 1)
 height_falloff = 2.0
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3f17c"]
-albedo_color = Color(0, 0, 0, 1)
 
 [node name="Underworld" type="Node3D"]
 script = ExtResource("1_12n00")
@@ -87,10 +84,7 @@ size = Vector3(12.6928, 1, 14)
 material = SubResource("FogMaterial_tia53")
 
 [node name="comedian_plank" parent="." instance=ExtResource("5_butb1")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.31273, 0, 0)
-
-[node name="Plank" parent="comedian_plank" index="0"]
-surface_material_override/0 = SubResource("StandardMaterial3D_3f17c")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.07174, -0.558838, -0.137104)
 
 [editable path="underworld"]
 [editable path="comedian_plank"]

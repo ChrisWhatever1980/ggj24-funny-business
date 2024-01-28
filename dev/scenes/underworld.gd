@@ -3,16 +3,8 @@ extends Node3D
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	GameEvents.emit_signal("comedian_judged", self, "on_comedian_judged")
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
-
-
-func _on_button_pressed():
-	print("Sacrifice!!")
+func on_comedian_judged():
 	$underworld/TheDevil/EvilLaughPlayer.play()
-	GameEvents.emit_signal("change_money", -1)
-	

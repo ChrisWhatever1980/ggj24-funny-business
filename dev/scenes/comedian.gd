@@ -9,6 +9,7 @@ var exiting = false
 var entering = false
 var to_target = Vector3.ZERO
 var exiting_speed = 5.0
+var in_hell = false
 
 
 # Called when the node enters the scene tree for the first time.
@@ -51,10 +52,36 @@ func begin_performance():
 	$Timer.start()
 
 
+func stop_performing():
+	get_parent().current_comedian = self
+	performing = false
+	exiting = true
+	$AnimationPlayer.stop()
+	$StandupStream0.stop()
+	$StandupStream1.stop()
+	$Timer.stop()
+	GameEvents.emit_signal("audience_idle")
+
+
 func _on_area_3d_input_event(camera, event, position, normal, shape_idx):
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT:
 			if event.pressed:
+
+				if in_hell:
+					# jump into pool
+					# then show button next day
+					match randi() % 4:
+						0:
+							$Scream0.play()
+						1:
+							$Scream1.play()
+						2:
+							$Scream2.play()
+						3:
+							$Scream3.play()
+					GameEvents.emit_signal("comedian_judged")
+
 				if waiting:
 					print("GET ON THE STAGE!")
 					waiting = false
@@ -64,15 +91,8 @@ func _on_area_3d_input_event(camera, event, position, normal, shape_idx):
 					to_target = to_target.normalized()
 
 				if performing:
-					get_parent().current_comedian = self
-					performing = false
-					exiting = true
-					$AnimationPlayer.stop()
-					$StandupStream0.stop()
-					$StandupStream1.stop()
-					$Timer.stop()
+					stop_performing()
 					print("GET OFF THE STAGE!")
 					to_target = (get_parent().ComedianExit.position - position)
 					to_target.y = 0.0
 					to_target = to_target.normalized()
-					GameEvents.emit_signal("audience_idle")

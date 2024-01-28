@@ -76,7 +76,7 @@ _data = {
 radius = 1.0
 height = 4.0
 
-[node name="Guest" type="RigidBody3D"]
+[node name="Guest" type="RigidBody3D" groups=["Guests"]]
 collision_mask = 2049
 mass = 0.1
 center_of_mass_mode = 1

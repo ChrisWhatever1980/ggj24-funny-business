@@ -1,9 +1,13 @@
-[gd_scene load_steps=11 format=3 uid="uid://b54hgw30ohhce"]
+[gd_scene load_steps=15 format=3 uid="uid://b54hgw30ohhce"]
 
 [ext_resource type="Script" path="res://scenes/comedian.gd" id="1_o08b2"]
 [ext_resource type="PackedScene" uid="uid://drv2n0frdc02x" path="res://scenes/person.tscn" id="2_6slvk"]
 [ext_resource type="AudioStream" uid="uid://tp8yisoor1vx" path="res://audio/standup0.ogg" id="3_i1hs4"]
 [ext_resource type="AudioStream" uid="uid://b1mx42jfen2gd" path="res://audio/standup1.ogg" id="4_gxu0y"]
+[ext_resource type="AudioStream" uid="uid://k65srmbxstdi" path="res://audio/scream0.ogg" id="5_7y02l"]
+[ext_resource type="AudioStream" uid="uid://tus6kq7mlmia" path="res://audio/scream1.ogg" id="6_hwrd4"]
+[ext_resource type="AudioStream" uid="uid://jldx57xwrbln" path="res://audio/scream2.ogg" id="7_o8pqy"]
+[ext_resource type="AudioStream" uid="uid://d1ecg3chd1jti" path="res://audio/scream3.ogg" id="8_h8jeh"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_q4n64"]
 albedo_color = Color(1, 0.521569, 0.00392157, 1)
@@ -87,11 +91,23 @@ stream = ExtResource("3_i1hs4")
 [node name="StandupStream1" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource("4_gxu0y")
 
-[node name="NameLabel" type="Label3D" parent="." groups=["Comedians"]]
+[node name="NameLabel" type="Label3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.64437, 0)
 billboard = 1
 text = "Earnings: 0"
 font_size = 128
+
+[node name="Scream0" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("5_7y02l")
+
+[node name="Scream1" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("6_hwrd4")
+
+[node name="Scream2" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("7_o8pqy")
+
+[node name="Scream3" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("8_h8jeh")
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
 [connection signal="input_event" from="Area3D" to="." method="_on_area_3d_input_event"]

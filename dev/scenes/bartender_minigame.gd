@@ -15,17 +15,9 @@ func _ready():
 	GameEvents.connect_event("request_drink", self, "on_request_drink")
 	GameEvents.connect_event("request_fulfilled", self, "_on_request_fulfilled")
 
-	cam = get_viewport().get_camera_3d()
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
-	
-	var cam = null
-
 
 func on_request_drink(pos3D):
+	cam = get_viewport().get_camera_3d()
 	if cam:
 		var pos2D = cam.unproject_position(pos3D)
 		$RequestSpawnArea.spawn_request(pos2D.x, pos2D.y, pos3D)
