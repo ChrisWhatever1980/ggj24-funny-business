@@ -358,26 +358,26 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 50
 text = "0"
 
-[node name="EndShowButton" type="Button" parent="AspectRatioContainer"]
-visible = false
+[node name="TitleScreen" parent="AspectRatioContainer" instance=ExtResource("14_lgqev")]
 layout_mode = 2
-size_flags_horizontal = 8
-size_flags_vertical = 8
-mouse_filter = 1
-theme_override_font_sizes/font_size = 30
-text = "END SHOW"
 
 [node name="NextDayButton" type="Button" parent="AspectRatioContainer"]
 visible = false
+custom_minimum_size = Vector2(200, 60)
 layout_mode = 2
-size_flags_horizontal = 8
 size_flags_vertical = 8
 mouse_filter = 1
 theme_override_font_sizes/font_size = 30
 text = "NEXT DAY"
 
-[node name="TitleScreen" parent="AspectRatioContainer" instance=ExtResource("14_lgqev")]
+[node name="EndShowButton" type="Button" parent="AspectRatioContainer"]
+visible = false
+custom_minimum_size = Vector2(200, 60)
 layout_mode = 2
+size_flags_vertical = 8
+mouse_filter = 1
+theme_override_font_sizes/font_size = 30
+text = "END SHOW"
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_nsomo")
@@ -615,8 +615,8 @@ libraries = {
 "": SubResource("AnimationLibrary_2lgvy")
 }
 
-[connection signal="pressed" from="AspectRatioContainer/EndShowButton" to="." method="_on_end_show_button_pressed"]
 [connection signal="pressed" from="AspectRatioContainer/NextDayButton" to="." method="_on_next_day_button_pressed"]
+[connection signal="pressed" from="AspectRatioContainer/EndShowButton" to="." method="_on_end_show_button_pressed"]
 [connection signal="area_entered" from="comedy_club/ExitArea3D" to="." method="_on_exit_entered"]
 [connection signal="area_entered" from="stage/StageArea" to="." method="_on_stage_entered"]
 

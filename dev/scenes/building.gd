@@ -64,10 +64,10 @@ func on_start_game():
 	$AspectRatioContainer/MoneyDisplay/MoneyDisplay/MoneyAmount.text = str(GameState.money)
 
 	
-	on_show_message("Your wish was granted.\nYou are a comedy club manager, now.", 4)
+	on_show_message("Your wish was granted:\nYou are the manager of a comedy club, now!", 4)
 	await get_tree().create_timer(5.5).timeout
-	on_show_message("You get $333 to start out, but you may not leave until you made $666!", 4)
-	await get_tree().create_timer(5.5).timeout
+	on_show_message("You got $333 to start out.\nHowever you may not leave until you made $666!", 4)
+	await get_tree().create_timer(6).timeout
 	open_laptop()
 
 
@@ -76,13 +76,13 @@ func open_laptop():
 	$Laptop/SubViewport/Node2D.open()
 
 	if !tutorial_finished:
-		on_show_message("Use the laptop to book comedians, buy beverages and place ads before you start the show.", 4)
+		on_show_message("Use the laptop to book comedians,\nbuy beverages, place ads and so on before you start the show.", 5)
 
 
 func on_start_show():
 
 	if !tutorial_finished:
-		on_show_message("The comedians wait in the back.\nClick on them to get them on and off the stage.", 5)
+		on_show_message("The comedians wait in the back\nClick on them to get them on and off the stage.", 6)
 	
 	for comedian_stats in ComedianPool.selected:
 		spawn_comedian(comedian_stats)
@@ -104,8 +104,8 @@ func on_start_show():
 	$BartenderMinigame.visible = true
 	
 	if !tutorial_finished:
-		await get_tree().create_timer(6).timeout
-		on_show_message("Also make sure to serve your guests,\n by dragging the drinks they ordered on them", 7)
+		await get_tree().create_timer(7).timeout
+		on_show_message("Don't forget to serve your guests as well!\nDrag the drinks they ordered on them and collect the coins", 7)
 	
 func spawn_comedian(comedian_stats):
 	var new_comedian = preload("res://scenes/comedian.tscn").instantiate()
@@ -276,7 +276,7 @@ func go_to_underworld():
 
 			if !tutorial_finished:
 				await get_tree().create_timer(4.0).timeout
-				on_show_message("Which comedian should tell a joke to the devil? Click <NEXT DAY> when the deal is done.")
+				on_show_message("Choose a comedian to tell a joke to the devil!")
 				tutorial_finished = true
 		else:
 			if !disappointed_the_devil:
