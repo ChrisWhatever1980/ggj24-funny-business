@@ -11,6 +11,7 @@ var to_target = Vector3.ZERO
 var exiting_speed = 5.0
 var in_hell = false
 var dying = false
+var selected = false
 
 
 # Called when the node enters the scene tree for the first time.
@@ -34,6 +35,9 @@ func get_joke_quality():
 
 		if randi_range(0, 100) < stats.hit_chance:
 			joke_quality *= 2
+			stats.hit_chance += 1
+	else:
+		stats.bomb_chance -= 1
 
 	return joke_quality
 
@@ -112,11 +116,17 @@ func _on_area_3d_input_event(camera, event, position, normal, shape_idx):
 		if event.button_index == MOUSE_BUTTON_LEFT:
 			if event.pressed:
 
-				if in_hell and !dying:
+				if in_hell and !dying and !selected:
 					exiting = false
 					entering = false
 					performing = false
 					waiting = false
+					
+					for comedian in get_tree().get_nodes_in_group("Comedians"):
+						comedian.selected = true
+						
+						
+					$AnimationPlayer.play("jump")
 
 					$StandupStream1.play()
 					await get_tree().create_timer(3.0).timeout
