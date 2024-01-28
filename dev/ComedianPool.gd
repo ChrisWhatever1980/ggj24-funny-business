@@ -19,7 +19,7 @@ func get_available_comedians() -> Array:
 	var index = 0
 	var emergencyCounter = 0
 	var comedian
-	var count = randi_range(3, 5) + randi_range(0, GameState.fame)
+	var count = clamp(randi_range(1, 5) + randi_range(0, GameState.fame), 3, 10)
 	
 	while available.size() < count:
 		index = randi_range( 0 , selection_pool.size() - 1 )

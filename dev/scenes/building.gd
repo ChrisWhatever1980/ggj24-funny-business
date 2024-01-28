@@ -65,9 +65,9 @@ func on_start_game():
 
 	
 	on_show_message("Your wish was granted:\nYou are the manager of a comedy club, now!", 4)
-	await get_tree().create_timer(5.5).timeout
+	await get_tree().create_timer(5).timeout
 	on_show_message("You got $333 to start out.\nHowever you may not leave until you made $666!", 4)
-	await get_tree().create_timer(6).timeout
+	await get_tree().create_timer(5).timeout
 	open_laptop()
 
 
@@ -76,7 +76,7 @@ func open_laptop():
 	$Laptop/SubViewport/Node2D.open()
 
 	if !tutorial_finished:
-		on_show_message("Use the laptop to book comedians,\nbuy beverages, place ads and so on before you start the show.", 5)
+		on_show_message("Use the laptop to book comedians,\nbuy beverages and so on before starting the show.", 6)
 
 
 func on_start_show():
@@ -90,7 +90,7 @@ func on_start_show():
 	var price_malus = GameState.ticket_price + GameState.beer_price + GameState.wine_price / 2 + GameState.lemonade_price / 4
 	var base = max(0, 5 + GameState.fame / 10 - price_malus / 10)
 	var fame_today = max(0, randi_range(0, GameState.fame) - GameState.ticket_price) 
-	var hype_today = max(0, randi_range(0, GameState.hype / 10) - GameState.ticket_price)
+	var hype_today = max(0, randi_range(GameState.hype / 10, GameState.hype) - GameState.ticket_price)
 	print("Malus: "+ str(GameState.ticket_price)+ " ticket + "+ str(GameState.beer_price)+ " beer + "+ str(GameState.wine_price/2)+ " wine + "+ str(GameState.lemonade_price/4)+ " lemonade = "+ str(price_malus)+ " Malus")
 	
 	var comedian_bonus = 0
@@ -100,12 +100,14 @@ func on_start_show():
 	print("Audience " + str(base)+ " base + " + str(fame_today) + " fame_today + " + str(hype_today) + " hype_today + " +str(comedian_bonus) + " comedian_bonus = " + str(guests) + " Guests")
 	generate_audience(guests)
 	$AnimationPlayer.play("laptop_to_main_animation")
-	$AspectRatioContainer/EndShowButton.visible = true
 	$BartenderMinigame.visible = true
 	
 	if !tutorial_finished:
 		await get_tree().create_timer(7).timeout
 		on_show_message("Don't forget to serve your guests as well!\nDrag the drinks they ordered on them and collect the coins", 7)
+		
+	await get_tree().create_timer(20).timeout
+	$AspectRatioContainer/EndShowButton.visible = true
 	
 func spawn_comedian(comedian_stats):
 	var new_comedian = preload("res://scenes/comedian.tscn").instantiate()
@@ -326,6 +328,7 @@ func _on_next_day_button_pressed():
 
 
 func on_comedian_judged():
+	await get_tree().create_timer(5).timeout
 	$AspectRatioContainer/NextDayButton.visible = true
 
 
