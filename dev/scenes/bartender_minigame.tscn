@@ -1,29 +1,18 @@
-[gd_scene load_steps=11 format=3 uid="uid://m0e7yyqwsep0"]
+[gd_scene load_steps=9 format=3 uid="uid://m0e7yyqwsep0"]
 
 [ext_resource type="Script" path="res://scenes/bartender_minigame.gd" id="1_tuwpd"]
 [ext_resource type="Script" path="res://scenes/BeerPickup.gd" id="2_0cwur"]
-[ext_resource type="Script" path="res://scenes/RequestSpawnArea.gd" id="3_3nuw4"]
 [ext_resource type="Texture2D" uid="uid://cqxiulu1khllp" path="res://textures/beer.png" id="3_227f5"]
 [ext_resource type="Script" path="res://scenes/TippedRequests.gd" id="5_a3gsb"]
+[ext_resource type="Texture2D" uid="uid://gs0o7knfbxjf" path="res://textures/lemonade.png" id="5_b80r5"]
 [ext_resource type="Script" path="res://scenes/FulfilledRequests.gd" id="5_vwhit"]
-[ext_resource type="Texture2D" uid="uid://dn56sq6wgh4ly" path="res://textures/wine.png" id="5_xk4e1"]
-[ext_resource type="Texture2D" uid="uid://dt4a0e0eo4xh8" path="res://textures/cocktail.png" id="6_3c455"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_o5u7s"]
-size = Vector2(858, 587)
+[ext_resource type="Texture2D" path="res://textures/wine.png" id="5_xk4e1"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_r4gse"]
 size = Vector2(76, 76)
 
 [node name="Root" type="Node2D"]
 script = ExtResource("1_tuwpd")
-
-[node name="RequestSpawnArea" type="Area2D" parent="."]
-script = ExtResource("3_3nuw4")
-
-[node name="SpawnAreaShape" type="CollisionShape2D" parent="RequestSpawnArea"]
-position = Vector2(684, 329.5)
-shape = SubResource("RectangleShape2D_o5u7s")
 
 [node name="BeerPickupArea" type="Area2D" parent="."]
 position = Vector2(132, 324)
@@ -45,18 +34,17 @@ shape = SubResource("RectangleShape2D_r4gse")
 [node name="Sprite2D" type="Sprite2D" parent="WinePickupArea"]
 texture = ExtResource("5_xk4e1")
 
-[node name="CocktailPickupArea" type="Area2D" parent="."]
+[node name="LemonadePickupArea" type="Area2D" parent="."]
 position = Vector2(132, 138)
 script = ExtResource("2_0cwur")
 
-[node name="MouseArea" type="CollisionShape2D" parent="CocktailPickupArea"]
+[node name="MouseArea" type="CollisionShape2D" parent="LemonadePickupArea"]
 shape = SubResource("RectangleShape2D_r4gse")
 
-[node name="Sprite2D" type="Sprite2D" parent="CocktailPickupArea"]
-texture = ExtResource("6_3c455")
+[node name="Sprite2D" type="Sprite2D" parent="LemonadePickupArea"]
+texture = ExtResource("5_b80r5")
 
 [node name="Button" type="Button" parent="."]
-visible = false
 offset_left = 34.0
 offset_top = 434.0
 offset_right = 230.0
@@ -119,6 +107,6 @@ text = "0"
 [connection signal="mouse_exited" from="BeerPickupArea" to="BeerPickupArea" method="_on_mouse_exited"]
 [connection signal="mouse_entered" from="WinePickupArea" to="WinePickupArea" method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="WinePickupArea" to="WinePickupArea" method="_on_mouse_exited"]
-[connection signal="mouse_entered" from="CocktailPickupArea" to="CocktailPickupArea" method="_on_mouse_entered"]
-[connection signal="mouse_exited" from="CocktailPickupArea" to="CocktailPickupArea" method="_on_mouse_exited"]
+[connection signal="mouse_entered" from="LemonadePickupArea" to="LemonadePickupArea" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="LemonadePickupArea" to="LemonadePickupArea" method="_on_mouse_exited"]
 [connection signal="pressed" from="Button" to="." method="_on_spawn_button_pressed"]
